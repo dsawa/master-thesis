@@ -15,7 +15,7 @@ mgr :
 	$(TEX) $(BOOK)
 
 clean : 
-	rm *.{log,aux,out,lot,lof,ilg,toc,blg}
+	rm -f *.log *.aux *.out *.lot *.lof *.ilg *.toc *.blg
 
 xclean : clean
-	rm -rf *.{ind,pdf,idx,bbl} 
+	rm -rf *.ind *.pdf *.idx *.bbl 
