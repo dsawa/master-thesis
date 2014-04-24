@@ -55,7 +55,21 @@ Projektując system do weryfikacji kodu Scala zdecydowałem się skorzystać z n
 
 \chapter{Idea systemu}
 
-chapter chapterchapterchapterchapterchapter 
+Wykonując odpowiednie zapytanie przy użyciu narzędzia \textit{Google BigQuery} oraz danych z \textit{Github Archive} można w prosty sposób sprawdzić popularność języków programowania na platformie \textit{GitHub}. Ilość repozytoriów dla poszczególnych języków w roku 2013  przedstawia rysunek \ref{RYS.1}. 
+
+\begin{figure}[!tbh]
+\centering 
+\includegraphics[width=.95\hsize]{fig/top_github_languages_2013}
+\caption{Ilość repozytoriów dla poszczegónych języków na platformie GitHub w roku 2013 \label{RYS.1}}
+\source{GitHub Archive (www.githubarchive.org)}
+\end{figure}
+
+Powyższy wykres przedstawia pierwszych 15 języków, wśród których Scala uplasowała się na miejscu 14. Różnica w liczbie repozytoriów między Scalą, a Javą będącą na trzecim miejscu jest znaczna. Nie ma wątpliwości, że Java swoją wysoką pozycje zawdzięcza wieloletniej obecności na rynku, a także wkładzie jaki do świata technologii informacyjnych wniosła wirtualna maszyna javy. Na popularność JavaScript'u, czy Ruby'ego 
+częściowo miało wpływ pojawienie się w ostatniej dekadzie narzędzi takich jak \textit{Ruby on Rails}, \textit{node.js}, \textit{AngularJS} i wielu innych. 
+
+Jednak jak pokazuje przykład Ruby'ego i JavaScriptu, jednym z elementów wpływających na popularność języków jest także swego rodzaju otwartość środowisk zgromadzonych wokół danych języków na możliwość ich nauki. Potwierdzeniem tego może być grupa programistów zgromadzona wokół platformy \textit{CodeSchool}\footnote{www.codeschool.com}. Opracowali oni szereg prostych kursów związanych głownie z JavaScript'em i Ruby'm w trakcie, których uczestnik rozwiązuje proste zadania programistyczne. 
+
+Żadne z obecnych rozwiązań - szczególnie dla Scali - nie posiada jednak możliwości tworzenia własnych zadań dla zamkniętych grup uczestników. Wierzę, że system, który tuż po zaimplementowaniu daje sposobność definiowania własnych kursów dla języka Scala może znacząco zwiększyć jej popularność. Implementacja takiego systemu w szkołach i uczelniach mogłaby przynieść również inne zalety, jak na przykład wzrost zainteresowania programowaniem, czy podniesieniem umiejętności przyszłych programistów przy jednoczesnym mniejszym wysiłku prowadzących zajęcia.
 
 \section{Język Scala}
 
