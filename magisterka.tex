@@ -101,11 +101,21 @@ Scala jest językiem statycznie typowanym. Podstawowe zalety jakie niesie to ze 
 
 \section{Środki do osiągnięcia celu}
 
-Weryfikując poprawność rozwiązania nadesłanego przez użytkownika systemu niezbędnym jest posłużenie się narzędziami związanymi z mechanizmem testów jednostkowych,
+Do weryfikacji poprawności nadesłanego przez użytkownika rozwiązania, niezbędnym jest posłużenie się narzędziami związanymi z mechanizmem testów jednostkowych i automatycznych. Testy te zaś muszą być uruchamiane automatycznie po przesłaniu rozwiązania. W osiągnięciu takiego celu pomogą narzędzia takie jak \textit{Simple Build Tool} wraz z \textit{ScalaTest} i \textit{ScalaCheck}. Połączenie ich ze sobą umożliwi powstanie bardzo elastycznego procesu tworzenia zadań. 
 
-\subsection{Scalatest} 
+Poniżej znajduje się krótkie przedstawienie tych narzędzi wraz z uzasadnieniem ich użycia.
 
-aaaaaaaaaaaaaaaaaaaa
+\subsection{Simple Build Tool}
+
+SBT - dorwać książke sbt in action
+
+\subsection{ScalaTest} 
+
+ScalaTest to popularny framework do testowania programów, którego autorem jest programista Bill Venners. Podobnie jak dla języka Scala, jednym z założeń ScalaTestu jest to, aby było to narzędzie skalowalne i odpowiadało potrzebom użytkowników. Dzięki temu obecna wersja\footnote{W chwili pisania pracy - najnowsza dostępna wersja ScalaTest to 2.1.5} to nie jedno narzędzie, lecz cały zestaw. Jest on zintegrowany z całą listą instrumentów związanych z pisaniem testów dla Scali i Javy. Instalując więc ScalaTest w swoim projekcie, możemy korzystać również między innymi z \textit{JUnit, TestNG, JMock, EasyMock, Mockito, ScalaMock}, czy \textit{Selenium}. Ponadto ScalaTest z łatwością współpracuje z najpopularniejszymi zintegrowanymi środowiskami programistycznymi - \textit{Eclipse}, \textit{IntelliJ} oraz \textit{NetBeans}.
+
+Szczególnie ważnym argumentem przemawiającym za ScalaTest jest możliwość wyboru stylu dla swoich specyfikacji przez użytkownika. Z punktu widzenia mojego systemu, ta sposobność wyboru wraz ze wspominaną wcześniej szeroką gamą narzędzi gwarantuje uniwersalność dla użytkowników układających zadania. Chociaż szczegółowa charakterystyka systemu znajduje się w późniejszej części pracy magisterskiej to już teraz można wyobrazić sobie sytuację, w której z systemu korzysta kilka osób odpowiedzialnych za układanie zadań - projektów. Każda z nich może posiadać nie tylko różne doświadczenia w Scali, ale także różne preferencje w kwestii przywoływanych narzędzi, czy pisania specyfikacji. 
+
+Podobnie sytuacja ma się w stosunku do użytkowników rozwiązujących zadania. Wyobrażam sobie ich jako przyszłych programistów, a zatem dobrą praktyką byłoby, aby przed wysłaniem rozwiązania potrafili je przetestować, przy okazji poznając techniki testowania w Scali.
 
 \subsection{Scalacheck}
 
