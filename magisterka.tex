@@ -108,6 +108,7 @@ Poniżej znajduje się krótkie przedstawienie tych narzędzi wraz z uzasadnieni
 \subsection{Simple Build Tool}
 
 SBT - dorwać książke sbt in action
+cytat ~\cite[s.~123]{Elmasri:2002:CMC}. 
 
 \subsection{ScalaTest} 
 
@@ -117,9 +118,11 @@ Szczególnie ważnym argumentem przemawiającym za ScalaTest jest możliwość w
 
 Podobnie sytuacja ma się w stosunku do użytkowników rozwiązujących zadania. Wyobrażam sobie ich jako przyszłych programistów, a zatem dobrą praktyką byłoby, aby przed wysłaniem rozwiązania potrafili je przetestować, przy okazji poznając techniki testowania w Scali.
 
-\subsection{Scalacheck}
+\subsection{ScalaCheck}
 
-cytat ~\cite[s.~123]{Elmasri:2002:CMC}. 
+ScalaCheck to narzędzie powstałe na bazie biblioteki dla języka Haskell - QuickCheck. Zadaniem ScalaCheck jest w pełni zautomatyzować testy w taki sposób, aby nie było potrzeby wprowadzania danych testowych do testowanych metod własnoręcznie. Generuje pseudolosowe dane jako parametry, co pozwala zaoszczędzić czas, który normalnie programista spędza chociażby na wymyślaniu danych testowych. Ponadto sprawia, że kod jest bardziej odporny na błędy ponieważ, mało prawdopodobnym jest, aby człowiek był wstanie wymyślić zawsze pełen zakres wartości, które program może otrzymać w trakcie działania.
+
+Powyższy fakt oraz to, że ScalaCheck integruje się z ScalaTest może zagwarantować wysoką jakość podczas weryfikacji kodu w rozwiązaniach użytkowników. Użytkownik odpowiedzialny za tworzenie zadań - projektów - poprzez stosowanie reguł ScalaCheck powinien być w stanie wytworzyć kompletny zestaw testów. Dzięki nim system będzie potrafił w sposób dużo bardziej rzetelny wystawić noty za rozwiązanie.
       
 \chapter{Mechanizm testów jednostkowych}
 
@@ -129,9 +132,13 @@ test
 
 scala scala test test 
       
-\section{Narzędzie Scalatest w szczegółach}
+\section{ScalaTest w szczegółach}
 
 scalatest testscala
+
+\section{ScalaCheck w szczegółach}
+
+scalacheck checkscala
 
 \chapter{System weryfikacji jakości kodu Scala}
 
