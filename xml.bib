@@ -18,8 +18,17 @@
 
 %%% Publishers and their addresses:
 
-@String{pub-PH                  = "Pren{\-}tice-Hall"}
-@String{pub-PH:adr              = "Englewood Cliffs, NJ 07632, USA"}
+@String{pub-Manning                  = "Manning Publications Co."}
+@String{pub-Manning:adr              = "20 Baldwin Road, PO Box 261, Shelter Island, NY 11964, USA"}
+
+@String{pub-EPFL                  = "École polytechnique fédérale de Lausanne"}
+@String{pub-EPFL:adr              = "Programming Methods Laboratory EPFL, Route Cantonale, 1015 Lausanne, Switzerland"}
+
+@String{pub-Artima                  = "Artima, Inc."}
+@String{pub-Artima:adr              = "P.O. Box 305, Walnut Creek, CA 94597, USA"}
+
+@String{pub-Oreilly                  = "O'Reilly Media, Inc."}
+@String{pub-Oreilly:adr              = "1005 Gravenstein Highway North, Sebastopol, CA 95472, USA"}
 
 
 %%% Bibliography entries
@@ -55,19 +64,62 @@
   acknowledgement = ack-nhfb,
 }
 
-@Book{Goldfarb:2002:CFG,
-  author =       "Charles F. Goldfarb and Paul Prescod",
-  title =        "{Charles F. Goldfarb}'s {XML} handbook",
-  publisher =    pub-PH,
-  address =      pub-PH:adr,
-  edition =      "Fourth",
-  pages =        "lvii + 1147",
-  year =         "2002",
-  ISBN =         "0-13-065198-2",
-  ISBN-13 =      "978-0-13-065198-3",
-  LCCN =         "QA76.76.H94 G65 2002",
-  bibdate =      "Fri Sep 13 06:33:58 MDT 2002",
-  series =       "Charles F. Goldfarb definitive XML series",
-  acknowledgement = ack-nhfb,
-  keywords =     "XML (document markup language)",
+@Book{Odersky:2014:SBE,
+  author =       "Martin Odersky",
+  title =        "Scala by Example",
+  publisher =    pub-EPFL,
+  address =      pub-EPFL:adr,
+  edition =      "",
+  pages =        "lvii + 145",
+  year =         "2014",
+  ISBN =         "",
+  ISBN-13 =      "",
+  bibdate =      "",
+  series =       "",
+  keywords =     "Scala",
+}
+
+@Book{Odersky:2010:PIS,
+  author =       "Martin Odersky with Lex Spoon and Bill Venners",
+  title =        "Programming in Scala",
+  publisher =    pub-Artima,
+  address =      pub-Artima:adr,
+  edition =      "Second",
+  pages =        "lvii + 883",
+  year =         "2010",
+  ISBN =         "0981531644",
+  ISBN-13 =      "978-0981531649",
+  bibdate =      "",
+  series =       "",
+  keywords =     "Scala",
+}
+
+@Book{Suereth:2014:SIA,
+  author =       "Joshua Suereth and Matthew Farwell",
+  title =        "SBT in Action",
+  publisher =    pub-Manning,
+  address =      pub-Manning:adr,
+  edition =      "MEAP",
+  pages =        "lvii + 325",
+  year =         "2014",
+  ISBN =         "9781617291272",
+  ISBN-13 =      "",
+  bibdate =      "",
+  series =       "Manning in Action",
+  keywords =     "SBT (simple build tool)",
+}
+
+@Book{Hinojosa:2013:TIA,
+  author =       "Daniel Hinojosa",
+  title =        "Testing in Scala",
+  publisher =    pub-Oreilly,
+  address =      pub-Oreilly:adr,
+  edition =      "First",
+  pages =        "lvii + 165",
+  year =         "2013",
+  ISBN =         "1-4493-1510-0",
+  ISBN-13 =      "978-1-4493-1510-8",
+  bibdate =      "",
+  series =       "",
+  keywords =     "Scala testing scalatest specs2 sbt test",
 }

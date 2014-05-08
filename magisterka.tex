@@ -23,6 +23,8 @@
 
 \opiekun  {dr Wiesław Pawłowski}
 
+\usepackage{listings}
+
 % dodatkowe polecenia
 %\renewcommand{\filename}[1]{\texttt{#1}}
 
@@ -107,8 +109,21 @@ Poniżej znajduje się krótkie przedstawienie tych narzędzi wraz z uzasadnieni
 
 \subsection{Simple Build Tool}
 
-SBT - dorwać książke sbt in action
-cytat ~\cite[s.~123]{Elmasri:2002:CMC}. 
+SBT jest narzędziem, które tworzy stabilną platformę do rozwijania aplikacji. Domyślnie udostępnia dla programisty listę komend, z których może on korzystać. Dla przykładu komendy te mogą służyć przeładowaniu definicji projektu, uruchomieniu testów, czy uruchomieniu interpretera Scali z gotowymi do użycia klasami z danego projektu. Zdecydowanie sprzyjają one zwiększeniu produktywności programisty poprzez automatyzację pewnych działań.
+
+Jednak warto przyjrzeć się bliżej dlaczego w ogóle warto korzystać z narzędzi budujących aplikację\footnote{ang: build tool} oraz w jaki sposób wykorzystanie SBT jest kluczowe dla systemu weryfikującego kod Scala. 
+
+Autorzy książki "Sbt in Action" już na początku podają prosty przykład w jaki sposób tego typu narzędzia zwiększają produktywność nawet całego zespołu programistów. Wspominają o tym jak kilka lat temu w jednym z zespołów odbywało się "automatyczne" budowanie projektu. "To było 10 lub 12 okienek z plikami .batch, które budowały i instalowały aplikację. Kompilowały pliki Java, budowały aplikacje internetową i instalowały ją na serwerze. Zajmowało to od 1,5 do 2 godzin - to była lekcja jak nie automatyzować".\cite[s.1]{Suereth:2014:SIA} Jak twierdzą, po przepisaniu skryptu i użyciu narzędzia \emph{Apache Ant} czas ten zmalał do około 8 minut.
+
+Czas zatem odpowiedź na pytanie - dlaczego SBT? Kilka najważniejszych powodów to:
+\begin{itemize}
+\item szybki czas kompilacji - kompilowane są tylko ostatnio zmodyfikowane pliki
+\item wbudowane komendy uruchamiające testy, kompilujące pliki źródłowe oraz pakujące poszczególny typ plików do archiwum .jar
+\item możliwość sprawdzania klas projektu przy użyciu Scala REPL
+\item prostota w dodawaniu własnych poleceń mogące wykonywać specyficzne dla projektu zadania   
+\end{itemize}
+
+Dla mojego systemu to właśnie ostatni punkt ma szczególne znaczenie. System ten będzie udostępniać projekt stworzony przy użyciu SBT, na którym docelowo będą uruchamiane testy. Projekt SBT może być potraktowany w całości lub tylko częściowo jako zadanie do rozwiązania. Aby system mógł sprawdzić rozwiązanie, użytkownik musi je w jakiś sposób przesłać. Dzięki SBT, w sposób wygodny może odbyć się to poprzez napisaną przeze mnie komende \emph{sendSolution}, która jako argumenty bierze adres e-mail i hasło użytkownika. Takie rozwiązanie jest wygodne, ponieważ jest wywoływane z poziomu projektu, a także pozwala zaoszczędzić czas, który użytkownik normalnie spędziłby na przykład na pakowaniu plików do archiwum, logowaniu się na pocztę elektroniczną i tworzeniu wiadomości z załącznikiem.
 
 \subsection{ScalaTest} 
 
@@ -116,7 +131,7 @@ ScalaTest to popularny framework do testowania programów, którego autorem jest
 
 Szczególnie ważnym argumentem przemawiającym za ScalaTest jest możliwość wyboru stylu dla swoich specyfikacji przez użytkownika. Z punktu widzenia mojego systemu, ta sposobność wyboru wraz ze wspominaną wcześniej szeroką gamą narzędzi gwarantuje uniwersalność dla użytkowników układających zadania. Chociaż szczegółowa charakterystyka systemu znajduje się w późniejszej części pracy magisterskiej to już teraz można wyobrazić sobie sytuację, w której z systemu korzysta kilka osób odpowiedzialnych za układanie zadań - projektów. Każda z nich może posiadać nie tylko różne doświadczenia w Scali, ale także różne preferencje w kwestii przywoływanych narzędzi, czy pisania specyfikacji. 
 
-Podobnie sytuacja ma się w stosunku do użytkowników rozwiązujących zadania. Wyobrażam sobie ich jako przyszłych programistów, a zatem dobrą praktyką byłoby, aby przed wysłaniem rozwiązania potrafili je przetestować, przy okazji poznając techniki testowania w Scali.
+Podobnie sytuacja ma się w stosunku do użytkowników rozwiązujących zadania. Wyobrażam sobie ich jako przyszłych programistów, a zatem dobrą praktyką byłoby, aby przed wysłaniem rozwiązania potrafili je przetestować, przy okazji poznając techniki testowania w Scali. 
 
 \subsection{ScalaCheck}
 
@@ -182,6 +197,7 @@ Treść załącznika jeden.
 \chapter{Tytuł załącznika dwa}
 
 Treść załącznika dwa.
+% wymuszenie pokazania bibliografii
 
 % literatura (obowiązkowo):
 \bibliographystyle{unsrt}
