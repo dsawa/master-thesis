@@ -17,7 +17,7 @@
 \nralbumu {186\,445}
 \email    {dsawa@sigma.ug.edu.pl}
 
-\title    {System weryfikacji jakości kodu w języku Scala}
+\title    {System weryfikacji jakości kodu \newline w języku Scala}
 \date     {2014}
 \miejsce  {Gdańsk}
 
@@ -35,9 +35,11 @@ Scala to język wspierający paradygmaty programowania obiektowego i funkcyjnego
 \end{abstract}
 \keywords{Scala, 
  Play Framework, 
- Scalatest, 
- Scalacheck,
- Scalastyle}
+ Simple Build Tool,
+ SBT,
+ ScalaTest, 
+ ScalaCheck,
+ ScalaStyle}
 
 % tytuł i spis treści
 \maketitle
@@ -66,76 +68,79 @@ Wykonując odpowiednie zapytanie przy użyciu narzędzia \textit{Google BigQuery
 \source{GitHub Archive (www.githubarchive.org)}
 \end{figure}
 
-Powyższy wykres przedstawia pierwszych 15 języków, wśród których Scala uplasowała się na miejscu 14. Różnica w liczbie repozytoriów między Scalą, a Javą będącą na trzecim miejscu jest znaczna. Nie ma wątpliwości, że Java swoją wysoką pozycje zawdzięcza wieloletniej obecności na rynku, a także wkładzie jaki do świata technologii informacyjnych wniosła wirtualna maszyna javy. Na popularność JavaScript'u, czy Ruby'ego 
-częściowo miało wpływ pojawienie się w ostatniej dekadzie narzędzi takich jak \textit{Ruby on Rails}, \textit{node.js}, \textit{AngularJS} i wielu innych. 
+Powyższy wykres przedstawia pierwszych 15 języków, wśród których Scala uplasowała się na miejscu 14. Różnica w liczbie repozytoriów między Scalą, a Javą będącą na trzecim miejscu jest znaczna. Nie ma wątpliwości, że Java swoją wysoką pozycje zawdzięcza wieloletniej obecności na rynku, a także wkładowi jaki do świata technologii informacyjnych wniosła maszyna wirtualna JVM. Na popularność JavaScript'u, czy Ruby'ego częściowo miało wpływ pojawienie się w ostatniej dekadzie narzędzi takich jak \textit{Ruby on Rails}, \textit{node.js}, \textit{AngularJS} i wielu innych. 
 
-Jednak jak pokazuje przykład Ruby'ego i JavaScriptu, jednym z elementów wpływających na popularność języków jest także swego rodzaju otwartość środowisk zgromadzonych wokół danych języków na możliwość ich nauki. Potwierdzeniem tego może być grupa programistów zgromadzona wokół platformy \textit{CodeSchool}\footnote{www.codeschool.com}. Opracowali oni szereg prostych kursów związanych głownie z JavaScript'em i Ruby'm w trakcie, których uczestnik rozwiązuje proste zadania programistyczne. 
+Jednak jak pokazuje przykład Ruby'ego i JavaScriptu, jednym z elementów wpływających na popularność jest aktywne środowisko programistów zgromadzonych wokół danego języka. Niejednokrotnie, taka grupa osób przekonana o zaletach swojego ulubionego języka jest w stanie wytworzyć alternatywne sposoby jego promocji. Potwierdzeniem tego może być zespół programistów zgromadzonych wokół platformy \textit{CodeSchool}\footnote{www.codeschool.com}. Opracowali oni szereg prostych kursów związanych głownie z JavaScript'em i Ruby'm w trakcie, których uczestnik rozwiązuje proste zadania programistyczne. 
 
-Żadne z obecnych rozwiązań - szczególnie dla Scali - nie posiada jednak możliwości tworzenia własnych zadań dla zamkniętych grup uczestników. Wierzę, że system, który tuż po zaimplementowaniu daje sposobność definiowania własnych kursów dla języka Scala może znacząco zwiększyć jej popularność. Implementacja takiego systemu w szkołach i uczelniach mogłaby przynieść również inne zalety, jak na przykład wzrost zainteresowania programowaniem, czy podniesieniem umiejętności przyszłych programistów przy jednoczesnym mniejszym wysiłku prowadzących zajęcia.
+Żadne z obecnych rozwiązań - szczególnie dla Scali - nie posiada jednak możliwości tworzenia własnych zadań dla zamkniętych grup uczestników. Wierzę, że system, który daje sposobność definiowania własnych kursów dla języka Scala może znacząco zwiększyć jej popularność. Implementacja takiego systemu w szkołach i uczelniach mogłaby przynieść również inne korzyści, jak na przykład wzrost zainteresowania programowaniem, czy podniesieniem umiejętności przyszłych programistów przy jednoczesnym zmniejszeniu nakładu pracy prowadzących zajęcia.
 
 \section{Język Scala}
 
-Stworzenie Scali przypisuje się niemieckiemu profesorowi - Martinowi Oderskiemu. Nazwa ma na celu sugerować, że jest to język skalowalny\footnote{ang: Scalable language}. Scala rośnie wraz z potrzebami jej użytkowników. Cały czas powstają kolejne narzędzia i biblioteki mające uprościć pracę z nią, czy też dodać do niej coś nowego. 
+Pomysłodawcą i głównym twórcą Scali jest niemiecki profesor Martin Odersky. Nazwa języka ma na celu sugerować, że jest on skalowalny\footnote{ang: Scalable language}. Scala rośnie wraz z potrzebami jej użytkowników. Cały czas powstają kolejne narzędzia i biblioteki mające uprościć pracę z nią, czy też dodać do niej coś nowego. 
 
-Scala łączy ze sobą paradygmat programowania obiektowego oraz funkcyjnego. Umożliwia wykorzystanie najlepszych cech tych dwóch podejść w projektowaniu nowych systemów. Sprawdzi się zatem doskonale, gdy jest potrzeba zaimplementowania dużego systemu, wymagającego dostosowywania z czasem do nowych potrzeb jak i w przypadku tworzenia mniejszych elementów, gdzie lepiej spisywać będzie się koncepcja programowania funkcyjnego.
+Scala łączy ze sobą paradygmat programowania obiektowego oraz funkcyjnego. Umożliwia wykorzystanie najlepszych cech tych dwóch podejść w projektowaniu nowych systemów. Sprawdzi się zatem doskonale zarówno podczas pisania małych jak i dużych projektów.
 
-\subsection{Scala jako język obiektowy}
+W przypadku tych pierwszych, programowanie funkcyjne w większości jest dobrym wyborem gdyż posiadany jest stały zbiór rzeczy. Wraz z ewolucją kodu, dodawane są głównie nowe operacje na istniejących rzeczach. Dokonuje się tego poprzez dodawanie nowych funkcji, które wykonują obliczenia opierając się na istniejących typach danych. 
 
-Scala jest całkowicie zorientowana obiektowo. Inaczej niż w wielu językach obiektowych, nie posiadamy tutaj wartości, które nie są obiektami jak np. typy prymitywne w Javie. W Scali każda wartość jest obiektem, a każda operacja jest wywołaniem metody. Ponadto zezwala ona na zdefiniowanie metod o nazwie przypominającej operator. Przykładem może być metoda ":::" konkatenująca listy, czy metoda ! w klasie \textit{Actor}. Tworzenie nowych obiektów w Scali jest również bardzo elastyczne. Komponent zwany cechą\footnote{w języku Scala: \textit{traits}} jest czymś, czym dla Javy są interfejsy. Jednak w porównaniu do interfejsów, cechy mogą zawierać implementacje pól oraz metod.
+Przeciwieństwem jest programowanie obiektowe, które jest dobrym wyborem kiedy dysponujemy stałym zestawem operacji na rzeczach, a w czasie ewolucji kodu dodawane są nowe rzeczy jak klasy. Gdy istnieje, więc potrzeba zaimplementowania dużego systemu, który będzie wymagać rozwijania i dostosowywania do nowych potrzeb, paradygmat programowania obiektowego sprawdzi się lepiej.
 
-\subsection{Scala jako język funkcyjny}
+\subsection{Aspekt obiektowy}
 
-Programowanie funkcyjne w głównej mierze opiera się na dwóch założeniach. Wskazane jest aby funkcje były wartościami podstawowymi, a operacje wykonywane w czasie działania programu powinny zwracać wartości do nowych zmiennych niż modyfikować obecne. Obie te koncepcje są oczywiście obecne w Scali. Możemy przekazać funkcję jako argument do innej funkcji, po to aby w odpowiedzi otrzymać jeszcze inną funkcję. Możliwe jest definiowanie funkcji wewnątrz innych funkcji. Funkcje mogą posiadać nazwe lub być też anonimowe. Żadna z wymienionych opcji nie jest możliwa chociażby w Javie. 
+Scala jest całkowicie zorientowana obiektowo. Inaczej niż w wielu językach obiektowych, nie posiadamy tutaj wartości, które nie są obiektami jak np. typy prymitywne w Javie. Każda wartość jest obiektem, a każda operacja jest wywołaniem metody. Ponadto zezwala ona na zdefiniowanie metod o nazwie przypominającej operator. Przykładem może być metoda ,,:::'' konkatenująca listy, czy metoda ! w klasie \textit{Actor}. Tworzenie nowych obiektów w Scali jest również bardzo elastyczne. Komponent zwany cechą (ang. \emph{trait}) jest czymś, czym dla Javy są interfejsy. Jednak w porównaniu do interfejsów, cechy mogą zawierać implementacje pól oraz metod. Umożliwiają one także wielokrotne dziedziczenie. % przykład
 
-Scala posiada własny zestaw niezmiennych typów jak na przykład listy, czy zbiory. Zmienną możemy zadeklarować przy pomocy słowa "val". Oznacza to, że obiekt przypisany do takiej zmiennej nie może być nadpisany.
+\subsection{Aspekt funkcyjny}
 
-\subsection{Pozostałe cechy Scali}
+Programowanie funkcyjne w głównej mierze opiera się na dwóch założeniach. Wskazane jest aby funkcje były wartościami podstawowymi, a operacje wykonywane w czasie działania programu powinny zwracać wartości do nowych zmiennych niż modyfikować obecne. Obie te koncepcje są oczywiście obecne w Scali. Możemy przekazać funkcję jako argument do innej funkcji, po to aby w odpowiedzi otrzymać jeszcze inną funkcję. Możliwe jest definiowanie funkcji wewnątrz innych funkcji. Funkcje mogą posiadać nazwe lub być też anonimowe. Żadna z wymienionych opcji nie jest możliwa chociażby w Javie, aż do wersji 8, która to dopiero pozwala na użycie funkcji anonimowych. 
+
+Scala posiada własny zestaw niezmiennych typów jak na przykład listy, czy zbiory. Zmienną możemy zadeklarować przy pomocy słowa ,,val''. Oznacza to, że obiekt przypisany do takiej zmiennej nie może być nadpisany.
+
+\subsection{Pozostałe cechy}
 
 Oprócz łączenia technik programowania obiektowego i funkcyjnego, Scale definują cechy takie jak kompatybilność z JVM, zwięzłość, wysoki poziom abstrakcji i statyczne typowanie. 
 
-Programy napisane w Scali kompilują się kodu bajtowego czytelnego dla wirtualnej maszyny Javy. Ich czas wykonywania operacji jest porównywalny z odpowiednikami napisanymi w Javie. Program Scali jest w stanie bez przeszkód wywoływać metody klas Javy, może rozszerzać je. Posiada dostęp do pól Javowych klas i możliwe jest także implementowanie interfejsów. Scala korzysta w pełni z typów Javy. Ponadto opakowuje je, by wywołania metod związanych z typami były bardziej przejrzyste. 
+Programy napisane w Scali kompilują się do pseudokodu wirtualnej maszyny Javy. Ich wydajność jest porównywalna z odpowiednikami napisanymi w Javie. Program Scali jest w stanie bez przeszkód wywoływać metody klas Javy, może rozszerzać je. Posiada dostęp do pól Javowych klas i możliwe jest także implementowanie interfejsów. Scala korzysta w pełni z typów Javy. Ponadto opakowuje je, by wywołania metod związanych z typami były bardziej przejrzyste. 
 
-Scala wymusza czytelny i zwięzły styl programowania. W porównaniu do odpowiadającego kodu Javy, kod Scali może niejednokrotnie być krótszy o ponad połowę. Krótszy pozwala na jego większe zrozumienie, łatwiejsze utrzymanie przy jednoczesnym mniejszym wysiłku.
+Scala zachęca do zwięzłego i czytelnego stylu programowania. W porównaniu do odpowiadającego kodu Javy, kod Scali może niejednokrotnie być krótszy o ponad połowę. Krótszy pozwala na jego większe zrozumienie, łatwiejsze utrzymanie przy jednoczesnym mniejszym wysiłku.
 
 Wysoki poziom abstrakcji w Scali oznacza, że programista może przy pomocy dostępnych mu m.in. komponentów takich jak cechy, czy literałów funkcyjnych w dużo lepszy sposób zarządzać poziomem skomplikowania kodu. Z własnych doświadczeń wiem, że zbyt skomplikowany kod potrafi w pracy programisty utrudnić pracę do tego stopnia, że dochodzi do potrzeby przepisania jakiegoś fragmentu systemu. Zawsze oznacza to dodatkowy koszt, którego można byłoby uniknąć przy dobrze ułożonym kodzie. Scala posiada wszystko, by przy relatywnie niedużym wysiłku sprawić, aby skomplikowana logika biznesowa stała się zrozumiała i czytelna.
 
-Scala jest językiem statycznie typowanym. Podstawowe zalety jakie niesie to ze sobą to możliwość wykrycia błędów związnych z typowaniem na etapie kompilacji, bezpieczny refaktoring i powstanie bardziej szczegółowej dokumentacji. Dzięki mechanizmowi dopasowywania do wzorca\footnote{ang: Pattern matching} programista Scala jest w stanie stworzyć bardzo elastyczny kod.
+Scala jest językiem statycznie typowanym. Podstawowe zalety jakie niesie to ze sobą to możliwość wykrycia błędów związnych z typowaniem na etapie kompilacji, bezpieczny refaktoring i powstanie bardziej szczegółowej dokumentacji. Dzięki mechanizmowi dopasowywania wzorca\footnote{ang: Pattern matching} programista Scala jest w stanie stworzyć bardzo elastyczny kod.
 
 \section{Środki do osiągnięcia celu}
 
-Do weryfikacji poprawności nadesłanego przez użytkownika rozwiązania, niezbędnym jest posłużenie się narzędziami związanymi z mechanizmem testów jednostkowych i automatycznych. Testy te zaś muszą być uruchamiane automatycznie po przesłaniu rozwiązania. W osiągnięciu takiego celu pomogą narzędzia takie jak \textit{Simple Build Tool} wraz z \textit{ScalaTest} i \textit{ScalaCheck}. Połączenie ich ze sobą umożliwi powstanie bardzo elastycznego procesu tworzenia zadań. 
+Do weryfikacji poprawności nadesłanego przez użytkownika rozwiązania, niezbędnym jest posłużenie się narzędziami związanymi z mechanizmem testów jednostkowych. Testy te muszą być uruchamiane automatycznie po przesłaniu rozwiązania. W osiągnięciu takiego celu pomogą narzędzia takie jak \textit{Simple Build Tool} wraz z \textit{ScalaTest} i \textit{ScalaCheck}. Połączenie ich ze sobą umożliwi powstanie bardzo elastycznego procesu tworzenia zadań. 
 
 Poniżej znajduje się krótkie przedstawienie tych narzędzi wraz z uzasadnieniem ich użycia.
 
 \subsection{Simple Build Tool}
 
-SBT jest narzędziem, które tworzy stabilną platformę do rozwijania aplikacji. Domyślnie udostępnia dla programisty listę komend, z których może on korzystać. Dla przykładu komendy te mogą służyć przeładowaniu definicji projektu, uruchomieniu testów, czy uruchomieniu interpretera Scali z gotowymi do użycia klasami z danego projektu. Zdecydowanie sprzyjają one zwiększeniu produktywności programisty poprzez automatyzację pewnych działań.
+SBT jest narzędziem, które tworzy stabilną platformę do rozwijania aplikacji. Domyślnie udostępnia programiście listę komend, z których może on korzystać. Dla przykładu komendy te mogą służyć przeładowaniu definicji projektu, uruchomieniu testów, czy uruchomieniu interpretera Scali z gotowymi do użycia klasami z danego projektu. Zdecydowanie sprzyjają one zwiększeniu produktywności programisty poprzez automatyzację pewnych działań.
 
-Jednak warto przyjrzeć się bliżej dlaczego w ogóle warto korzystać z narzędzi budujących aplikację\footnote{ang: build tool} oraz w jaki sposób wykorzystanie SBT jest kluczowe dla systemu weryfikującego kod Scala. 
+Jednak warto przyjrzeć się bliżej dlaczego w ogóle warto korzystać z narzędzi budujących aplikację\footnote{ang: build tool} oraz w jaki sposób wykorzystanie SBT jest kluczowe dla systemu weryfikującego kod. 
 
-Autorzy książki "Sbt in Action" już na początku podają prosty przykład w jaki sposób tego typu narzędzia zwiększają produktywność nawet całego zespołu programistów. Wspominają o tym jak kilka lat temu w jednym z zespołów odbywało się "automatyczne" budowanie projektu. "To było 10 lub 12 okienek z plikami .batch, które budowały i instalowały aplikację. Kompilowały pliki Java, budowały aplikacje internetową i instalowały ją na serwerze. Zajmowało to od 1,5 do 2 godzin - to była lekcja jak nie automatyzować".\cite[s.1]{Suereth:2014:SIA} Jak twierdzą, po przepisaniu skryptu i użyciu narzędzia \emph{Apache Ant} czas ten zmalał do około 8 minut.
+Autorzy książki ,,SBT in Action'' już na początku podają prosty przykład w jaki sposób tego typu narzędzia zwiększają produktywność nawet całego zespołu programistów. Wspominają o tym jak kilka lat temu w jednym z zespołów odbywało się ,,automatyczne'' budowanie projektu. ,,To było 10 lub 12 okienek z plikami .batch, które budowały i instalowały aplikację. Kompilowały pliki Java, budowały aplikacje internetową i instalowały ją na serwerze. Zajmowało to od 1,5 do 2 godzin - to była lekcja jak nie automatyzować''.\cite[s.1]{Suereth:2014:SIA} Jak twierdzą, po przepisaniu skryptu i użyciu narzędzia \emph{Apache Ant} czas ten zmalał do około 8 minut.
 
 Czas zatem odpowiedź na pytanie - dlaczego SBT? Kilka najważniejszych powodów to:
 \begin{itemize}
-\item szybki czas kompilacji - kompilowane są tylko ostatnio zmodyfikowane pliki
-\item wbudowane komendy uruchamiające testy, kompilujące pliki źródłowe oraz pakujące poszczególny typ plików do archiwum .jar
+\item krótki czas kompilacji - kompilowane są tylko ostatnio zmodyfikowane pliki
+\item wbudowane polecenia uruchamiające testy, kompilujące pliki źródłowe oraz pakujące poszczególne typy plików do archiwum .jar
 \item możliwość sprawdzania klas projektu przy użyciu Scala REPL
-\item prostota w dodawaniu własnych poleceń mogące wykonywać specyficzne dla projektu zadania   
+\item prostota dodawania własnych poleceń mogących wykonywać specyficzne dla projektu zadania   
 \end{itemize}
 
-Dla mojego systemu to właśnie ostatni punkt ma szczególne znaczenie. System ten będzie udostępniać projekt stworzony przy użyciu SBT, na którym docelowo będą uruchamiane testy. Projekt SBT może być potraktowany w całości lub tylko częściowo jako zadanie do rozwiązania. Aby system mógł sprawdzić rozwiązanie, użytkownik musi je w jakiś sposób przesłać. Dzięki SBT, w sposób wygodny może odbyć się to poprzez napisaną przeze mnie komende \emph{sendSolution}, która jako argumenty bierze adres e-mail i hasło użytkownika. Takie rozwiązanie jest wygodne, ponieważ jest wywoływane z poziomu projektu, a także pozwala zaoszczędzić czas, który użytkownik normalnie spędziłby na przykład na pakowaniu plików do archiwum, logowaniu się na pocztę elektroniczną i tworzeniu wiadomości z załącznikiem.
+Dla mojego systemu to właśnie ostatni punkt ma szczególne znaczenie. System ten będzie udostępniać projekt stworzony przy użyciu SBT, na którym docelowo będą uruchamiane testy. Projekt SBT może być potraktowany w całości lub tylko częściowo jako zadanie do rozwiązania. Aby system mógł sprawdzić rozwiązanie, użytkownik musi je w jakiś sposób przesłać. Dzięki SBT, w sposób wygodny może odbyć się to poprzez napisaną przeze mnie komendzie \emph{sendSolution}, która jako argumenty bierze adres e-mail i hasło użytkownika. Takie rozwiązanie jest wygodne, ponieważ jest wywoływane z poziomu projektu, a także pozwala zaoszczędzić czas, który użytkownik normalnie spędziłby na przykład na pakowaniu plików do archiwum, logowaniu się na pocztę elektroniczną i tworzeniu wiadomości z załącznikiem.
 
 \subsection{ScalaTest} 
 
-ScalaTest to popularny framework do testowania programów, którego autorem jest programista Bill Venners. Podobnie jak dla języka Scala, jednym z założeń ScalaTestu jest to, aby było to narzędzie skalowalne i odpowiadało potrzebom użytkowników. Dzięki temu obecna wersja\footnote{W chwili pisania pracy - najnowsza dostępna wersja ScalaTest to 2.1.5} to nie jedno narzędzie, lecz cały zestaw. Jest on zintegrowany z całą listą instrumentów związanych z pisaniem testów dla Scali i Javy. Instalując więc ScalaTest w swoim projekcie, możemy korzystać również między innymi z \textit{JUnit, TestNG, JMock, EasyMock, Mockito, ScalaMock}, czy \textit{Selenium}. Ponadto ScalaTest z łatwością współpracuje z najpopularniejszymi zintegrowanymi środowiskami programistycznymi - \textit{Eclipse}, \textit{IntelliJ} oraz \textit{NetBeans}.
+ScalaTest to popularne narzędzie do testowania programów, którego autorem jest programista Bill Venners. Podobnie jak w przypadku języka Scala, jednym z założeń ScalaTestu jest skalowalność. Dzięki temu obecna wersja\footnote{W chwili pisania pracy - najnowsza dostępna wersja ScalaTest to 2.1.5} to nie jedno narzędzie, lecz cały zestaw. Jest on zintegrowany z listą instrumentów związanych z pisaniem testów dla Scali i Javy. Instalując więc ScalaTest w swoim projekcie, możemy korzystać również między innymi z \textit{JUnit, TestNG, JMock, EasyMock, Mockito, ScalaMock}, czy \textit{Selenium}. Ponadto ScalaTest z łatwością współpracuje z najpopularniejszymi zintegrowanymi środowiskami programistycznymi - \textit{Eclipse}, \textit{IntelliJ} oraz \textit{NetBeans}.
 
-Szczególnie ważnym argumentem przemawiającym za ScalaTest jest możliwość wyboru stylu dla swoich specyfikacji przez użytkownika. Z punktu widzenia mojego systemu, ta sposobność wyboru wraz ze wspominaną wcześniej szeroką gamą narzędzi gwarantuje uniwersalność dla użytkowników układających zadania. Chociaż szczegółowa charakterystyka systemu znajduje się w późniejszej części pracy magisterskiej to już teraz można wyobrazić sobie sytuację, w której z systemu korzysta kilka osób odpowiedzialnych za układanie zadań - projektów. Każda z nich może posiadać nie tylko różne doświadczenia w Scali, ale także różne preferencje w kwestii przywoływanych narzędzi, czy pisania specyfikacji. 
+Szczególnie ważnym argumentem przemawiającym za ScalaTest jest możliwość wybrania przez użytkownika stylu specyfikacji. Z punktu widzenia mojego systemu, ta sposobność wyboru wraz ze wspominaną wcześniej szeroką gamą narzędzi gwarantuje uniwersalność dla użytkowników układających zadania. Chociaż szczegółowa charakterystyka systemu znajduje się w późniejszej części pracy to już teraz można wyobrazić sobie sytuację, w której z systemu korzysta kilka osób odpowiedzialnych za układanie zadań - projektów. Każda z nich może posiadać nie tylko różne doświadczenia w Scali, ale także różne preferencje w kwestii przywoływanych narzędzi, czy pisania specyfikacji. 
 
 Podobnie sytuacja ma się w stosunku do użytkowników rozwiązujących zadania. Wyobrażam sobie ich jako przyszłych programistów, a zatem dobrą praktyką byłoby, aby przed wysłaniem rozwiązania potrafili je przetestować, przy okazji poznając techniki testowania w Scali. 
 
 \subsection{ScalaCheck}
 
-ScalaCheck to narzędzie powstałe na bazie biblioteki dla języka Haskell - QuickCheck. Zadaniem ScalaCheck jest w pełni zautomatyzować testy w taki sposób, aby nie było potrzeby wprowadzania danych testowych do testowanych metod własnoręcznie. Generuje pseudolosowe dane jako parametry, co pozwala zaoszczędzić czas, który normalnie programista spędza chociażby na wymyślaniu danych testowych. Ponadto sprawia, że kod jest bardziej odporny na błędy ponieważ, mało prawdopodobnym jest, aby człowiek był wstanie wymyślić zawsze pełen zakres wartości, które program może otrzymać w trakcie działania.
+Biblioteka \emph{QuickCheck} dla języka Haskell, była inspiracją, dzięki której powstał ScalaCheck. Jego zadaniem jest w pełni zautomatyzować testy w taki sposób, aby nie było potrzeby wprowadzania danych testowych do sprawdzanych metod własnoręcznie. Generuje pseudolosowe dane jako parametry, co pozwala zaoszczędzić czas, który normalnie programista spędza chociażby na wymyślaniu danych testowych. Ponadto sprawia, że kod jest bardziej odporny na błędy ponieważ, zwiększa zakres sprawdzanych wartości, które program może otrzymać w trakcie działania.
 
 Powyższy fakt oraz to, że ScalaCheck integruje się z ScalaTest może zagwarantować wysoką jakość podczas weryfikacji kodu w rozwiązaniach użytkowników. Użytkownik odpowiedzialny za tworzenie zadań - projektów - poprzez stosowanie reguł ScalaCheck powinien być w stanie wytworzyć kompletny zestaw testów. Dzięki nim system będzie potrafił w sposób dużo bardziej rzetelny wystawić noty za rozwiązanie.
       
