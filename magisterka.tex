@@ -167,7 +167,19 @@ Możemy przekazywać funkcję jako argument do innej funkcji, po to aby w odpowi
 
 Autorzy ,,Programming in Scala'' posłużyli się doskonałym przykładem wyjaśniającym drugie założenie. \cite[s.57]{Odersky:2010:PIS} Otóż za przykład niech posłuży implementacja ciągu znaków w języku Ruby i Java. W Ruby'm, ciag znaków jest niczym innym jak tablicą znaków. Możemy zatem każdy znak w danym ciągu podmieniać wewnątrz tego samego obiektu. W Javie, typ \emph{string} jest ciągiem znaków w sensie matematycznym. Aby wykonać podobną operację konieczne jest wywołanie metody \emph{replace}, która zwraca zupełnie nowy obiekt.
 
-Niektóre języki funkcyjne wymuszają na programiście, aby ten korzystał z niezmiennych danych. Scala daje możliwość wyboru, ale jednocześnie dzięki temu, że łatwo jest w niej uniknąć imperatywnych konstrukcji zachęca do używania niezmiennych danych. Posiada również własny zestaw niezmiennych typów jak na przykład listy, czy zbiory. 
+Prawdziwy język funkcyjny wymusza na programiście, aby ten korzystał z niezmiennych danych. Scala daje możliwość wyboru, ale jednocześnie zachęca do unikania imperatywnych konstrukcji. Pracując z funkcyjnym językiem programowania nie unikniemy także niezmiennych struktur danych. Scala posiada również własny zestaw niezmiennych typów jak na przykład listy, czy zbiory. Idea wykonywania operacji na nich jest zbliżona do koncepcji niezmiennych wartości.
+
+\begin{lstlisting}[language=Scala]
+scala> val list = List(1,2,3)
+list: List[Int] = List(1, 2, 3)
+
+scala> list :+ 4
+res0: List[Int] = List(1, 2, 3, 4)
+\end{lstlisting}
+
+Dla przykładowej trzyelementowej listy liczb całkowitych, wykonując operację dodawania nowego elementu do niej w wyniku zwrócony zostaje nowy obiekt reprezentujący listę czteroelementową. W imperatywnym języku programowania, taka operacja zmodyfikowałaby wcześnie utworzony obiekt. 
+
+
 
 \subsection{Pozostałe cechy}
 
