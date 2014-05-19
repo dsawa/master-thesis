@@ -23,56 +23,10 @@
 
 \opiekun  {dr Wiesław Pawłowski}
 
-\usepackage{listings}
-\usepackage{color}
-
-\definecolor{mygreen}{rgb}{0,0.6,0}
-\definecolor{mygray}{rgb}{0.5,0.5,0.5}
-\definecolor{mymauve}{rgb}{0.58,0,0.82}
-
-\lstset{ 
-  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
-  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
-  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
-  breaklines=true,                 % sets automatic line breaking
-  captionpos=b,                    % sets the caption-position to bottom
-  commentstyle=\color{mygreen},    % comment style
-  deletekeywords={...},            % if you want to delete keywords from the given language
-  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
-  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
-  frame=none,                    % adds a frame around the code
-  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
-  keywordstyle=\color{blue},       % keyword style
-  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
-  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
-  showstringspaces=false,          % underline spaces within strings only
-  showtabs=false,                  % show tabs within strings adding particular underscores
-  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
-  stringstyle=\color{mymauve},     % string literal style
-  tabsize=2,                       % sets default tabsize to 2 spaces
-  basicstyle=\ttfamily\scriptsize
-}
+\usepackage{minted}
 
 % dodatkowe polecenia
 %\renewcommand{\filename}[1]{\texttt{#1}}
-
-% "define" Scala
-\lstdefinelanguage{scala}{
-  morekeywords={abstract,case,catch,class,def,%
-    do,else,extends,false,final,finally,%
-    for,if,implicit,import,match,mixin,%
-    new,null,object,override,package,%
-    private,protected,requires,return,sealed,%
-    super,this,throw,trait,true,try,%
-    type,val,var,while,with,yield},
-  otherkeywords={=>,<-,<\%,<:,>:,\#,@},
-  sensitive=true,
-  morecomment=[l]{//},
-  morecomment=[n]{/*}{*/},
-  morestring=[b]",
-  morestring=[b]',
-  morestring=[b]"""
-}
 
 \begin{document}
 
@@ -138,24 +92,25 @@ Ponadto zezwala ona na zdefiniowanie metod o nazwie przypominającej operator. P
 
 Dzięki cechom, Scala idzie także o krok dalej w kwestii kreowania obiektów. Dobrym przykładem tego może być wielokrotne dziedziczenie, które można osiągnąć w poniższy sposób.
 
-\lstinputlisting[language=Scala]{code/multipleInheritance.scala}
+\inputminted[fontsize=\small]{scala}{code/multipleInheritance.scala}
 
 Należy w uzupełnieniu do powyższego przykładu wspomnieć jak Scala interpretuje konstrukcję \emph{super}. Otóż będzie ona wywołana zawsze w tym miejscu, w którym się pojawia. Odpowiada za to proces linearyzacji. Podczas tworzenia instancji danej klasy, Scala układa wszystkie klasy i cechy, po których ta klasa dziedziczy w liniowej kolejności. Dowodem niech będzie wywołanie metody \emph{get} dla wcześniej pokazanego kodu w interpreterze Scali.
 
-\begin{lstlisting}[language=Scala]
+\begin{minted}[fontsize=\small]{scala}
 scala> new MyNumber(5).get
 res0: Int = 9
-\end{lstlisting}
+\end{minted}
 
 Liczba 5 została tutaj najpierw zmniejszona o 1, następnie pomnożona przez 2 i ostatecznie dopiero na końcu powiększona o 1. Zmieniając jednak kolejność cech wmieszanych w klasę \emph{MyNumber} osiągniemy inny wynik.
 
-\begin{lstlisting}[language=Scala]
-scala> class MyNumber(number: Int) extends Number(number: Int) with Incrementing with Doubling with Decrementing
+\begin{minted}[fontsize=\small]{scala}
+scala> class MyNumber(number: Int) extends Number(number: Int) 
+         with Incrementing with Doubling with Decrementing
 defined class MyNumber
 
 scala> new MyNumber(5).get
 res1: Int = 11
-\end{lstlisting}
+\end{minted}
 
 Liczba 5 została tutaj najpierw zwiększona o 1, w następnym kroku pomnożona przez 2, by wynik tego działania pomniejszyć o 1. Metoda \emph{get} zwraca w tym przypadku 11, wykonując działania w odwrotnej kolejności niż przedtem.
 
@@ -169,13 +124,13 @@ Autorzy ,,Programming in Scala'' posłużyli się doskonałym przykładem wyjaś
 
 Prawdziwy język funkcyjny wymusza na programiście, aby ten korzystał z niezmiennych danych. Scala daje możliwość wyboru, ale jednocześnie zachęca do unikania imperatywnych konstrukcji. Pracując z funkcyjnym językiem programowania nie unikniemy także niezmiennych struktur danych. Scala posiada również własny zestaw niezmiennych typów jak na przykład listy, czy zbiory. Idea wykonywania operacji na nich jest zbliżona do koncepcji niezmiennych wartości.
 
-\begin{lstlisting}[language=Scala]
+\begin{minted}[fontsize=\small]{scala}
 scala> val list = List(1,2,3)
 list: List[Int] = List(1, 2, 3)
 
 scala> list :+ 4
 res0: List[Int] = List(1, 2, 3, 4)
-\end{lstlisting}
+\end{minted}
 
 Dla przykładowej trzyelementowej listy liczb całkowitych, wykonując operację dodawania nowego elementu do niej w wyniku zwrócony zostaje nowy obiekt reprezentujący listę czteroelementową. W imperatywnym języku programowania, taka operacja zmodyfikowałaby wcześnie utworzony obiekt. 
 
@@ -183,13 +138,36 @@ Dla przykładowej trzyelementowej listy liczb całkowitych, wykonując operację
 
 Oprócz łączenia technik programowania obiektowego i funkcyjnego, Scale definują cechy takie jak kompatybilność z JVM, zwięzłość, wysoki poziom abstrakcji i statyczne typowanie. 
 
-Programy napisane w Scali kompilują się do pseudokodu wirtualnej maszyny Javy. Ich wydajność jest porównywalna z odpowiednikami napisanymi w Javie. Program Scali jest w stanie bez przeszkód wywoływać metody klas Javy, może rozszerzać je. Posiada dostęp do pól Javowych klas i możliwe jest także implementowanie interfejsów. Scala korzysta w pełni z typów Javy. Ponadto opakowuje je, by wywołania metod związanych z typami były bardziej przejrzyste. 
+\subsubsection{Kompatybilność}
 
-Scala zachęca do zwięzłego i czytelnego stylu programowania. W porównaniu do odpowiadającego kodu Javy, kod Scali może niejednokrotnie być krótszy o ponad połowę. Krótszy pozwala na jego większe zrozumienie, łatwiejsze utrzymanie przy jednoczesnym mniejszym wysiłku.
+Wydajność programów napisanych w Scali jest porównywalna z odpowiednikami napisanymi w Javie. Programy te bowiem kompilują się do pseudokodu wirtualnej maszyny Javy. Ponadto są w stanie bez przeszkód wywoływać metody klas Javy, korzystać z ich pól, a nawet przystosowywać własne komponenty poprzez dziedziczenie z klas Javy, czy implementację interfejsów. Każdy z tych wariantów jest wykonywany przez programistę w sposób naturalny, gdyż nie wymaga to użycia żadnej dodatkowej składni. Jak się okaże w później, system będący głównym tematem pracy również korzysta z dobrodziejstw owej kompatybilności. Korzysta on z oficjalnego klienta dla systemu kolejkowania wiadomości \emph{RabbitMQ} dla języka Java.
+
+Scala korzysta w pełni z typów Javy. Typ \emph{Int} w Scali reprezentuje prymitywne liczby całkowite \emph{int} z Javy. Podobnie ma się sytuacja z \emph{Float}, \emph{Double}, \emph{Long}, czy \emph{Boolean}. Ponadto typy zostają ,,opakowowane'' w taki sposób, aby wywołania metod związanych z nimi były bardziej przejrzyste. W efekcie tego, dla przykładu zamiast \texttt{Double.parseDouble("12.0")} wystarczy napisać \texttt{"12.0".toDouble}.
+
+%\mint[fontsize=\small]{java}|Double.parseDouble("12.0")|
+
+%wystarczy napisać 
+
+%\mint[fontsize=\small]{scala}|"12.0".toDouble|
+
+\subsubsection{Zwięzłość}
+
+Scala zachęca do zwięzłego i czytelnego stylu programowania. Porównując kod Scali i Javy ze sobą, niejednokrotnie okazuje się, że kod Scali być krótszy o ponad połowę. Taka forma pozwala na jego większe zrozumienie, łatwiejsze utrzymanie przy jednoczesnym mniejszym wysiłku. Wynika to głównie ze składni języka, gdzie między innymi średniki na końcu instrukcji są opcjonalne. Pisząc funkcję, w wielu miejscach można pominąć klamry otwierające i zamykajace dany blok kodu. Jednak najbardziej tą różnice pokazuje porównanie tworzenia klas z konstruktorem.
+
+\newpage 
+\textbf{Java}
+\inputminted[fontsize=\small]{java}{code/person.java}
+
+\textbf{Scala}
+\inputminted[fontsize=\small]{scala}{code/person.scala}
+
+\subsubsection{dalej}
 
 Wysoki poziom abstrakcji w Scali oznacza, że programista może przy pomocy dostępnych mu m.in. komponentów takich jak cechy, czy literałów funkcyjnych w dużo lepszy sposób zarządzać poziomem skomplikowania kodu. Z własnych doświadczeń wiem, że zbyt skomplikowany kod potrafi w pracy programisty utrudnić pracę do tego stopnia, że dochodzi do potrzeby przepisania jakiegoś fragmentu systemu. Zawsze oznacza to dodatkowy koszt, którego można byłoby uniknąć przy dobrze ułożonym kodzie. Scala posiada wszystko, by przy relatywnie niedużym wysiłku sprawić, aby skomplikowana logika biznesowa stała się zrozumiała i czytelna.
 
-Scala jest językiem statycznie typowanym. Podstawowe zalety jakie niesie to ze sobą to możliwość wykrycia błędów związnych z typowaniem na etapie kompilacji, bezpieczny refaktoring i powstanie bardziej szczegółowej dokumentacji. Dzięki mechanizmowi dopasowywania wzorca\footnote{ang: Pattern matching} programista Scala jest w stanie stworzyć bardzo elastyczny kod.
+Scala jest językiem statycznie typowanym. Podstawowe zalety jakie niesie to ze sobą to możliwość wykrycia błędów związnych z typowaniem na etapie kompilacji, bezpieczny refaktoring i powstanie bardziej szczegółowej dokumentacji. 
+
+Dzięki mechanizmowi dopasowywania wzorca\footnote{ang: Pattern matching} programista Scala jest w stanie stworzyć bardzo elastyczny kod.
 
 \section{Środki do osiągnięcia celu}
 
