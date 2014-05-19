@@ -161,9 +161,29 @@ Scala zachęca do zwięzłego i czytelnego stylu programowania. Porównując kod
 \textbf{Scala}
 \inputminted[fontsize=\small]{scala}{code/person.scala}
 
-\subsubsection{dalej}
+\subsubsection{Wysoki poziom}
 
-Wysoki poziom abstrakcji w Scali oznacza, że programista może przy pomocy dostępnych mu m.in. komponentów takich jak cechy, czy literałów funkcyjnych w dużo lepszy sposób zarządzać poziomem skomplikowania kodu. Z własnych doświadczeń wiem, że zbyt skomplikowany kod potrafi w pracy programisty utrudnić pracę do tego stopnia, że dochodzi do potrzeby przepisania jakiegoś fragmentu systemu. Zawsze oznacza to dodatkowy koszt, którego można byłoby uniknąć przy dobrze ułożonym kodzie. Scala posiada wszystko, by przy relatywnie niedużym wysiłku sprawić, aby skomplikowana logika biznesowa stała się zrozumiała i czytelna.
+Język wysokiego poziomu to taki, który pozwala człowiekowi zrozumieć kod programu. Scala jest typem takiego języka. Programista może przy pomocy dostępnych mu komponentów takich jak cechy, czy literałów funkcyjnych w dużo lepszy sposób zarządzać poziomem skomplikowania kodu. Znów warto w tym momencie porównać ze sobą Jave i Scalę. Niech problemem do rozwiązania, będzie znalezienie wszystkich liczb parzystych z przedziału od 1 do 10. W Scali to zagadnienie można rozwiązać w jednej linijce.
+
+\mint[fontsize=\small]{scala}/val evenNumbers = (1).to(10).toList.filter(_ % 2 == 0)/
+
+Natomiast w Javie, ten sam problem wymaga od programisty odpowiednio więcej pracy.
+
+\begin{minted}[fontsize=\small]{java}
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+List<Integer> evenNumbers = new ArrayList<Integer>();
+for(Integer number: numbers){
+    if(number % 2 == 0){
+        evenNumbers.add(number);
+    }
+}
+\end{minted}
+
+W drugim rozwiązaniu potrzebne były dwie listy oraz pętla iterująca po wszystkich liczbach z danego zakresu. W Scali wystarczy użyć odpowiedniej metody (\emph{filter}), która jako argument przyjmuje predykat \texttt{\_ \% 2 == 0 }, będący przykładem literału funkcyjnego. Jest to jednoargumentowa funkcja sprawdzająca dzielenie modulo.
+
+Wyraźnie widać, że rozwiązanie przedstawione w Scali jest krótsze i mniej złożone. Z własnych doświadczeń wiem, że zbyt skomplikowany kod potrafi w pracy programisty utrudnić pracę do tego stopnia, że dochodzi do potrzeby przepisania jakiegoś fragmentu systemu. Zawsze oznacza to dodatkowy koszt, w postaci czasu, pieniędzy czy zasobów ludzkich. Scala posiada wszystko, by przy relatywnie niedużym wysiłku sprawić, aby skomplikowana logika biznesowa stała się zrozumiała i czytelna.
+
+\subsubsection{Typowanie statyczne}
 
 Scala jest językiem statycznie typowanym. Podstawowe zalety jakie niesie to ze sobą to możliwość wykrycia błędów związnych z typowaniem na etapie kompilacji, bezpieczny refaktoring i powstanie bardziej szczegółowej dokumentacji. 
 
