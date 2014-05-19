@@ -161,7 +161,7 @@ Liczba 5 została tutaj najpierw zwiększona o 1, w następnym kroku pomnożona 
 
 \subsection{Aspekt funkcyjny}
 
-Jak wyjaśnia Martin Odersky \cite[s.57]{Odersky:2010:PIS}, programowanie funkcyjne w głównej mierze opiera się na dwóch założeniach. Wskazane jest aby funkcje były wartościami podstawowymi, a operacje wykonywane w czasie działania programu powinny zwracać wartości do nowych zmiennych niż modyfikować obecne. Obie te koncepcje są oczywiście obecne w Scali. 
+Jak wyjaśnia Martin Odersky, ,,programowanie funkcyjne w głównej mierze opiera się na dwóch założeniach'' \cite[s.57]{Odersky:2010:PIS}. Wskazane jest aby funkcje były wartościami podstawowymi, a operacje wykonywane w czasie działania programu powinny zwracać wartości do nowych zmiennych niż modyfikować obecne. Obie te koncepcje są oczywiście obecne w Scali. 
 
 Możemy przekazywać funkcję jako argument do innej funkcji, po to aby w odpowiedzi otrzymać jeszcze inną funkcję. Możliwe jest definiowanie funkcji wewnątrz innych funkcji. Funkcje mogą posiadać nazwe lub być też anonimowe. Żadna z wymienionych opcji nie jest możliwa chociażby w Javie, aż do wersji 8, która to dopiero pozwala na użycie funkcji anonimowych. Wszystkie te warianty mają bezpośredni wpływ na skalowalność programów.
 
@@ -178,8 +178,6 @@ res0: List[Int] = List(1, 2, 3, 4)
 \end{lstlisting}
 
 Dla przykładowej trzyelementowej listy liczb całkowitych, wykonując operację dodawania nowego elementu do niej w wyniku zwrócony zostaje nowy obiekt reprezentujący listę czteroelementową. W imperatywnym języku programowania, taka operacja zmodyfikowałaby wcześnie utworzony obiekt. 
-
-
 
 \subsection{Pozostałe cechy}
 
