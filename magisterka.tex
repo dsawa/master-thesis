@@ -24,6 +24,15 @@
 \opiekun  {dr Wiesław Pawłowski}
 
 \usepackage{minted}
+	\renewcommand\listingscaption{Przykład}
+	
+\makeatletter
+\minted@define@extra{label}
+\makeatother
+	
+\fvset{
+	fontsize=\small
+}
 
 % dodatkowe polecenia
 %\renewcommand{\filename}[1]{\texttt{#1}}
@@ -144,22 +153,13 @@ Wydajność programów napisanych w Scali jest porównywalna z odpowiednikami na
 
 Scala korzysta w pełni z typów Javy. Typ \emph{Int} w Scali reprezentuje prymitywne liczby całkowite \emph{int} z Javy. Podobnie ma się sytuacja z \emph{Float}, \emph{Double}, \emph{Long}, czy \emph{Boolean}. Ponadto typy zostają ,,opakowowane'' w taki sposób, aby wywołania metod związanych z nimi były bardziej przejrzyste. W efekcie tego, dla przykładu zamiast \texttt{Double.parseDouble("12.0")} wystarczy napisać \texttt{"12.0".toDouble}.
 
-%\mint[fontsize=\small]{java}|Double.parseDouble("12.0")|
-
-%wystarczy napisać 
-
-%\mint[fontsize=\small]{scala}|"12.0".toDouble|
-
 \subsubsection{Zwięzłość}
 
 Scala zachęca do zwięzłego i czytelnego stylu programowania. Porównując kod Scali i Javy ze sobą, niejednokrotnie okazuje się, że kod Scali być krótszy o ponad połowę. Taka forma pozwala na jego większe zrozumienie, łatwiejsze utrzymanie przy jednoczesnym mniejszym wysiłku. Wynika to głównie ze składni języka, gdzie między innymi średniki na końcu instrukcji są opcjonalne. Pisząc funkcję, w wielu miejscach można pominąć klamry otwierające i zamykajace dany blok kodu. Jednak najbardziej tą różnice pokazuje porównanie tworzenia klas z konstruktorem.
 
-\newpage 
-\textbf{Java}
-\inputminted[fontsize=\small]{java}{code/person.java}
+\inputminted[fontsize=\small,label=Person.java,frame=single,framerule=0pt,framesep=2pt]{java}{code/person.java}
 
-\textbf{Scala}
-\inputminted[fontsize=\small]{scala}{code/person.scala}
+\inputminted[fontsize=\small,label=Person.scala,frame=single,framerule=0pt,framesep=2pt]{scala}{code/person.scala}
 
 \subsubsection{Wysoki poziom}
 
@@ -181,25 +181,55 @@ for(Integer number: numbers){
 
 W drugim rozwiązaniu potrzebne były dwie listy oraz pętla iterująca po wszystkich liczbach z danego zakresu. W Scali wystarczy użyć odpowiedniej metody (\emph{filter}), która jako argument przyjmuje predykat \texttt{\_ \% 2 == 0 }, będący przykładem literału funkcyjnego. Jest to jednoargumentowa funkcja sprawdzająca dzielenie modulo.
 
-Wyraźnie widać, że rozwiązanie przedstawione w Scali jest krótsze i mniej złożone. Z własnych doświadczeń wiem, że zbyt skomplikowany kod potrafi w pracy programisty utrudnić pracę do tego stopnia, że dochodzi do potrzeby przepisania jakiegoś fragmentu systemu. Zawsze oznacza to dodatkowy koszt, w postaci czasu, pieniędzy czy zasobów ludzkich. Scala posiada wszystko, by przy relatywnie niedużym wysiłku sprawić, aby skomplikowana logika biznesowa stała się zrozumiała i czytelna.
+Wyraźnie widać, że rozwiązanie przedstawione w Scali jest krótsze. Z własnych doświadczeń wiem, że zbyt skomplikowany kod potrafi w pracy programisty utrudnić pracę do tego stopnia, że dochodzi do potrzeby przepisania jakiegoś fragmentu systemu. Zawsze oznacza to dodatkowy koszt, w postaci czasu, pieniędzy czy zasobów ludzkich. Scala posiada wszystko, by przy relatywnie niedużym wysiłku sprawić, aby skomplikowana logika biznesowa stała się zrozumiała i czytelna.
 
 \subsubsection{Typowanie statyczne}
 
 Scala jest językiem statycznie typowanym. Podstawowe zalety jakie niesie to ze sobą to możliwość wykrycia błędów związnych z typowaniem na etapie kompilacji, bezpieczny refaktoring i powstanie bardziej szczegółowej dokumentacji. 
 
-Dzięki mechanizmowi dopasowywania wzorca\footnote{ang: Pattern matching} programista Scala jest w stanie stworzyć bardzo elastyczny kod.
+Jednym z zarzutów stawianych językom z typowaniem statycznym jest to, że są bardziej ,,rozgadane''. Przyczyny można szukać w konieczności deklarowania typów zmiennych, czy wartości wynikowych funkcji. Scala posiada mechanizm potrafiący wywnioskować typ dla danej wartości\footnote{ang: \emph{Type inference}}. Niech przykładem będzie zmienna \emph{numbers} z wcześniej przedstawionego fragmentu kodu Javy. W Scali nie musimy (choć możemy) określić, że zmienna \emph{numbers} jest listą liczb całkowitych. Poniżej kontrprzykład.
+
+\mint[fontsize=\small]{scala}/val numbers = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)/
+
+Należy jednak pamiętać, że funkcje rekursywne muszą mieć zawsze określony typ wynikowy, aby nie doszło do błędu kompilacji. Rozpatrzmy funkcję obliczającą liczbę Fibonacciego.
+
+\begin{minted}[fontsize=\small]{scala}
+def fib(n: Int): Int = n match {
+  case 0 => n
+  case 1 => n
+  case _ => fib(n - 1) + fib(n - 2)
+}
+\end{minted}
+
+Gdyby nie określono tutaj typu wynikowego funkcji, to kompilator nie wiedziałby o jakiej operacji ,,+'' myślał programista, tzn. dla jakiego typu. Przy okazji udało się tutaj zaprezentować dopasowywanie wzorca \footnote{ang: Pattern matching}.
+
+Mechanizm ten pozwala w czytelny dla człowieka sposób określić jakie powinny być następne instrukcje programu w zależności od zmiennej. Dopasowywać ją można nie tylko do konkretnej wartości, ale przede wszystkim typu. Ma to znaczenie w przypadku, gdy porównujemy ze sobą na przykład typy dziedziczące po wspólnej klasie w hierarchii.
+
+\begin{minted}[fontsize=\small]{scala}
+class Animal
+class Cat extends Animal
+class Dog extends Animal
+
+def say(a: Animal) = a match {
+ case a: Cat => println("Miau!")
+ case a: Dog => println("Woof!")
+ case _ => println("Animal")
+}
+\end{minted}
+
+Znak podkreślnika można traktować jak instrukcję \emph{else}.
 
 \section{Środki do osiągnięcia celu}
 
 Do weryfikacji poprawności nadesłanego przez użytkownika rozwiązania, niezbędnym jest posłużenie się narzędziami związanymi z mechanizmem testów jednostkowych. Testy te muszą być uruchamiane automatycznie po przesłaniu rozwiązania. W osiągnięciu takiego celu pomogą narzędzia takie jak \textit{Simple Build Tool} wraz z \textit{ScalaTest} i \textit{ScalaCheck}. Połączenie ich ze sobą umożliwi powstanie bardzo elastycznego procesu tworzenia zadań. 
 
-Poniżej znajduje się krótkie przedstawienie tych narzędzi wraz z uzasadnieniem ich użycia.
+Poniżej znajduje się krótkie przedstawienie tych narzędzi wraz z uzasadnieniem ich użycia. 
 
 \subsection{Simple Build Tool}
 
 SBT jest narzędziem, które tworzy stabilną platformę do rozwijania aplikacji. Domyślnie udostępnia programiście listę komend, z których może on korzystać. Dla przykładu komendy te mogą służyć przeładowaniu definicji projektu, uruchomieniu testów, czy uruchomieniu interpretera Scali z gotowymi do użycia klasami z danego projektu. Zdecydowanie sprzyjają one zwiększeniu produktywności programisty poprzez automatyzację pewnych działań.
 
-Jednak warto przyjrzeć się bliżej dlaczego w ogóle warto korzystać z narzędzi budujących aplikację\footnote{ang: build tool} oraz w jaki sposób wykorzystanie SBT jest kluczowe dla systemu weryfikującego kod. 
+Jednak warto przyjrzeć się bliżej dlaczego w ogóle warto korzystać z narzędzi budujących aplikację\footnote{ang: Build tool} oraz w jaki sposób wykorzystanie SBT jest kluczowe dla systemu weryfikującego kod. 
 
 Autorzy książki ,,SBT in Action'' już na początku podają prosty przykład w jaki sposób tego typu narzędzia zwiększają produktywność nawet całego zespołu programistów. Wspominają o tym jak kilka lat temu w jednym z zespołów odbywało się ,,automatyczne'' budowanie projektu. ,,To było 10 lub 12 okienek z plikami .batch, które budowały i instalowały aplikację. Kompilowały pliki Java, budowały aplikacje internetową i instalowały ją na serwerze. Zajmowało to od 1,5 do 2 godzin - to była lekcja jak nie automatyzować''.\cite[s.1]{Suereth:2014:SIA} Jak twierdzą, po przepisaniu skryptu i użyciu narzędzia \emph{Apache Ant} czas ten zmalał do około 8 minut.
 
