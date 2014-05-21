@@ -203,7 +203,7 @@ def fib(n: Int): Int = n match {
 
 Gdyby nie określono tutaj typu wynikowego funkcji, to kompilator nie wiedziałby o jakiej operacji ,,+'' myślał programista, tzn. dla jakiego typu. Przy okazji udało się tutaj zaprezentować dopasowywanie wzorca \footnote{ang: Pattern matching}.
 
-Mechanizm ten pozwala w czytelny dla człowieka sposób określić jakie powinny być następne instrukcje programu w zależności od zmiennej. Dopasowywać ją można nie tylko do konkretnej wartości, ale przede wszystkim typu. Ma to znaczenie w przypadku, gdy porównujemy ze sobą na przykład typy dziedziczące po wspólnej klasie w hierarchii.
+Mechanizm ten pozwala w czytelny dla człowieka sposób określić jakie powinny być następne instrukcje programu w zależności od zmiennej. Dopasowywać można nie tylko do konkretnej wartości, ale przede wszystkim typu. Ma to znaczenie w przypadku, gdy porównujemy ze sobą na przykład typy dziedziczące po wspólnej klasie w hierarchii.
 
 \begin{minted}[fontsize=\small]{scala}
 class Animal
@@ -243,13 +243,15 @@ Czas zatem odpowiedź na pytanie - dlaczego SBT? Kilka najważniejszych powodów
 
 Dla mojego systemu to właśnie ostatni punkt ma szczególne znaczenie. System ten będzie udostępniać projekt stworzony przy użyciu SBT, na którym docelowo będą uruchamiane testy. Projekt SBT może być potraktowany w całości lub tylko częściowo jako zadanie do rozwiązania. Aby system mógł sprawdzić rozwiązanie, użytkownik musi je w jakiś sposób przesłać. Dzięki SBT, w sposób wygodny może odbyć się to poprzez napisaną przeze mnie komendzie \emph{sendSolution}, która jako argumenty bierze adres e-mail i hasło użytkownika. Takie rozwiązanie jest wygodne, ponieważ jest wywoływane z poziomu projektu, a także pozwala zaoszczędzić czas, który użytkownik normalnie spędziłby na przykład na pakowaniu plików do archiwum, logowaniu się na pocztę elektroniczną i tworzeniu wiadomości z załącznikiem.
 
-\subsection{ScalaTest} 
+\subsection{ScalaTest}
+
+\label{scalaTestSrodek} 
 
 ScalaTest to popularne narzędzie do testowania programów, którego autorem jest programista Bill Venners. Podobnie jak w przypadku języka Scala, jednym z założeń ScalaTestu jest skalowalność. Dzięki temu obecna wersja\footnote{W chwili pisania pracy - najnowsza dostępna wersja ScalaTest to 2.1.5} to nie jedno narzędzie, lecz cały zestaw. Jest on zintegrowany z listą instrumentów związanych z pisaniem testów dla Scali i Javy. Instalując więc ScalaTest w swoim projekcie, możemy korzystać również między innymi z \textit{JUnit, TestNG, JMock, EasyMock, Mockito, ScalaMock}, czy \textit{Selenium}. Ponadto ScalaTest z łatwością współpracuje z najpopularniejszymi zintegrowanymi środowiskami programistycznymi - \textit{Eclipse}, \textit{IntelliJ} oraz \textit{NetBeans}.
 
-Szczególnie ważnym argumentem przemawiającym za ScalaTest jest możliwość wybrania przez użytkownika stylu specyfikacji. Z punktu widzenia mojego systemu, ta sposobność wyboru wraz ze wspominaną wcześniej szeroką gamą narzędzi gwarantuje uniwersalność dla użytkowników układających zadania. Chociaż szczegółowa charakterystyka systemu znajduje się w późniejszej części pracy to już teraz można wyobrazić sobie sytuację, w której z systemu korzysta kilka osób odpowiedzialnych za układanie zadań - projektów. Każda z nich może posiadać nie tylko różne doświadczenia w Scali, ale także różne preferencje w kwestii przywoływanych narzędzi, czy pisania specyfikacji. 
+Szczególnie ważnym argumentem przemawiającym za ScalaTest jest możliwość wybrania przez użytkownika stylu specyfikacji. Z punktu widzenia mojego systemu, ta sposobność wyboru wraz ze wspominaną wcześniej szeroką gamą narzędzi gwarantuje dużą uniwersalność dla użytkowników układających zadania. Chociaż szczegółowa charakterystyka systemu znajduje się w późniejszej części pracy to już teraz można wyobrazić sobie sytuację, w której z systemu korzysta kilka osób odpowiedzialnych za układanie zadań - projektów. Każda z nich może posiadać nie tylko różne doświadczenia w Scali, ale także różne preferencje w kwestii przywoływanych narzędzi, czy pisania specyfikacji. 
 
-Podobnie sytuacja ma się w stosunku do użytkowników rozwiązujących zadania. Wyobrażam sobie ich jako przyszłych programistów, a zatem dobrą praktyką byłoby, aby przed wysłaniem rozwiązania potrafili je przetestować, przy okazji poznając techniki testowania w Scali. 
+Podobnie sytuacja ma się w stosunku do użytkowników rozwiązujących zadania. Wyobrażam sobie ich jako przyszłych programistów, a zatem dobrą praktyką byłoby, aby przed wysłaniem rozwiązania potrafili je przetestować, przy okazji poznając różne techniki testowania w Scali. 
 
 \subsection{ScalaCheck}
 
@@ -259,17 +261,83 @@ Powyższy fakt oraz to, że ScalaCheck integruje się z ScalaTest może zagwaran
       
 \chapter{Mechanizm testów jednostkowych}
 
-test
+Czym jest test jednostkowy? Andy Hunt i Dave Thomas napisali kiedyś, że ,,test jednostkowy to kawałek kodu napisanego przez programistę, który sprawdza bardzo małą, specificzną część funkcjonalności testowanego kodu.''\cite[s.3]{Hunt:2003:PUT} Im, większe pokrycie kodu testami, tym większa pewność, że program spełni stawiane przed nim wymagania bez efektów ubocznych. Roy Osherove natomiast określił cechy dobrego testu jednostkowego\cite[s. 6]{Osherove:2009:TAOUT} 
+
+\begin{itemize}
+\item Szybki, automatyczny i powtarzalny
+\item Łatwy do zaimplementowania
+\item Napisany raz, powinien pozostać w takim stanie w przyszłości
+\item Każdy powinien być w stanie go uruchomić
+\item Uruchamiany ,,wciśnięciem guzika'' 
+\end{itemize}
+
+Testy jednostkowe są esencją w systemie weryfikującym kod. To od nich w dużej mierze zależna jest ocena jakości kodu. Muszą one, więc sprawdzać nie tylko poprawność efektów dokonywanych przez funkcje i metody, ale także odporność na błędy.  
     
-\section{Testowanie w języku Scala}
+\section{Testowanie kodu napisanego w Scali}
 
-scala scala test test 
+Obecnie istnieje wiele narzędzi zajmujących się zagadnieniem testów jednostkowych w omawianym języku. Najbardziej popularne z nich to \emph{ScalaTest}, \emph{JUnit} i \emph{Specs2}.
+
+Pierwszy z nich po krótce przedstawiłem podrozdziale \ref{scalaTestSrodek} w kontekście zastosowania do systemu weryfikującego kod. W tym rozdziale ScalaTest zostanie omówiony bardziej szczegółowo. 
+
+JUnit natomiast to narzędzie znane wszystkim programistom Javy. Kompatybilność z wirtualną maszyną JVM powoduje, że może bez przeszkód mieć zastosowanie również w Scalowych projektach. Warto przypomnieć, że narzędzie to integruje się z ScalaTest. 
+
+O ostatnim z wymienionych - Specs2 - można myśleć jak o konkurencji ScalaTestu. Narzędzie to może również działać z SBT. Posiada inny zestaw instrukcji dokonujących porównań oraz sposób konstruowania testów. To co szczególnie wyróżnia Specs2 to fakt, że testy są uruchamiane równolegle, każdy w osobnym wątku.
       
-\section{ScalaTest w szczegółach}
+\subsection{ScalaTest}
 
-scalatest testscala
+ScalaTest pozwala programiście wybrać jeden z wielu stylów dla swoich specyfikacji. Twórcy zaznaczają jednak, aby podczas rozwijania projektu przez dany zespół nie doszło do sytuacji, w której każdy programista pisałby w inny sposób. Zalecanym jest, aby testy jednostkowe powstawały przy użyciu jednego głównego stylu, a na przykład testy integracji, czy akceptacyjne w innym. Ma to pomóc poszczególnym członkom zespołu ,,przełączać się'' pomiędzy testami niskiego i wysokiego poziomu.
 
-\section{ScalaCheck w szczegółach}
+W podrozdziale \ref{scalaTestSrodek} można było przeczytać jak tą elastyczność ScalaTestu można wykorzystać w systemie sprawdzającym kod Scali. Poszczególne style specyfikacji różnią się jedynie instrukcjami deklarującymi testy. Pozostałe rzeczy takie jak asercje, instrukcje dopasowywania (ang: \emph{matchers}, itp. są wykorzystywane w ten sam sposób.
+
+\subsubsection{FunSuite}
+
+Charakteryzuje się opisowymi nazwami testów i jest najprostszym ze wszystkich styli, które oferuje ScalaTest. Testy deklarujemy poprzez słowo \emph{test}, jako argument podając opis testu.
+
+\inputminted[fontsize=\small]{scala}{code/FunSuite.scala}
+ 
+\subsubsection{FlatSpec}
+
+Jest pierwszym przystankiem dla programistów, którzy zaczynają swoją przygodę z BDD\footnote{ang: Behavior-driven development}. Nazwy testów tworzy się w stylu charakterystycznym dla specyfikacji, tzn. używając słów takich jak \emph{should}, \emph{must}.
+
+\inputminted[fontsize=\small]{scala}{code/FlatSpec.scala}
+
+\subsubsection{FunSpec}
+
+Doświadczeni programiści Rubiego próbujący swoich sił w Scali prawdopodobnie wybiorą ten styl. Przypomina on bardzo \emph{RSpec} - popularne narzędzie testowania kodu Rubiego. Testy można tutaj konstruować głównie przy pomocy \emph{describe} oraz \emph{it}. Instrukcja \emph{describe} pozwala na zagnieżdzanie i grupowanie testów według danego ,,zachowania'' testowanych fragmentów kodu. Jest to dobry wybór dla zespołów pracujących w BDD.
+
+\inputminted[fontsize=\small]{scala}{code/FunSpec.scala}
+
+\subsubsection{WordSpec}
+
+Sposób konstrukcji testów jest bardzo ścisły i przypomina konkurencyjny \emph{specs2}. Gdyby zatem w projekcie doszło do potrzeby przejścia ze \emph{specs2} na ScalaTest, to ten styl staje się naturalnym wyborem. Słowami kluczowymi są tutaj \emph{when} oraz \emph{should}.
+
+\inputminted[fontsize=\small]{scala}{code/WordSpec.scala}
+
+\subsubsection{FreeSpec}
+
+Wskazany dla doświadczonych programistów piszących specyfikacje, ponieważ nie istnieją żadne wytyczne, jak powinien powstawać test przy użyciu tego stylu. Testy można w dowolny sposób zagnieżdzać i nazywać.
+
+\inputminted[fontsize=\small]{scala}{code/FreeSpec.scala}
+
+\subsubsection{Spec}
+
+Zalecany przez twórców do dużych projektów, gdzie czas budowania i kompilacji może być znaczny. Konstruując test definuje się go jako metodę zawierającą jeden literał funkcyjny.
+
+\inputminted[fontsize=\small]{scala}{code/Spec.scala}
+
+\subsubsection{PropSpec}
+
+Testy w tym stylu skupiają się na własnościach testowanych metod i funkcji. Specyfikacje tworzone przu użyciu PropSpec przypominają na pierwszy rzut oka FunSuite z tą różnicą, że główną instrukcją definiującą test \emph{property}.
+
+\inputminted[fontsize=\small]{scala}{code/PropSpec.scala}
+
+\subsubsection{FeatureSpec}
+
+Jest przeznaczony dla testów akceptacyjnych. Szeroki zestaw instrukcji takich jak \emph{info}, \emph{scenario}, \emph{feature} oraz \emph{Given}, \emph{When} \emph{Then} pozwala zrozumieć dany test nawet osobom nie zajmującym się oprogramowaniem danego projektu. Mogą one w ten sposób określić, czy program wykonuje założone cele i przyspieszyć komunikację między nimi, a programistami.
+
+\inputminted[fontsize=\small]{scala}{code/FeatureSpec.scala}
+
+\subsection{Specs2}
 
 scalacheck checkscala
 
