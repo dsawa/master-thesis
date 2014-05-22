@@ -339,7 +339,7 @@ Wskazany dla doświadczonych programistów piszących specyfikacje, ponieważ ni
 
 \subsubsection{Weryfikatory}
 
-Bez względu na to jaki wybierzemy styl dla specyfikacji to rezultaty testowanych metod i funkcji muszą być w jakiś sposób sprawdzone. ScalaTest dostarcza specjalny język dziedzinowy dla asercji. W efekcie otrzymujemy weryfikatory. Po dodaniu do specyfikacji cechy \emph{Matchers} można przystąpić do tworzenia czytelnych asercji. Przyjrzyjmy się przykładowi poniżej.
+Bez względu na to jaki wybierzemy styl dla specyfikacji to rezultaty testowanych metod i funkcji muszą być w jakiś sposób sprawdzone. ScalaTest dostarcza specjalny język dziedzinowy dla asercji. Po dodaniu do klasy specyfikacji cechy \emph{Matchers} otrzymujemy weryfikatory. Dzięki nim można przystąpić do tworzenia czytelnych asercji. Przyjrzyjmy się przykładowi poniżej.
 
 \begin{minted}[fontsize=\small]{scala}
 val list = List(2, 4, 5)
@@ -408,6 +408,36 @@ Słowem kluczowym jest \emph{have}, następnie jako symbole podaje się nazwy at
 To jeszcze nie wszystkie weryfikatory, jednak wierzę, że udało mi się przedstawić te najciekawsze i najważniejsze. ScalaTest daje również możliwość użycia \emph{MustMatchers}. W praktyce różnica w użyciu tych weryfikatorów sprowadza się do zamiany słowa \emph{should} na \emph{must}. Jest to zatem poraz kolejny przykład elastyczności jaką daje to narzędzie.
 
 \mint[fontsize=\small]{scala}/list.size must be (3)/ 
+
+\subsubsection{Przechwytywanie wyjątków}
+
+Istnieją dwa sposoby na przetestowanie, czy dany wyjątek został rzucony. Pierwszym z nich jest umieszczenie testowanego fragmentu w blok \emph{intercept}. Jeśli ten fragment kodu nie rzuci spodziewanego wyjątku to test się nie powiedzie.
+
+\begin{minted}[fontsize=\small]{scala}
+import org.scalatest.FunSpec
+class SetSpec extends FunSpec {
+  describe("A Set") {
+    describe("when empty") {
+      it("should produce NoSuchElementException when head is invoked") {
+        intercept[NoSuchElementException] {
+          Set.empty.head
+        }
+      }
+    }
+  }
+}
+\end{minted}
+
+Zdjęcie kolejnego elementu z pustego stosu spowoduje rzucenie wyjątku \emph{NoSuchElementException}.
+
+Drugi ze sposobów polega na użyciu wcześniej opisywanych weryfikatorów. Testowany fragment kodu należy wstawić w blok \emph{thrownBy}. Jego przewagą jest to, że rzucony wyjątek można poddać w następnych krokach dodatkowej weryfikacji.
+
+\begin{minted}[fontsize=\small]{scala}
+val exc = the [NoSuchElementException] thrownBy { Set.empty.head }
+exc.getMessage should include ("empty")
+\end{minted}
+
+\subsubsection{JUnit}
 
 \subsection{Specs2}
 
