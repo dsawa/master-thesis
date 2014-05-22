@@ -337,6 +337,78 @@ Wskazany dla doświadczonych programistów piszących specyfikacje, ponieważ ni
 %Jest przeznaczony dla testów akceptacyjnych. Szeroki zestaw instrukcji takich jak \emph{info}, \emph{scenario}, \emph{feature} oraz \emph{Given}, \emph{When} \emph{Then} pozwala zrozumieć dany test %nawet osobom nie zajmującym się oprogramowaniem danego projektu. Mogą one w ten sposób określić, czy program wykonuje założone cele i przyspieszyć komunikację między nimi, a programistami.
 %\inputminted[fontsize=\small]{scala}{code/FeatureSpec.scala}
 
+\subsubsection{Weryfikatory}
+
+Bez względu na to jaki wybierzemy styl dla specyfikacji to rezultaty testowanych metod i funkcji muszą być w jakiś sposób sprawdzone. ScalaTest dostarcza specjalny język dziedzinowy dla asercji. W efekcie otrzymujemy weryfikatory. Po dodaniu do specyfikacji cechy \emph{Matchers} można przystąpić do tworzenia czytelnych asercji. Przyjrzyjmy się przykładowi poniżej.
+
+\begin{minted}[fontsize=\small]{scala}
+val list = List(2, 4, 5)
+list.size should be (3)
+list.size should equal(3)
+list.size should be < (10)
+list.size should not be >= (20)
+list should contain (4)
+\end{minted}
+
+Wartość, która jest oczekiwana od testowanej metody dopasowana została do jej faktycznego wyniku przy użyciu słowa \emph{should}. Całość można przeczytać płynnie jak zdanie w języku angielskim. 
+Chcąc sprawdzić, czy zwrócona wartość równa się temu czemu powinna należy użyć instrukcji \emph{equal} lub \emph{be}. Drugą z nich można łączyć dodatkowo ze znakami większości i mniejszości. Pod koniec tego przykładu zaprezentowałem również w jak prosty sposób można sprawdzić, czy lista zawiera dany element.
+
+Istnieje wiele wariantów testowania ciągów znaków. Można sprawdzić ,czy dany ciąg znaków zawiera inny lub zaczyna się, czy kończy w określony sposób. Oczywiście w przypadku bardziej skomplikowanych wymogów, nie ma przeszkód aby dopasować i porównać wynik przy pomocy wyrażeń regularnych.
+
+\begin{minted}[fontsize=\small]{scala}
+val sentence = "I love Scala!"
+sentence should startWith ("I love")
+sentence should not endWith ("Java")
+sentence should include ("love")
+sentence should endWith regex ("Sca.*!")
+sentence should fullyMatch regex ("I.*S.*!+")
+\end{minted}
+
+Ponownie dzięki weryfikatorom, osoba czytająca przedstawiony w ten sposób test ma wrażenie, że czyta zwykłe zdanie. Pierwsza asercja sprawdza, czy dany ciąg znaków zaczyna się na ,,I love''. Druga poprzez wstawienie instrukcji \emph{not} dodaje zaprzeczenie, aby miec pewność, że ciąg znaków nie kończy się słowem ,,Java''. Chcąc dopasować wartość z użyciem wyrażenia regularnego, wystarczy do poznanej już konstrukcji dodać \emph{regex}. Ostatnia z pokazanych asercji dopasowuje wyrażenie do całego ciągu znaków.
+
+Ciekawą rzeczą jest porównywanie ze sobą liczb zmiennoprzecinkowych. Można określić tolerowany zakres błędu w wyniku działania poprzez postawienie obok siebie znaku dodawania i odejmowania.
+
+\begin{minted}[fontsize=\small]{scala}
+(1.5 - 0.5) should be (1.1 +- 0.9)
+\end{minted}
+
+Powyższa asercja sprawdza, czy wynik działania tj. 1.0 jest mniejszy niż 1.1 oraz większy od 0.9.
+
+Zweryfikowanie, czy referencje odnoszą się do tych samych obiektów następuje przy użyciu \emph{theSameInstanceAs}.
+
+\begin{minted}[fontsize=\small]{scala}
+val cat1 = new Cat
+val cat2 = cat1
+val cat3 = new Cat	
+cat1 should be theSameInstanceAs (cat2)
+cat3 should not be theSameInstanceAs (cat1)
+\end{minted}
+
+Instancje \emph{cat1} oraz \emph{cat2} odwołują się do tego samego obiektu i jest to zbadane w pierwszej asercji. Natomiast ponownie dodając słowo \emph{not} uzyskuje się zaprzeczenie.
+
+ScalaTest dostarcza również metody pozwalające łączyć ze sobą asercje w jedną całość. Służą do tego instrukcje \emph{and}, \emph{or}. Dla kontrastu, przykład z weryfikatorami w liście można przedstawić w następujący sposób.
+
+\begin{minted}[fontsize=\small]{scala}
+list.size should (equal(3) or (be < (10) and (be >= 20)))
+\end{minted}
+
+Zyskuje się w ten sposób oszczędność zajętych linii kodu. Należy jednak uważać na składnie. Każda następna asercja musi być zagnieżdzona w kolejną parę nawiasów.
+
+Na zakończenie tej prezentacji weryfikatorów, przykład w jak prosty sposób można przetestować atrybuty obiektów.
+
+\begin{minted}[fontsize=\small]{scala}
+class Dog(val name: String)
+dog should have (
+  'name ("Luna")
+)
+\end{minted}
+
+Słowem kluczowym jest \emph{have}, następnie jako symbole podaje się nazwy atrybutów oraz wartość oczekiwaną.
+
+To jeszcze nie wszystkie weryfikatory, jednak wierzę, że udało mi się przedstawić te najciekawsze i najważniejsze. ScalaTest daje również możliwość użycia \emph{MustMatchers}. W praktyce różnica w użyciu tych weryfikatorów sprowadza się do zamiany słowa \emph{should} na \emph{must}. Jest to zatem poraz kolejny przykład elastyczności jaką daje to narzędzie.
+
+\mint[fontsize=\small]{scala}/list.size must be (3)/ 
+
 \subsection{Specs2}
 
 scalacheck checkscala

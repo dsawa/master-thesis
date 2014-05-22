@@ -5,11 +5,6 @@ class SetSpec extends FreeSpec {
       "should have size 0" in {
         assert(Set.empty.size == 0)
       }
-      "should produce NoSuchElementException when head is invoked" in {
-        intercept[NoSuchElementException] {
-          Set.empty.head
-        }
-      }
     }
   }
 }
