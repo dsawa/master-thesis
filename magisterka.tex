@@ -262,7 +262,7 @@ Powyższy fakt oraz to, że ScalaCheck integruje się z ScalaTest może zagwaran
       
 \chapter{Testowanie kodu napisanego w Scali}      
 
-Projekty powstające niezależnie w jakim języku programowania muszą być przetestowane. Nie inaczej jest, gdy programy napisane są w Scali. Podczas wszystkich lat rozwoju branży IT pojawiło się wiele metodologii, narzędzi oraz rodzajów testów. Wyróżnić można testy akceptacyjne, funkcjonalne, jednostkowe, czy integracji. Z punktu widzenia aplikacji będącej tematem pracy to testy jednostkowe są najważniejszym elementem gwarantującym poprawne działanie.       
+Projekty powstające niezależnie w jakim języku programowania muszą być przetestowane. Nie inaczej jest, gdy programy te napisane są w Scali. Podczas wszystkich lat rozwoju branży IT pojawiło się wiele metodologii, narzędzi oraz rodzajów testów. Wyróżnić można testy akceptacyjne, funkcjonalne, jednostkowe, czy integracji. Z punktu widzenia aplikacji będącej tematem pracy to testy jednostkowe są najważniejszym elementem gwarantującym poprawne działanie.       
       
 \section{Mechanizm testów jednostkowych}
 
@@ -277,10 +277,8 @@ Czym jest test jednostkowy? Andy Hunt i Dave Thomas napisali kiedyś, że ,,test
 \end{itemize}
 
 Testy jednostkowe są esencją systemu weryfikującego kod. To od nich w dużej mierze zależna jest ocena jakości kodu. Muszą one, więc sprawdzać nie tylko poprawność efektów dokonywanych przez funkcje i metody, ale także odporność na błędy.  
-    
-\section{Narzędzia testujące}
 
-Obecnie istnieje wiele narzędzi zajmujących się zagadnieniem testów jednostkowych w omawianym języku. Najbardziej popularne z nich to \emph{ScalaTest}, \emph{JUnit} i \emph{Specs2}.
+Obecnie istnieje wiele narzędzi zajmujących się zagadnieniem testów jednostkowych w Scali. Najbardziej popularne z nich to \emph{ScalaTest}, \emph{JUnit} i \emph{Specs2}.
 
 Pierwszy z nich po krótce przedstawiłem podrozdziale \ref{scalaTestSrodek} w kontekście zastosowania do systemu weryfikującego kod. W tym rozdziale ScalaTest zostanie omówiony bardziej szczegółowo. 
 
@@ -288,7 +286,11 @@ JUnit natomiast to narzędzie znane wszystkim programistom Javy. Kompatybilnoś�
 
 O ostatnim z wymienionych - Specs2 - można myśleć jak o konkurencji ScalaTestu. Narzędzie to może również działać z SBT. Posiada inny zestaw instrukcji dokonujących porównań oraz sposób konstruowania testów. To co szczególnie wyróżnia Specs2 to fakt, że testy są uruchamiane równolegle, każdy w osobnym wątku.
       
-\subsection{ScalaTest}
+\section{ScalaTest}
+
+TODO: Intro
+
+\subsection{Style specyfikacji}
 
 ScalaTest pozwala programiście wybrać jeden z wielu stylów dla swoich specyfikacji. Twórcy zaznaczają jednak, aby podczas rozwijania projektu przez dany zespół nie doszło do sytuacji, w której każdy programista pisałby w inny sposób. Zalecanym jest, aby testy jednostkowe powstawały przy użyciu jednego głównego stylu, a na przykład testy integracji, czy akceptacyjne w innym. Ma to pomóc poszczególnym członkom zespołu ,,przełączać się'' pomiędzy testami niskiego i wysokiego poziomu.
 
@@ -337,9 +339,9 @@ Wskazany dla doświadczonych programistów piszących specyfikacje, ponieważ ni
 %Jest przeznaczony dla testów akceptacyjnych. Szeroki zestaw instrukcji takich jak \emph{info}, \emph{scenario}, \emph{feature} oraz \emph{Given}, \emph{When} \emph{Then} pozwala zrozumieć dany test %nawet osobom nie zajmującym się oprogramowaniem danego projektu. Mogą one w ten sposób określić, czy program wykonuje założone cele i przyspieszyć komunikację między nimi, a programistami.
 %\inputminted[fontsize=\small]{scala}{code/FeatureSpec.scala}
 
-\subsubsection{Weryfikatory}
+\subsection{Weryfikatory}
 
-Bez względu na to jaki wybierzemy styl dla specyfikacji to rezultaty testowanych metod i funkcji muszą być w jakiś sposób sprawdzone. ScalaTest dostarcza specjalny język dziedzinowy dla asercji. Po dodaniu do klasy specyfikacji cechy \emph{Matchers} otrzymujemy weryfikatory. Dzięki nim można przystąpić do tworzenia czytelnych asercji. Przyjrzyjmy się przykładowi poniżej.
+Bez względu na to jaki wybierzemy styl dla specyfikacji to rezultaty testowanych metod i funkcji muszą być w jakiś sposób sprawdzone. ScalaTest dostarcza specjalny język dziedzinowy dla asercji. Po dodaniu do klasy specyfikacji cechy \emph{Matchers} otrzymujemy weryfikatory. Dzięki nim można przystąpić do tworzenia czytelnych asercji. Poniżej przykład.pon
 
 \begin{minted}[fontsize=\small]{scala}
 val list = List(2, 4, 5)
@@ -409,7 +411,7 @@ To jeszcze nie wszystkie weryfikatory, jednak wierzę, że udało mi się przeds
 
 \mint[fontsize=\small]{scala}/list.size must be (3)/ 
 
-\subsubsection{Przechwytywanie wyjątków}
+\subsection{Przechwytywanie wyjątków}
 
 Istnieją dwa sposoby na przetestowanie, czy dany wyjątek został rzucony. Pierwszym z nich jest umieszczenie testowanego fragmentu w blok \emph{intercept}. Jeśli ten fragment kodu nie rzuci spodziewanego wyjątku to test się nie powiedzie.
 
@@ -437,9 +439,9 @@ val exc = the [NoSuchElementException] thrownBy { Set.empty.head }
 exc.getMessage should include ("empty")
 \end{minted}
 
-\subsubsection{JUnit}
+\subsection{JUnit}
 
-\subsection{Specs2}
+\section{Specs2}
 
 scalacheck checkscala
 
