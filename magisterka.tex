@@ -23,6 +23,7 @@
 
 \opiekun  {dr Wiesław Pawłowski}
 
+\usepackage{hyperref}
 \usepackage{minted}
 	\renewcommand\listingscaption{Przykład}
 	
@@ -259,7 +260,11 @@ Biblioteka \emph{QuickCheck} dla języka Haskell, była inspiracją, dzięki kt�
 
 Powyższy fakt oraz to, że ScalaCheck integruje się z ScalaTest może zagwarantować wysoką jakość podczas weryfikacji kodu w rozwiązaniach użytkowników. Użytkownik odpowiedzialny za tworzenie zadań - projektów - poprzez stosowanie reguł ScalaCheck powinien być w stanie wytworzyć kompletny zestaw testów. Dzięki nim system będzie potrafił w sposób dużo bardziej rzetelny wystawić noty za rozwiązanie.
       
-\chapter{Mechanizm testów jednostkowych}
+\chapter{Testowanie kodu napisanego w Scali}      
+
+Projekty powstające niezależnie w jakim języku programowania muszą być przetestowane. Nie inaczej jest, gdy programy napisane są w Scali. Podczas wszystkich lat rozwoju branży IT pojawiło się wiele metodologii, narzędzi oraz rodzajów testów. Wyróżnić można testy akceptacyjne, funkcjonalne, jednostkowe, czy integracji. Z punktu widzenia aplikacji będącej tematem pracy to testy jednostkowe są najważniejszym elementem gwarantującym poprawne działanie.       
+      
+\section{Mechanizm testów jednostkowych}
 
 Czym jest test jednostkowy? Andy Hunt i Dave Thomas napisali kiedyś, że ,,test jednostkowy to kawałek kodu napisanego przez programistę, który sprawdza bardzo małą, specificzną część funkcjonalności testowanego kodu.''\cite[s.3]{Hunt:2003:PUT} Im, większe pokrycie kodu testami, tym większa pewność, że program spełni stawiane przed nim wymagania bez efektów ubocznych. Roy Osherove natomiast określił cechy dobrego testu jednostkowego\cite[s. 6]{Osherove:2009:TAOUT} 
 
@@ -271,9 +276,9 @@ Czym jest test jednostkowy? Andy Hunt i Dave Thomas napisali kiedyś, że ,,test
 \item Uruchamiany ,,wciśnięciem guzika'' 
 \end{itemize}
 
-Testy jednostkowe są esencją w systemie weryfikującym kod. To od nich w dużej mierze zależna jest ocena jakości kodu. Muszą one, więc sprawdzać nie tylko poprawność efektów dokonywanych przez funkcje i metody, ale także odporność na błędy.  
+Testy jednostkowe są esencją systemu weryfikującego kod. To od nich w dużej mierze zależna jest ocena jakości kodu. Muszą one, więc sprawdzać nie tylko poprawność efektów dokonywanych przez funkcje i metody, ale także odporność na błędy.  
     
-\section{Testowanie kodu napisanego w Scali}
+\section{Narzędzia testujące}
 
 Obecnie istnieje wiele narzędzi zajmujących się zagadnieniem testów jednostkowych w omawianym języku. Najbardziej popularne z nich to \emph{ScalaTest}, \emph{JUnit} i \emph{Specs2}.
 
@@ -287,7 +292,9 @@ O ostatnim z wymienionych - Specs2 - można myśleć jak o konkurencji ScalaTest
 
 ScalaTest pozwala programiście wybrać jeden z wielu stylów dla swoich specyfikacji. Twórcy zaznaczają jednak, aby podczas rozwijania projektu przez dany zespół nie doszło do sytuacji, w której każdy programista pisałby w inny sposób. Zalecanym jest, aby testy jednostkowe powstawały przy użyciu jednego głównego stylu, a na przykład testy integracji, czy akceptacyjne w innym. Ma to pomóc poszczególnym członkom zespołu ,,przełączać się'' pomiędzy testami niskiego i wysokiego poziomu.
 
-W podrozdziale \ref{scalaTestSrodek} można było przeczytać jak tą elastyczność ScalaTestu można wykorzystać w systemie sprawdzającym kod Scali. Poszczególne style specyfikacji różnią się jedynie instrukcjami deklarującymi testy. Pozostałe rzeczy takie jak asercje, instrukcje dopasowywania (ang: \emph{matchers}, itp. są wykorzystywane w ten sam sposób.
+W podrozdziale \ref{scalaTestSrodek} można było przeczytać jak tą elastyczność ScalaTestu można wykorzystać w systemie sprawdzającym kod Scali. Poszczególne style specyfikacji różnią się jedynie instrukcjami deklarującymi testy. Pozostałe rzeczy takie jak asercje, instrukcje dopasowywania (ang: \emph{matchers}), itp. są wykorzystywane w ten sam sposób.
+
+Poniżej znajduje się zestawienie kilku wybranych styli oferowanych przez ScalaTest. Przykłady pochodzą z oficjalnej strony projektu\footnote{\url{http://www.scalatest.org/user_guide/selecting_a_style}}.
 
 \subsubsection{FunSuite}
 
@@ -315,27 +322,20 @@ Sposób konstrukcji testów jest bardzo ścisły i przypomina konkurencyjny \emp
 
 \subsubsection{FreeSpec}
 
-Wskazany dla doświadczonych programistów piszących specyfikacje, ponieważ nie istnieją żadne wytyczne, jak powinien powstawać test przy użyciu tego stylu. Testy można w dowolny sposób zagnieżdzać i nazywać.
+Wskazany dla doświadczonych programistów piszących specyfikacje, ponieważ nie istnieją żadne wytyczne jak powinien powstawać test przy użyciu tego stylu. Testy można w dowolny sposób zagnieżdzać i nazywać.
 
 \inputminted[fontsize=\small]{scala}{code/FreeSpec.scala}
 
-\subsubsection{Spec}
-
-Zalecany przez twórców do dużych projektów, gdzie czas budowania i kompilacji może być znaczny. Konstruując test definuje się go jako metodę zawierającą jeden literał funkcyjny.
-
-\inputminted[fontsize=\small]{scala}{code/Spec.scala}
-
-\subsubsection{PropSpec}
-
-Testy w tym stylu skupiają się na własnościach testowanych metod i funkcji. Specyfikacje tworzone przu użyciu PropSpec przypominają na pierwszy rzut oka FunSuite z tą różnicą, że główną instrukcją definiującą test \emph{property}.
-
-\inputminted[fontsize=\small]{scala}{code/PropSpec.scala}
-
-\subsubsection{FeatureSpec}
-
-Jest przeznaczony dla testów akceptacyjnych. Szeroki zestaw instrukcji takich jak \emph{info}, \emph{scenario}, \emph{feature} oraz \emph{Given}, \emph{When} \emph{Then} pozwala zrozumieć dany test nawet osobom nie zajmującym się oprogramowaniem danego projektu. Mogą one w ten sposób określić, czy program wykonuje założone cele i przyspieszyć komunikację między nimi, a programistami.
-
-\inputminted[fontsize=\small]{scala}{code/FeatureSpec.scala}
+% Pominięte style
+%\subsubsection{Spec}
+%Zalecany przez twórców do dużych projektów, gdzie czas budowania i kompilacji może być znaczny. Konstruując test definuje się go jako metodę zawierającą jeden literał funkcyjny.
+%\inputminted[fontsize=\small]{scala}{code/Spec.scala}
+%\subsubsection{PropSpec}
+%Testy w tym stylu skupiają się na własnościach testowanych metod i funkcji. Specyfikacje tworzone przu użyciu PropSpec przypominają na pierwszy rzut oka FunSuite z tą różnicą, że główną instrukcją %definiującą test \emph{property}.
+%\inputminted[fontsize=\small]{scala}{code/PropSpec.scala}
+%\subsubsection{FeatureSpec}
+%Jest przeznaczony dla testów akceptacyjnych. Szeroki zestaw instrukcji takich jak \emph{info}, \emph{scenario}, \emph{feature} oraz \emph{Given}, \emph{When} \emph{Then} pozwala zrozumieć dany test %nawet osobom nie zajmującym się oprogramowaniem danego projektu. Mogą one w ten sposób określić, czy program wykonuje założone cele i przyspieszyć komunikację między nimi, a programistami.
+%\inputminted[fontsize=\small]{scala}{code/FeatureSpec.scala}
 
 \subsection{Specs2}
 
