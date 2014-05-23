@@ -23,6 +23,7 @@
 
 \opiekun  {dr Wiesław Pawłowski}
 
+\usepackage{alltt}
 \usepackage{hyperref}
 \usepackage{minted}
 	\renewcommand\listingscaption{Przykład}
@@ -288,7 +289,9 @@ O ostatnim z wymienionych - Specs2 - można myśleć jak o konkurencji ScalaTest
       
 \section{ScalaTest}
 
-TODO: Intro
+Testy w ScalaTest tworzy się, poprzez napisanie klasy testującej dziedziczącej po jednej z wybranych cech determinujących styl testów. Końcowym efektem są specyfikacje będące ważnym elementem w metodologii \emph{Behavior-driven development} (BDD). Polega ona na definiowaniu testów w sposób opisowy, tak jakby fragmenty testowanego kodu były elementami pewnych historii. Schemat, w który wpisują się wszystkie poprawnie opisane testy wygląda następująco: ,,Posiadając.., jeśli.., wtedy..''\footnote{ang: Given, When, Then}. Słowo ,,test'' natomiast zastąpione zostaje słowem ,,zachowanie'' (ang: behavior). Ideą BDD jest, aby poprzez tak skonstruowane specyfikacje zespół programistów potrafił w pełni zrozumieć potrzeby i intencje klienta. Dostarczone oprogramowanie ma wtedy spełniać wszystkie założenia i wymagać mniej poprawek po wdrożeniu produkcyjnym.
+
+ScalaTest poza stylem specyfikacji daje programiście wybrać, także detale takie jak sposób weryfikacji rezultatów w teście. Istnieją klasyczne asercje poprzedzane instrukcją \emph{assert}, ale także weryfikatory, które zasługują na szczególną uwagę. Są to specjalne asercje pozwalające czytać test, jak zwykłe zdanie. W przypadku nie powodzenia testu, rzucany jest wyjątek \emph{TestFailedException}. ScalaTest przechwytuje je i zaznacza dany test jako nie zaliczony.
 
 \subsection{Style specyfikacji}
 
@@ -407,9 +410,25 @@ dog should have (
 
 Słowem kluczowym jest \emph{have}, następnie jako symbole podaje się nazwy atrybutów oraz wartość oczekiwaną.
 
-To jeszcze nie wszystkie weryfikatory, jednak wierzę, że udało mi się przedstawić te najciekawsze i najważniejsze. ScalaTest daje również możliwość użycia \emph{MustMatchers}. W praktyce różnica w użyciu tych weryfikatorów sprowadza się do zamiany słowa \emph{should} na \emph{must}. Jest to zatem poraz kolejny przykład elastyczności jaką daje to narzędzie.
+To nie wszystkie weryfikatory, chociaż wierzę, że udało mi się przedstawić te najciekawsze i najważniejsze. ScalaTest daje również możliwość użycia \emph{MustMatchers}. W praktyce różnica w użyciu tych weryfikatorów sprowadza się do zamiany słowa \emph{should} na \emph{must}. Jest to zatem poraz kolejny przykład elastyczności jaką daje to narzędzie.
 
 \mint[fontsize=\small]{scala}/list.size must be (3)/ 
+
+\subsection{Cecha GivenWhenThen}
+
+Dodając do klasy zawierającej zestaw testów cechę \emph{GivenWhenThen} otrzymujemy kilka użytecznych metod. Ich jedynym zadaniem jest ułatwienie zrozumienia, jak przebiega dana specyfikacja. Są to metody \emph{Given}, \emph{When}, \emph{Then} oraz \emph{And}. Na przykładzie poniżej znajduje się prosty test sprawdzający dodawanie do bazy danych.
+
+\inputminted[fontsize=\small]{scala}{code/givenWhenThen.scala}
+
+Całość sprowadza się do powstania czytelnej historyjki. ,,Metoda \emph{create} obiektu \emph{Group}, powinna zapisać nową grupę w bazie danych. Kiedy grupa jest dodana do bazy danych, wtedy licznik wzrasta i możemy znaleźć tą grupę w bazie danych''. Po uruchomieniu testu, podobną opis otrzymujemy w raporcie końcowym. 
+
+\begin{alltt}
+[info] Group.create method
+[info] - should save new group in database
+[info]   + When Group is being inserted in database 
+[info]   + Then collection count increases 
+[info]   + And We can find that group in database
+\end{alltt}
 
 \subsection{Przechwytywanie wyjątków}
 
