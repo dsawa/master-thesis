@@ -479,7 +479,7 @@ Klasa \emph{Properties} definuje testy i uruchamia je. Obiekt \emph{Gen} ma za z
 
 ScalaCheck integruje się również z opisywanym w poprzednim rozdziale ScalaTest.
 
-\subsection{Komponent \emph{Properties}}
+\subsection{Klasa \emph{Properties}}
 
 \label{scalaCheck:properties}
 
@@ -518,6 +518,22 @@ Twórcy ScalaCheck zalecają, aby generowanie instancji obiektów specyficznych 
 \inputminted[fontsize=\small]{scala}{code/CatTestArbitrary.scala}
 
 Zmienna \emph{cat} jest typu \emph{Arbitrary[Cat]}, jednak w funkcji znajdującej się w metodzie \emph{forAll} podawany jest typ \emph{Cat}. Niejawna konwersja zadeklarowana przez \emph{implicit} dostarcza bez dodatkowych lini kodu do tej funkcji argument odpowiedniego typu. Zaletą takiego rozwiązania jest bardziej czytelny kod testu, gdzie nie ma potrzeby sprecyzowania jakiego, generatora użyć.
+
+\subsection{Integracja ze ScalaTest}
+
+Testowanie właściwości z użyciem ScalaCheck zapewnia cecha \emph{GeneratorDrivenPropertyChecks} dostarczana przez ScalaTest. Wraz z weryfikatorami narzędzie to staje się bardzo wygodne. Kontynuacja przykładu klasy \emph{Calc} znajdująca się poniżej przedstawia jak wygląda w pełni poprawny zintegrowany test właściwości. 
+
+\inputminted[fontsize=\small]{scala}{code/CalcTestScalaTest.scala}
+
+Na pierwszy rzut oka nie widać większej różnicy pomiędzy tym kodem napisanym w ScalaTest, a standardowym testem ScalaCheck. Po chwili jednak zaobserwować można, że specyfikacje nie są już umieszczone w singletonie, a zwykłej klasie. Dodatkowo teraz weryfikacja dokonuje się przy pomocy instrukcji \emph{should} sprawiając, że test staje się bardziej czytelny. Zaimportowane cechy zdradzają również, że metoda \emph{forAll} nie pochodzi już ze ScalaCheck, a cechy \emph{GeneratorDrivenPropertyChecks}. W powyższym przykładzie tak na prawdę, ze ScalaCheck użyto jedynie cechy \emph{Gen} zajmującej się generowaniem pseudolosowych danych testowych.
+
+Dołączanie własnych generatorów odbywa się tak samo jak w przypadku zwykłych testów ScalaCheck. ScalaTest oddaje jednak do dyspozycji jeszcze jedną możliwość. Do generatorów można dołączyć nazwę, która pojawi się w raporcie po zakończeniu testów.
+
+\begin{minted}[fontsize=\small]{scala}
+forAll((Gen.choose(0, 100), "firstName"), (Gen.choose(0, 100), "secondName"))
+\end{minted}
+
+Oczywiście po zintegrowaniu tych dwóch narzędzi, także do wykorzystania jest klasa \emph{Arbitrary}.
 
 \section{Specs2}
 
