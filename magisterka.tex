@@ -257,6 +257,8 @@ Podobnie sytuacja ma się w stosunku do użytkowników rozwiązujących zadania.
 
 \subsection{ScalaCheck}
 
+\label{scalaCheckSrodek}
+
 Biblioteka \emph{QuickCheck} dla języka Haskell, była inspiracją, dzięki której powstał ScalaCheck. Jego zadaniem jest w pełni zautomatyzować testy w taki sposób, aby nie było potrzeby wprowadzania danych testowych do sprawdzanych metod własnoręcznie. Generuje pseudolosowe dane jako parametry, co pozwala zaoszczędzić czas, który normalnie programista spędza chociażby na wymyślaniu danych testowych. Ponadto sprawia, że kod jest bardziej odporny na błędy ponieważ, zwiększa zakres sprawdzanych wartości, które program może otrzymać w trakcie działania.
 
 Powyższy fakt oraz to, że ScalaCheck integruje się z ScalaTest może zagwarantować wysoką jakość podczas weryfikacji kodu w rozwiązaniach użytkowników. Użytkownik odpowiedzialny za tworzenie zadań - projektów - poprzez stosowanie reguł ScalaCheck powinien być w stanie wytworzyć kompletny zestaw testów. Dzięki nim system będzie potrafił w sposób dużo bardziej rzetelny wystawić noty za rozwiązanie.
@@ -309,7 +311,7 @@ Charakteryzuje się opisowymi nazwami testów i jest najprostszym ze wszystkich 
  
 \subsubsection{FlatSpec}
 
-Jest pierwszym przystankiem dla programistów, którzy zaczynają swoją przygodę z BDD\footnote{ang: Behavior-driven development}. Nazwy testów tworzy się w stylu charakterystycznym dla specyfikacji, tzn. używając słów takich jak \emph{should}, \emph{must}.
+Jest pierwszym przystankiem dla programistów, którzy zaczynają swoją przygodę z BDD. Nazwy testów tworzy się w stylu charakterystycznym dla specyfikacji, tzn. używając słów takich jak \emph{should}, \emph{must}.
 
 \inputminted[fontsize=\small]{scala}{code/FlatSpec.scala}
 
@@ -470,9 +472,56 @@ Ten prosty przykład pokazuje jakie klasy należy zaimportować, aby taka kombin
 
 Jest to także dowód na kompatybilność Scali z klasami Javy i fakt, że dowolna biblioteka stworzona z myślą o Javie, bez przeszkód może być używana w Scalowych programach.
 
+\section{ScalaCheck}
+
+Wspominany już w podrozdziale \ref{scalaCheckSrodek} ScalaCheck zajmuje się automatyzacją testów poprzez generowanie pseudolosowych danych testowych. Składa się z trzech głównych komponentów.
+Klasa \emph{Properties} definuje testy i uruchamia je. Obiekt \emph{Gen} ma za zadanie generować przykładowe dane i konkretyzować jakiego rodzaju mają one być. Na przykład, jeśli do testowanej metody chcemy przekazać tylko liczby naturalne, przy pomocy \emph{Gen} można wykluczyć liczby ujemne. Trzecim komponentem jest klasa \emph{Arbitrary} podejmująca temat specyficznych typów dla programu.
+
+ScalaCheck integruje się również z opisywanym w poprzednim rozdziale ScalaTest.
+
+\subsection{Komponent \emph{Properties}}
+
+\label{scalaCheck:properties}
+
+Aby rozpoczęć pracę ze ScalaCheck należy zaimportować klasę \emph{Properties} i rozszerzyć ją przez singleton zawierający zestaw testów. W Scali stworzenie singletonu odbywa się przy pomocy słowa kluczowego \emph{object}. Najważniejszą i najczęściej używaną metodą jest \emph{forAll} umieszczona w cesze \emph{Prop}.
+
+\inputminted[fontsize=\small]{scala}{code/CalcTestBad.scala}
+
+Rozpatrując powyższy przykład można szyko zauważyć, że test nie zakończy się sukcesem. Testowi poddana zostaje właściwość klasy \emph{Calc} wyrażona w postaci metody \emph{add} dodającej liczby całkowite. Oczekuje się, że wartość zwrócona przez tą metodę będzie większa lub równa jej dwóm argumentom. Instrukcja \emph{property} jako argument bierze ciąg znaków będący opisem sprawdzanej właściwości. Powyższy test zakończy się porażką, ponieważ w bloku metody \emph{forAll} ScalaCheck domyślnie wygeneruje w pewnym momencie takie argumenty, w których co najmniej jeden z nich będzie liczbą ujemną. W raporcie końcowym można będzie przeczytać o niepowodzeniu oraz dla jakich argumentów ono zaszło.
+
+Zakładając, że argumenty metody \emph{add} w założeniach projektowych są zawsze liczbami naturalnymi, test ten da się poprawić przy użyciu cechy Gen.
+
+\subsection{Cecha Gen} 
+
+Cecha ta posiada metody, dzięki którym możliwe jest skonkretyzowanie zakresu lub rodzaju danych testowych. Przykładowo testując metodę z parametrami typu \emph{String} domyślny generator dostarczy ciągi znaków oparte na różnych kodowaniach. Odpowiednie użycie \emph{Gen} zagwarantuje, więc testowe zmienne składające się ze znaków zwykłego alfabetu lub w przypadku liczb wartości z sugerowanego zakresu. Poniżej znajduje się poprawiony przykład testu przedstawionego w poprzednim podrozdziale \ref{scalaCheck:properties}.
+
+\inputminted[fontsize=\small]{scala}{code/CalcTestOk.scala}
+
+Zmienił się sposób wywołania metody \emph{forAll} poprzez wprowadzenie generatorów dla dwóch zmiennych. Gwarantują one, że argumenty, które trafią do metody \emph{add} będą zawsze pseudolosowymi liczbami naturalnymi z zakresu od 0 do 1000. ScalaCheck przetestuję daną właściwość dla 100 różnych danych testowych. 
+
+W sytuacji, gdy oczekiwane parametry są typu innego niż podstawowego konieczne jest zdefiniowanie własnego generatora. Zazwyczaj tworzy się je przy pomocy pętli. Poniżej przykład generatora zajmującego się tworzeniem map, gdzie pod kluczem będącym ciągiem znaków, kryje się wartość logiczna \emph{true} lub \emph{false}.
+
+\begin{minted}[fontsize=\small]{scala}
+val generator = for {
+  a <- Gen.alphaStr  
+  b <- Gen.oneOf(true, false)
+} yield Map(a -> b)
+forAll(generator) { ... }
+\end{minted}
+
+Pętla \emph{for} tworzy zmienną a oraz b. Na końcu każdej iteracji te dwie zmienne zostają ustawione w pożądany sposób w \emph{Map} i umieszczone w cesze \emph{Gen}. W podobny sposób można również wygenerować instancje innych obiektów. Zakładając
+
+\subsection{Klasa \emph{Arbitrary}}
+
+Twórcy ScalaCheck zalecają, aby generowanie instancji obiektów specyficznych dla aplikacji odbywało się z użyciem klasy \emph{Arbitrary}. Używa ona niejawnych konwersji Scali oznaczanych przez \emph{implicit}. Konstruując obiekty w ten sposób, ponownie należy skorzystać z pętli \emph{for}. Dodatkowo własne zdefiniowane generatory dla specjalnych typów, można trzymać w osobnym obiekcie. Następnie wystarczy je tylko zaimportować do pliku z testami.
+
+\inputminted[fontsize=\small]{scala}{code/CatTestArbitrary.scala}
+
+Zmienna \emph{cat} jest typu \emph{Arbitrary[Cat]}, jednak w funkcji znajdującej się w metodzie \emph{forAll} podawany jest typ \emph{Cat}. Niejawna konwersja zadeklarowana przez \emph{implicit} dostarcza bez dodatkowych lini kodu do tej funkcji argument odpowiedniego typu. Zaletą takiego rozwiązania jest bardziej czytelny kod testu, gdzie nie ma potrzeby sprecyzowania jakiego, generatora użyć.
+
 \section{Specs2}
 
-scalacheck checkscala
+Czy warto to opisywać?
 
 \chapter{System weryfikacji jakości kodu Scala}
 
