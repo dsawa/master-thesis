@@ -1,7 +1,8 @@
 describe("Group.create method") {
     it("should save new group in database") {
+      Given("new group instance")
       val newTestGroup = Group(new ObjectId, "New test group")
-      When("Group is being inserted in database")
+      When("group is being inserted in database")
       Group.create(newTestGroup)
       Then("collection count increases")
       collection.count() should equal(beforeCount + 1)

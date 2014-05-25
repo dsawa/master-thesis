@@ -62,7 +62,7 @@ Przy wielu zaletach jakie ze sobą niesie możliwość programowania w Scali, ud
 
 Zaprojektowany i opisywany tu system powstał na bazie nowoczesnych technologii oraz najważniejszych narzędzi do testów jednostkowych. Podstawą systemu jest Play Framework. Pozwala on na szybkie napisanie aplikacji internetowej zarówno w Scali jak i w Javie. Społeczność powstała wokół tych dwóch języków doprowadziła do powstania ogromnej liczby bibliotek. Z powodzeniem mogą być one używane w aplikacji utworzonej przy użyciu Play Framework. 
 
-Pośród bibliotek związanych z testowaniem kodu na szczególną uwagę zasługuje Scalatest oraz Scalacheck. Pierwsza z nich to biblioteka do przeprowadzania testów jednostkowych. Umożliwia ona między innymi pisanie testów w wielu różnych stylach. Decyzja o tym jak ostatecznie wyglądać będzie test zależy od preferencji użytkownika. Scalacheck jest zaś instrumentem służącym do testowania funkcji, metod poprzez automatyczne wprowadzanie różnych argumentów. 
+Pośród bibliotek związanych z testowaniem kodu na szczególną uwagę zasługuje ScalaTest oraz ScalaCheck. Pierwsza z nich to biblioteka do przeprowadzania testów jednostkowych. Umożliwia ona między innymi pisanie testów w wielu różnych stylach. Decyzja o tym jak ostatecznie wyglądać będzie test zależy od preferencji użytkownika. Scalacheck jest zaś instrumentem służącym do testowania funkcji, metod poprzez automatyczne wprowadzanie różnych argumentów. 
 
 Projektując system do weryfikacji kodu Scala zdecydowałem się skorzystać z nierelacyjnej bazy danych z wbudowanym mechanizmem do przechowywania plików - MongoDB. Interfejs użytkownika powstał zaś przy pomocy AngularJS, który w przyjemny dla programisty sposób  potrafi dynamicznie zmieniać zawartość strony HTML warunkując ją od akcji użytkownika mających wpływ na stan modeli aplikacji.
 
@@ -89,11 +89,13 @@ Jednak jak pokazuje przykład Ruby'ego i JavaScriptu, jednym z elementów wpływ
 
 Pomysłodawcą i głównym twórcą Scali jest niemiecki profesor Martin Odersky. Nazwa języka ma na celu sugerować, że jest on skalowalny\footnote{ang: Scalable language}. Scala rośnie wraz z potrzebami jej użytkowników. Cały czas powstają kolejne narzędzia i biblioteki mające uprościć pracę z nią, czy też dodać do niej coś nowego. 
 
+Jedną z ciekawostek wprawdzonych przez Scalę jest interpreter o nazwie REPL\footnote{ang: Read-Evaluate-Print Loop}. Interaktywny interpreter dla języka statycznie typowanego to przecież połączenie dwóch odrębnych światów. REPL potrafi między innymi podpowiedzieć ścieżki do paczek i klas, czy możliwe do wywołania metody na danych bytach po wciśnięciu klawisza tabulacji. Jest do doskonałe narzędzie do sprawdzania małych fragmentów kodu.
+
 Scala łączy ze sobą paradygmat programowania obiektowego oraz funkcyjnego. Umożliwia wykorzystanie najlepszych cech tych dwóch podejść w projektowaniu nowych systemów. Sprawdzi się zatem doskonale zarówno podczas pisania małych jak i dużych projektów.
 
-W przypadku tych pierwszych, programowanie funkcyjne w większości jest dobrym wyborem gdyż posiadany jest stały zbiór rzeczy. Wraz z ewolucją kodu, dodawane są głównie nowe operacje na istniejących rzeczach. Dokonuje się tego poprzez dodawanie nowych funkcji, które wykonują obliczenia opierając się na istniejących typach danych. 
+W przypadku tych pierwszych, programowanie funkcyjne w większości jest dobrym wyborem gdyż posiadany jest stały zbiór rzeczy. Wraz z ewolucją kodu, dodawane są głównie nowe operacje na istniejących bytach. Dokonuje się tego poprzez dodawanie nowych funkcji, które wykonują obliczenia opierając się na istniejących typach danych. 
 
-Przeciwieństwem jest programowanie obiektowe, które jest dobrym wyborem kiedy dysponujemy stałym zestawem operacji na rzeczach, a w czasie ewolucji kodu dodawane są nowe rzeczy jak klasy. Gdy istnieje, więc potrzeba zaimplementowania dużego systemu, który będzie wymagać rozwijania i dostosowywania do nowych potrzeb, paradygmat programowania obiektowego sprawdzi się lepiej.
+Przeciwieństwem jest programowanie obiektowe, które jest dobrym wyborem kiedy dysponujemy stałym zestawem operacji na rzeczach, a w czasie ewolucji kodu dodawane są nowe byty jak klasy. Gdy istnieje, więc potrzeba zaimplementowania dużego systemu, który będzie wymagać rozwijania i dostosowywania do nowych potrzeb, paradygmat programowania obiektowego sprawdzi się lepiej.
 
 \subsection{Aspekt obiektowy}
 
@@ -124,6 +126,48 @@ res1: Int = 11
 \end{minted}
 
 Liczba 5 została tutaj najpierw zwiększona o 1, w następnym kroku pomnożona przez 2, by wynik tego działania pomniejszyć o 1. Metoda \emph{get} zwraca w tym przypadku 11, wykonując działania w odwrotnej kolejności niż przedtem.
+
+Warto wspomnieć również o klasach poprzedzonych modyfikatorem \emph{case}. Kompilator Scali dodaje kilka udogodnień dla takich bytów. 
+
+Pierwszym z nich jest dodanie metody fabrycznej o nazwie takiej jak klasa. Oznacza to, że tworząc nowy obiekt takiego typu nie jest obowiązkowym podawanie instrukcji \emph{new}. 
+
+\begin{minted}[fontsize=\small]{scala}
+scala> case class MyNumber(number: Int)
+defined class MyNumber
+
+scala> val mn = MyNumber(5)
+mn: MyNumber = MyNumber(5)
+\end{minted}
+
+Drugim ułatwieniem jest fakt, że wszystkie argumenty automatycznie stają się polami danej klasy. Dla porównania, w klasach bez modyfikatora \emph{case} nie można się odwołać do nich z zewnątrz, a żeby parametr był rozpatrywany jako pole wymaganym jest podanie prefiksu \emph{val}.
+
+\begin{minted}[fontsize=\small]{scala}
+scala> class Cat(name: String)
+defined class Cat
+
+scala> case class Dog(name: String)
+defined class Dog
+
+scala> new Cat("Nazir").name
+<console>:9: error: value name is not a member of Cat
+              new Cat("Nazir").name
+scala> Dog("Luna").name
+res7: String = Luna           
+\end{minted}
+
+Trzecim udogodnieniem są implementacje metod \emph{toString} oraz \emph{equals}. Pierwsza z nich zwróci ciąg znaków w postaci nazwy klasy wraz z aktualnymi wartościami pól. Druga potrafi porównać całe drzewo klas i w sposób rekursywny wszystkie argumenty obiektów. Ponieważ w Scali operator \emph{==} zawsze odwołuje się do metody \emph{equals} to tego typu klasy automatycznie porównywane są w sposób strukturalny.    
+
+Kompilator komponentom z modyfikatorem \emph{case} dodaje jeszcze jedną wygodną metodę - \emph{copy}. Zwraca ona kopię obiektu w postaci nowej instancji klasy, gdzie różne są wartości niektórych pól. Korzysta ona z parametrów opisanych nazwami. Gdy nie zostaje podana nazwa danego pola to zwracana jest stara, nie zmodyfikowana wartość. 
+
+\begin{minted}[fontsize=\small]{scala}
+scala> val d = Dog("Luna")
+d: Dog = Dog(Luna)
+
+scala> d.copy(name = "Azor")
+res1: Dog = Dog(Azor)
+\end{minted}
+
+Jedynym kosztem użycia modyfikatora \emph{case} przed definicją klasy jest fakt, że obiekt staną się nieco większe. Dzieje się tak z powodu dodatkowych metod. Największą zaletą jednak jest możliwość użycia takich klas w mechanizmie dopasowywania wzorca opisanego w późniejszej części tego rozdziału.
 
 \subsection{Aspekt funkcyjny}
 
@@ -208,9 +252,9 @@ Gdyby nie określono tutaj typu wynikowego funkcji, to kompilator nie wiedziałb
 Mechanizm ten pozwala w czytelny dla człowieka sposób określić jakie powinny być następne instrukcje programu w zależności od zmiennej. Dopasowywać można nie tylko do konkretnej wartości, ale przede wszystkim typu. Ma to znaczenie w przypadku, gdy porównujemy ze sobą na przykład typy dziedziczące po wspólnej klasie w hierarchii.
 
 \begin{minted}[fontsize=\small]{scala}
-class Animal
-class Cat extends Animal
-class Dog extends Animal
+case class Animal
+case class Cat extends Animal
+case class Dog extends Animal
 
 def say(a: Animal) = a match {
  case a: Cat => println("Miau!")
@@ -429,6 +473,7 @@ Całość sprowadza się do powstania czytelnej historyjki. ,,Metoda \emph{creat
 \begin{alltt}
 [info] Group.create method
 [info] - should save new group in database
+[info]   + Given new group instance
 [info]   + When Group is being inserted in database 
 [info]   + Then collection count increases 
 [info]   + And We can find that group in database
@@ -535,9 +580,9 @@ forAll((Gen.choose(0, 100), "firstName"), (Gen.choose(0, 100), "secondName"))
 
 Oczywiście po zintegrowaniu tych dwóch narzędzi, także do wykorzystania jest klasa \emph{Arbitrary}.
 
-\section{Specs2}
+%\section{Specs2}
 
-Czy warto to opisywać?
+%Czy warto to opisywać?
 
 \chapter{System weryfikacji jakości kodu Scala}
 
