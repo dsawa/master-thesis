@@ -596,11 +596,31 @@ forAll((Gen.choose(0, 100), "firstName"), (Gen.choose(0, 100), "secondName"))
 
 Oczywiście po zintegrowaniu tych dwóch narzędzi, także do wykorzystania jest klasa \emph{Arbitrary}.
 
-%\section{Specs2}
-
-%Czy warto to opisywać?
-
 \chapter{System weryfikacji jakości kodu Scala}
+
+Jak już to zostało wspomniane w poprzednich rozdziałach celem systemu jest sprawdzenie rozwiązań pewnych zagadnień programistycznych nadesłanych przez użytkowników. Dzieje się to poprzez uruchomienie na nich serii testów jednostkowych. Użytkownicy są przydzieleni do różnych grup, a w każdej z tych grup znajdują się inne zadania do wykonania. Są one skolei przygotowywane przez jeszcze innego użytkownika. Ze względu na tą specyfikę wyróżnić można już dwie role -- prowadzącego grupę oraz uczestnika. Oczywiście istnieje również administrator, którego głównym obowiązkiem jest zarządzanie osobami korzystającymi z systemu.
+
+Narzędzie to zostało zaprojektowany w taki sposób, aby manipulowanie rolami użytkowników było jak najbardziej elastyczne. To znaczy, że chociaż początkowo dana osoba figuruje w systemie jako prowadząca, to może zostać przypisana do innej grupy jako jej uczestnik. Możliwa jest również sytuacja odwrotna, gdzie uczestnik może stać się jednym z prowadzących grupę. Nadal jednak z punktu widzenia interfejsu użytkownika oraz możliwych akcji do wykonania role te będą się nieznacznie różnić.
+ 
+System dostosowany jest do pracy w architekturze rozproszonej. Proces weryfikacji rozwiązania składa się z wielu elementów komunikujących się ze sobą zarówno bezpośrednio poprzez sieć jak i mechanizm kolejkowania wiadomości. Dzięki lekkim komponentom pracującym równolegle tj. \emph{aktorom} testowanych może być kilka rozwiązań jednocześnie. Wszystko to wpływa to pozytywnie na wydajność i czas oczekiwania na ocenę w przypadku, gdy rozwiązania napływają do aplikacji jedno po drugim. Całość została napisana oczywiście w Scali. 
+ 
+Interfejs użytkownika dostarcza pozytywnych wrażeń. Dynamicznie zmieniają się kolejne elementy strony internetowej. Wykorzystana została również technologia dwukierunkowej komunikacji pomiędzy klientem, a serwerem -- \emph{WebSockets}. 
+
+\section{Użytkownicy}
+
+Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker
+
+\begin{table}[!htb]
+\begin{tabular}{|l|l|l|l|} \hline
+Rola systemowa & Uprawnienia systemowe \\ \hline
+Administrator & x \\ \hline
+Prowadzący & y \\ \hline
+Uczestnik & z \\ \hline
+\end{tabular}
+\label{uprawnienia:uzytkownikow}
+\caption{Uprawnienia systemowe użytkowników}
+\source{Opracowanie własne}
+\end{table}
 
 \section{Struktura ogólna}
 
@@ -610,10 +630,8 @@ lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ip
 \centering 
 \includegraphics[width=1.05\hsize]{fig/scaxerciser_schemat}
 \caption{Schemat komunikacji pomiędzy różnymi elementami systemu}
-\source{Własne}
+\source{Opracowanie własne}
 \end{figure}
-
-\section{Scenariusze użycia}
 
 \section{Użyte technologie}
 
