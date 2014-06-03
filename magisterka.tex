@@ -23,6 +23,8 @@
 
 \opiekun  {dr Wiesław Pawłowski}
 
+\usepackage{multirow}
+\usepackage{graphicx}
 \usepackage{float}
 \usepackage{alltt}
 \usepackage{hyperref}
@@ -610,16 +612,38 @@ Interfejs użytkownika dostarcza pozytywnych wrażeń. Dynamicznie zmieniają si
 
 Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker
 
-\begin{table}[!htb]
-\begin{tabular}{|l|l|l|l|} \hline
-Rola systemowa & Uprawnienia systemowe \\ \hline
-Administrator & x \\ \hline
-Prowadzący & y \\ \hline
-Uczestnik & z \\ \hline
+\begin{table}[!tbh]\footnotesize
+\begin{tabular}{|l|l|l|l|}
+\hline
+Rola System & Uprawnienia System & Rola Grupa & Uprawnienia Grupa \\ 
+\hline
+\multirow{4}{*}{Administrator} & Dodawanie użytkowników & & \\
+								& Edycja użytkowników & & \\
+								& Usuwanie użytkowników & & \\  								
+								& Zmiana uprawnień & & \\ 
+\hline								 
+\multirow{11}{*}{Prowadzący} & Tworzenie grup & \multirow{2}{*}{Administrator} & Edycja grupy \\
+							& Edycja grup 	  & 									& Usuwanie grupy \\ \cline{3-4}
+							& Zmiana haseł i loginów & \multirow{6}{*}{Prowadzący}	 & Przydział uczestników i prowadzących \\
+							& Lista użytkowników z grup & 							& Tworzenie, edytowanie zadań \\ 
+							& Lista grup				&							& Usuwanie, aktywowanie zadań \\
+							& Lista swoich wyników		& 							& Podgląd statystyki grupy \\
+							& Lista wyników uczestnika &							& Podgląd rozwiązania \\
+						   &							&							& Pobranie rozwiązania \\ \cline{3-4} 
+						   &							& \multirow{3}{*}{Uczestnik} & Lista przesłanych rozwiązań \\
+						   &						 	&							& Podgląd swoich ocen i zadań \\
+						   &							&							& Szczegóły własnego rozwiązania \\ 
+\hline
+\multirow{8}{*}{Uczestnik} & Lista grup				& \multirow{5}{*}{Prowadzący} & Przydział uczestników i prowadzących \\
+							& Lista zadań				&							& Tworzenie, edytowanie zadań \\
+							&							&							& Usuwanie, edytowanie zadań \\
+							&							&							& Podgląd statystyki grupy \\
+							&							&							& Podgląd wyników uczestników \\ \cline{3-4}
+							&							& \multirow{3}{*}{Uczestnik} & Lista przesłanych rozwiązań \\
+							&							&							& Lista i podgląd zadań \\
+							&							&							& Odczytanie swoich wyników \\
+\hline	
 \end{tabular}
-\label{uprawnienia:uzytkownikow}
-\caption{Uprawnienia systemowe użytkowników}
-\source{Opracowanie własne}
 \end{table}
 
 \section{Struktura ogólna}
