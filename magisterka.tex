@@ -479,7 +479,7 @@ To nie wszystkie weryfikatory, chociaż wierzę, że udało mi się przedstawić
 
 \mint[fontsize=\small]{scala}/list.size must be (3)/ 
 
-\subsection{Cecha GivenWhenThen}
+\subsection{Cecha \texttt{GivenWhenThen}}
 
 Dodając do klasy zawierającej zestaw testów cechę \emph{GivenWhenThen} otrzymujemy kilka użytecznych metod. Ich jedynym zadaniem jest ułatwienie zrozumienia, jak przebiega dana specyfikacja. Są to metody \emph{Given}, \emph{When}, \emph{Then} oraz \emph{And}. Na przykładzie poniżej znajduje się prosty test sprawdzający dodawanie do bazy danych.
 
@@ -541,7 +541,7 @@ Klasa \emph{Properties} definuje testy i uruchamia je. Obiekt \emph{Gen} ma za z
 
 ScalaCheck integruje się również z opisywanym w poprzednim rozdziale ScalaTest.
 
-\subsection{Klasa \emph{Properties}}
+\subsection{Klasa \texttt{Properties}}
 
 \label{scalaCheck:properties}
 
@@ -553,7 +553,7 @@ Rozpatrując powyższy przykład można szyko zauważyć, że test nie zakończy
 
 Zakładając, że argumenty metody \emph{add} w założeniach projektowych są zawsze liczbami naturalnymi, test ten da się poprawić przy użyciu cechy Gen.
 
-\subsection{Cecha Gen} 
+\subsection{Cecha \texttt{Gen}} 
 
 Cecha ta posiada metody, dzięki którym możliwe jest skonkretyzowanie zakresu lub rodzaju danych testowych. Przykładowo testując metodę z parametrami typu \emph{String} domyślny generator dostarczy ciągi znaków oparte na różnych kodowaniach. Odpowiednie użycie \emph{Gen} zagwarantuje, więc testowe zmienne składające się ze znaków zwykłego alfabetu lub w przypadku liczb wartości z sugerowanego zakresu. Poniżej znajduje się poprawiony przykład testu przedstawionego w poprzednim podrozdziale \ref{scalaCheck:properties}.
 
@@ -573,7 +573,7 @@ forAll(generator) { ... }
 
 Pętla \emph{for} tworzy zmienną a oraz b. Na końcu każdej iteracji te dwie zmienne zostają ustawione w pożądany sposób w \emph{Map} i umieszczone w cesze \emph{Gen}. W podobny sposób można również wygenerować instancje innych obiektów. 
 
-\subsection{Klasa \emph{Arbitrary}}
+\subsection{Klasa \texttt{Arbitrary}}
 
 Twórcy ScalaCheck zalecają, aby generowanie instancji obiektów specyficznych dla aplikacji odbywało się z użyciem klasy \emph{Arbitrary}. Używa ona niejawnych konwersji Scali oznaczanych przez \emph{implicit}. Konstruując obiekty w ten sposób, ponownie należy skorzystać z pętli \emph{for}. Dodatkowo własne zdefiniowane generatory dla specjalnych typów, można trzymać w osobnym obiekcie. Następnie wystarczy je tylko zaimportować do pliku z testami.
 
