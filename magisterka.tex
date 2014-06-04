@@ -599,9 +599,9 @@ Oczywiście po zintegrowaniu tych dwóch narzędzi, także do wykorzystania jest
 
 \chapter{System weryfikacji jakości kodu Scala}
 
-Jak już to zostało wspomniane w poprzednich rozdziałach celem systemu jest sprawdzenie rozwiązań pewnych zagadnień programistycznych nadesłanych przez użytkowników. Dzieje się to poprzez uruchomienie na nich serii testów jednostkowych. Użytkownicy są przydzieleni do różnych grup, a w każdej z tych grup znajdują się inne zadania do wykonania. Są one skolei przygotowywane przez jeszcze innego użytkownika. Ze względu na tą specyfikę wyróżnić można już dwie role -- prowadzącego grupę oraz uczestnika. Oczywiście istnieje również administrator, którego głównym obowiązkiem jest zarządzanie osobami korzystającymi z systemu.
+Jak już to zostało wspomniane w poprzednich rozdziałach celem systemu jest sprawdzenie rozwiązań pewnych zagadnień programistycznych nadesłanych przez użytkowników. Dzieje się to poprzez uruchomienie na nich serii testów jednostkowych. Użytkownicy są przydzieleni do różnych grup, a w każdej z tych grup znajdują się inne zadania do wykonania. Są one skolei przygotowywane przez jeszcze innego użytkownika. Ze względu na tą specyfikę wyróżnić można już dwie role -- prowadzącego grupę oraz jej uczestnika. Oczywiście istnieje również administrator, którego głównym obowiązkiem jest zarządzanie osobami korzystającymi z systemu.
 
-Narzędzie to zostało zaprojektowany w taki sposób, aby manipulowanie rolami użytkowników było jak najbardziej elastyczne. To znaczy, że chociaż początkowo dana osoba figuruje w systemie jako prowadząca, to może zostać przypisana do innej grupy jako jej uczestnik. Możliwa jest również sytuacja odwrotna, gdzie uczestnik może stać się jednym z prowadzących grupę. Nadal jednak czynnik będący rolą systemową sprawi ,że elementy wyświetlane przez interfejs użytkownika oraz możliwe akcje do wykonania będą się nieznacznie różnić.
+Narzędzie to zostało zaprojektowany w taki sposób, aby manipulowanie rolami użytkowników było jak najbardziej elastyczne. To znaczy, że chociaż początkowo dana osoba figuruje w systemie jako prowadząca, to może zostać przypisana do innej grupy jako jej uczestnik. Możliwa jest również sytuacja odwrotna, gdzie uczestnik może stać się jednym z prowadzących grupę. Nadal jednak czynnik będący rolą systemową sprawi, że elementy wyświetlane przez interfejs użytkownika oraz możliwe akcje do wykonania będą się nieznacznie różnić.
 
 System dostosowany jest do pracy w architekturze rozproszonej. Proces weryfikacji rozwiązania składa się z wielu elementów komunikujących się ze sobą zarówno bezpośrednio poprzez sieć jak i mechanizm kolejkowania wiadomości. Dzięki lekkim komponentom pracującym równolegle tj. \emph{aktorom} testowanych może być kilka rozwiązań jednocześnie. Wszystko to wpływa pozytywnie na wydajność i czas oczekiwania na ocenę w przypadku, gdy rozwiązania napływają do aplikacji jedno po drugim. Całość została napisana oczywiście w Scali. 
  
@@ -617,7 +617,7 @@ Po pierwszym uruchomieniu aplikacji internetowej zajmującej się zarządzaniem 
 
 \subsection{Prowadzący}
 
-Gdy już zostanie utworzonych kilku użytkowników, a wśród nich ci z uprawnieniami prowadzących to można przystąpić do części właściwej aplikacji. Po zalogowaniu osoby z nadanymi prawami prowadzącego wyświetlony zostaje widok listy grup powiązanych z tym użytkownikiem. Są to grupy, do których został on przydzielony jako jeden z prowadzących, grupy utworzone przez tego użytkownika oraz te do których został przypisany jako uczestnik. 
+Gdy już zostanie utworzonych kilku użytkowników, a wśród nich ci z uprawnieniami prowadzących to można przystąpić do części właściwej aplikacji. Po zalogowaniu osoby z nadanymi prawami prowadzącego wyświetlony zostaje widok listy grup powiązanych z tym użytkownikiem. Są to grupy do których został on przydzielony jako jeden z prowadzących, grupy utworzone przez tego użytkownika oraz te do których został przypisany jako uczestnik. 
 
 O grupach można myśleć jak o kursach składających się z zestawu zadań. Prowadzący tworzy grupę nadając jej nazwę. Otrzymuje tym samym uprawnienia założyciela w niej. Pozwala mu to zmienić nazwę grupy oraz zdecydować o jej usunięciu. Grupa może składać się z wielu prowadzących i oczywiście z wielu uczestników, do których jest skierowana. Są oni dodawani przez założyciela lub innego prowadzącego grupy.
 
@@ -633,7 +633,7 @@ Proces tworzenia zadania przez prowadzącego grupę składa się z trzech etapó
 
 Pierwszy etap jest jednocześnie najważniejszym. Formularz dodawania nowego zadania pozwala pobrać przygotowany szablon projektu SBT. Dostosowany przez prowadzącego projekt jest w istocie zadaniem, które będzie udostępnione dla uczestników grupy. Nowe zagadnienie może być przykładowo zestawem klas, w których część metod nie jest zaimplementowana. Ich uzupełnienie będzie obowiązkiem uczestników. Przygotowując w ten sposób zadanie prowadzący zobligowany jest do napisania testów dla tych metod. Im bardziej szczegółowe są testy tym bardziej dokładna będzie weryfikacja kodu z rozwiązaniami przesyłanymi przez pozostałych użytkowników. Polecenie \texttt{test:packageSrc} dostarczane przez SBT pozwala wyodrębnić pliki z testami. Tworzy ono gotowy do wgrania w trzecim etapie plik \emph{.jar} zawierający pliki źródłowe ze specyfikacjami. 
 
-Posiadając przemyślane zadanie w postaci gotowego projektu SBT prowadzący musi podać najpierw podstawowe informacje o nim przed dodaniem do systemu. Są to tytuł mówiący o temacie nad którym skupia się dane zagadnienie, wprowadzenie do zadania oraz opis poszczególnych ćwiczeń. Po zapisaniu w bazie danych wyświetlony zostaje identyfikator zadania. Musi on się znaleźć w pliku konfiguracyjnym projektu SBT. Na jego podstawie rozwiązanie wysyłane przez uczestnika zostanie poprawnie dopasowane do zagadnienia bez potrzeby jego ingerencji. To pole konfiguracyjne znajduje się w pliku \emph{build.sbt} i znajduje się na jego początku w postaci przedstawionej poniżej.
+Posiadając przemyślane zadanie w postaci gotowego projektu SBT prowadzący musi podać najpierw podstawowe informacje o nim przed dodaniem do systemu. Są to tytuł mówiący o temacie na którym skupia się dane zagadnienie, wprowadzenie do zadania oraz opis poszczególnych ćwiczeń. Po zapisaniu w bazie danych wyświetlony zostaje identyfikator zadania. Musi on się znaleźć w pliku konfiguracyjnym projektu SBT. Na jego podstawie rozwiązanie wysyłane przez uczestnika zostanie poprawnie dopasowane do zagadnienia bez potrzeby jego ingerencji. To pole konfiguracyjne znajduje się w pliku \emph{build.sbt} i znajduje się na jego początku w postaci przedstawionej poniżej.
 
 \begin{alltt}
 assignmentId := "identyfikatorZadaniaWSystemie"
@@ -641,9 +641,9 @@ assignmentId := "identyfikatorZadaniaWSystemie"
 
 Projekt-zadanie jest w tym momencie gotowe do kompresji do na przykład pliku \emph{.zip}. Ważne jest, aby nie dodawać do utworzonego archiwum plików z testami, aby nie ułatwiać uczestnikom zadania. 
 
-Prowadzący grupę dysponując plikami archiwum z projektem i testami może je nareszcie wgrać do systemu przez aplikację internetową na stronie, na której uprzednio wypełniał formularz dodawania zadania. Tuż po zapisaniu do bazy oprócz wyświetlenia identyfikatora zadania pojawia się, bowiem dalsza część formularza zawierająca odpowiednie pola do wgrania omawianych plików.
+Prowadzący grupę dysponując plikami archiwów z projektem i testami może je nareszcie wgrać do systemu przez aplikację internetową na stronie, na której uprzednio wypełniał formularz dodawania zadania. Tuż po zapisaniu do bazy oprócz wyświetlenia identyfikatora zadania pojawia się, bowiem dalsza część formularza zawierająca odpowiednie pola do przesłania omawianych plików.
 
-
+Gdy utworzone zadanie zostanie już powiązane z wymaganymi plikami to nie jeszcze widoczne dla uczestników grupy. Domyślnie oznaczone będzie ono jako nieaktywne. Ostatnim krokiem do podjęcia przez prowadzącego będzie zatem upewnienie się, że zadanie zostało skonstruowane poprawnie i aktywowanie go w odpowiedniej chwili.
 
 \begin{table}[!tbh]\footnotesize
 \begin{tabular}{|l|l|l|l|}
