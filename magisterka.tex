@@ -66,9 +66,9 @@ Zaprojektowany i opisywany tu system powstał na bazie nowoczesnych technologii 
 
 Pośród bibliotek związanych z testowaniem kodu na szczególną uwagę zasługuje ScalaTest oraz ScalaCheck. Pierwsza z nich to biblioteka do przeprowadzania testów jednostkowych. Umożliwia ona między innymi pisanie testów w wielu różnych stylach. Decyzja o tym jak ostatecznie wyglądać będzie test zależy od preferencji użytkownika. Scalacheck jest zaś instrumentem służącym do testowania funkcji, metod poprzez automatyczne wprowadzanie różnych argumentów. 
 
-Projektując system do weryfikacji kodu Scala zdecydowałem się skorzystać z nierelacyjnej bazy danych z wbudowanym mechanizmem do przechowywania plików - MongoDB. Interfejs użytkownika powstał zaś przy pomocy AngularJS, który w przyjemny dla programisty sposób  potrafi dynamicznie zmieniać zawartość strony HTML warunkując ją od akcji użytkownika mających wpływ na stan modeli aplikacji.
+Projektując system do weryfikacji kodu Scala zdecydowałem się skorzystać z nierelacyjnej bazy danych z wbudowanym mechanizmem do przechowywania plików -- MongoDB. Interfejs użytkownika powstał zaś przy pomocy AngularJS, który w przyjemny dla programisty sposób  potrafi dynamicznie zmieniać zawartość strony HTML warunkując ją od akcji użytkownika mających wpływ na stan modeli aplikacji.
 
-\medskip Na początku swojej pracy postaram się szerzej przedstawić ideę będącą iskrą do stworzenia tego systemu. Pokażę, że dla innych języków programowania już funkcjonują pewne mechanizmy edukacyjne. Kolejnym krokiem będzie prezentacja języka Scala. Opowiem o mechanizmie aktorów, kombinacji języka funkcyjnego i obiektowego oraz innych nowych rzeczach jakie ze sobą niesie. Każde ze wspominanych wcześniej narzędzi zostanie również szerzej przedstawione. Każde z nich wywarło wpływ na ostateczny kształt opisywanej aplikacji. Ustosunkuję się do wyboru tych narzędzi spośród innych. Między innymi dlaczego zdecydowałem się na użycie nierelacyjnego MongoDB. I czemu uznałem, że standardowa funkcjonalność AngularJS to było dla mnie za mało. Ostatecznie przybliżę także sposób działania systemu oraz w jaki sposób użyte zostało jeszcze jedno narzędzie - SBT. Bezpośrednio związane z weryfikacją kodu uczestników systemu. 
+\medskip Na początku swojej pracy postaram się szerzej przedstawić ideę będącą iskrą do stworzenia tego systemu. Pokażę, że dla innych języków programowania już funkcjonują pewne mechanizmy edukacyjne. Kolejnym krokiem będzie prezentacja języka Scala. Opowiem o mechanizmie aktorów, kombinacji języka funkcyjnego i obiektowego oraz innych nowych rzeczach jakie ze sobą niesie. Każde ze wspominanych wcześniej narzędzi zostanie również szerzej przedstawione. Każde z nich wywarło wpływ na ostateczny kształt opisywanej aplikacji. Ustosunkuję się do wyboru tych narzędzi spośród innych. Między innymi dlaczego zdecydowałem się na użycie nierelacyjnego MongoDB. I czemu uznałem, że standardowa funkcjonalność AngularJS to było dla mnie za mało. Ostatecznie przybliżę także sposób działania systemu oraz w jaki sposób użyte zostało jeszcze jedno narzędzie -- SBT. Bezpośrednio związane z weryfikacją kodu uczestników systemu. 
 
 \chapter{Idea systemu}
 
@@ -85,7 +85,7 @@ Powyższy wykres przedstawia pierwszych 15 języków, wśród których Scala upl
 
 Jednak jak pokazuje przykład Ruby'ego i JavaScriptu, jednym z elementów wpływających na popularność jest aktywne środowisko programistów zgromadzonych wokół danego języka. Niejednokrotnie, taka grupa osób przekonana o zaletach swojego ulubionego języka jest w stanie wytworzyć alternatywne sposoby jego promocji. Potwierdzeniem tego może być zespół programistów zgromadzonych wokół platformy \textit{CodeSchool}\footnote{www.codeschool.com}. Opracowali oni szereg prostych kursów związanych głownie z JavaScript'em i Ruby'm w trakcie, których uczestnik rozwiązuje proste zadania programistyczne. 
 
-Żadne z obecnych rozwiązań - szczególnie dla Scali - nie posiada jednak możliwości tworzenia własnych zadań dla zamkniętych grup uczestników. Wierzę, że system, który daje sposobność definiowania własnych kursów dla języka Scala może znacząco zwiększyć jej popularność. Implementacja takiego systemu w szkołach i uczelniach mogłaby przynieść również inne korzyści, jak na przykład wzrost zainteresowania programowaniem, czy podniesieniem umiejętności przyszłych programistów przy jednoczesnym zmniejszeniu nakładu pracy prowadzących zajęcia.
+Żadne z obecnych rozwiązań -- szczególnie dla Scali -- nie posiada jednak możliwości tworzenia własnych zadań dla zamkniętych grup uczestników. Wierzę, że system, który daje sposobność definiowania własnych kursów dla języka Scala może znacząco zwiększyć jej popularność. Implementacja takiego systemu w szkołach i uczelniach mogłaby przynieść również inne korzyści, jak na przykład wzrost zainteresowania programowaniem, czy podniesieniem umiejętności przyszłych programistów przy jednoczesnym zmniejszeniu nakładu pracy prowadzących zajęcia.
 
 \section{Język Scala}
 
@@ -103,20 +103,20 @@ Przeciwieństwem jest programowanie obiektowe, które jest dobrym wyborem kiedy 
 
 Scala jest całkowicie zorientowana obiektowo. Inaczej niż w wielu językach obiektowych, nie posiadamy tutaj wartości, które nie są obiektami jak np. typy prymitywne w Javie. Każda wartość jest obiektem, a każda operacja jest wywołaniem metody. 
 
-Ponadto zezwala ona na zdefiniowanie metod o nazwie przypominającej operator. Przykładem może być metoda \emph{:::} konkatenująca listy, czy metoda \emph{!} w klasie \textit{Actor}. Tworzenie nowych obiektów w Scali jest również bardzo elastyczne. Komponent zwany cechą (ang. \emph{trait}) jest czymś, czym dla Javy są interfejsy. Jednak w porównaniu do interfejsów, cechy mogą zawierać implementacje pól oraz metod. 
+Ponadto zezwala ona na zdefiniowanie metod o nazwie przypominającej operator. Przykładem może być metoda \texttt{:::} konkatenująca listy, czy metoda \texttt{!} w klasie \texttt{Actor}. Tworzenie nowych obiektów w Scali jest również bardzo elastyczne. Komponent zwany cechą (ang. trait) jest czymś, czym dla Javy są interfejsy. Jednak w porównaniu do interfejsów, cechy mogą zawierać implementacje pól oraz metod. 
 
 Dzięki cechom, Scala idzie także o krok dalej w kwestii kreowania obiektów. Dobrym przykładem tego może być wielokrotne dziedziczenie, które można osiągnąć w poniższy sposób.
 
 \inputminted[fontsize=\small]{scala}{code/multipleInheritance.scala}
 
-Należy w uzupełnieniu do powyższego przykładu wspomnieć jak Scala interpretuje konstrukcję \emph{super}. Otóż będzie ona wywołana zawsze w tym miejscu, w którym się pojawia. Odpowiada za to proces linearyzacji. Podczas tworzenia instancji danej klasy, Scala układa wszystkie klasy i cechy, po których ta klasa dziedziczy w liniowej kolejności. Dowodem niech będzie wywołanie metody \emph{get} dla wcześniej pokazanego kodu w interpreterze Scali.
+Należy w uzupełnieniu do powyższego przykładu wspomnieć jak Scala interpretuje konstrukcję \texttt{super}. Otóż będzie ona wywołana zawsze w tym miejscu, w którym się pojawia. Odpowiada za to proces linearyzacji. Podczas tworzenia instancji danej klasy, Scala układa wszystkie klasy i cechy, po których ta klasa dziedziczy w liniowej kolejności. Dowodem niech będzie wywołanie metody \texttt{get} dla wcześniej pokazanego kodu w interpreterze Scali.
 
 \begin{minted}[fontsize=\small]{scala}
 scala> new MyNumber(5).get
 res0: Int = 9
 \end{minted}
 
-Liczba 5 została tutaj najpierw zmniejszona o 1, następnie pomnożona przez 2 i ostatecznie dopiero na końcu powiększona o 1. Zmieniając jednak kolejność cech wmieszanych w klasę \emph{MyNumber} osiągniemy inny wynik.
+Liczba 5 została tutaj najpierw zmniejszona o 1, następnie pomnożona przez 2 i ostatecznie dopiero na końcu powiększona o 1. Zmieniając jednak kolejność cech wmieszanych w klasę \texttt{MyNumber} osiągniemy inny wynik.
 
 \begin{minted}[fontsize=\small]{scala}
 scala> class MyNumber(number: Int) extends Number(number: Int) 
@@ -127,11 +127,11 @@ scala> new MyNumber(5).get
 res1: Int = 11
 \end{minted}
 
-Liczba 5 została tutaj najpierw zwiększona o 1, w następnym kroku pomnożona przez 2, by wynik tego działania pomniejszyć o 1. Metoda \emph{get} zwraca w tym przypadku 11, wykonując działania w odwrotnej kolejności niż przedtem.
+Liczba 5 została tutaj najpierw zwiększona o 1, w następnym kroku pomnożona przez 2, by wynik tego działania pomniejszyć o 1. Metoda \texttt{get} zwraca w tym przypadku 11, wykonując działania w odwrotnej kolejności niż przedtem.
 
-Warto wspomnieć również o klasach poprzedzonych modyfikatorem \emph{case}. Kompilator Scali dodaje kilka udogodnień dla takich bytów. 
+Warto wspomnieć również o klasach poprzedzonych modyfikatorem \texttt{case}. Kompilator Scali dodaje kilka udogodnień dla takich bytów. 
 
-Pierwszym z nich jest dodanie metody fabrycznej o nazwie takiej jak klasa. Oznacza to, że tworząc nowy obiekt takiego typu nie jest obowiązkowym podawanie instrukcji \emph{new}. 
+Pierwszym z nich jest dodanie metody fabrycznej o nazwie takiej jak klasa. Oznacza to, że tworząc nowy obiekt takiego typu nie jest obowiązkowym podawanie instrukcji \texttt{new}. 
 
 \begin{minted}[fontsize=\small]{scala}
 scala> case class MyNumber(number: Int)
@@ -141,7 +141,7 @@ scala> val mn = MyNumber(5)
 mn: MyNumber = MyNumber(5)
 \end{minted}
 
-Drugim ułatwieniem jest fakt, że wszystkie argumenty automatycznie stają się polami danej klasy. Dla porównania, w klasach bez modyfikatora \emph{case} nie można się odwołać do nich z zewnątrz, a żeby parametr był rozpatrywany jako pole wymaganym jest podanie prefiksu \emph{val}.
+Drugim ułatwieniem jest fakt, że wszystkie argumenty automatycznie stają się polami danej klasy. Dla porównania, w klasach bez modyfikatora \texttt{case} nie można się odwołać do nich z zewnątrz, a żeby parametr był rozpatrywany jako pole wymaganym jest podanie prefiksu \texttt{val}.
 
 \begin{minted}[fontsize=\small]{scala}
 scala> class Cat(name: String)
@@ -157,9 +157,9 @@ scala> Dog("Luna").name
 res7: String = Luna           
 \end{minted}
 
-Trzecim udogodnieniem są implementacje metod \emph{toString} oraz \emph{equals}. Pierwsza z nich zwróci ciąg znaków w postaci nazwy klasy wraz z aktualnymi wartościami pól. Druga potrafi porównać całe drzewo klas i w sposób rekursywny wszystkie argumenty obiektów. Ponieważ w Scali operator \emph{==} zawsze odwołuje się do metody \emph{equals} to tego typu klasy automatycznie porównywane są w sposób strukturalny.    
+Trzecim udogodnieniem są implementacje metod \texttt{toString} oraz \texttt{equals}. Pierwsza z nich zwróci ciąg znaków w postaci nazwy klasy wraz z aktualnymi wartościami pól. Druga potrafi porównać całe drzewo klas i w sposób rekursywny wszystkie argumenty obiektów. Ponieważ w Scali operator \texttt{==} zawsze odwołuje się do metody \texttt{equals} to tego typu klasy automatycznie porównywane są w sposób strukturalny.    
 
-Komponentom z modyfikatorem \emph{case} kompilator dodaje jeszcze jedną wygodną metodę - \emph{copy}. Zwraca ona kopię obiektu w postaci nowej instancji klasy, gdzie różne są wartości niektórych pól. Korzysta ona z parametrów opisanych nazwami. Gdy nie zostaje podana nazwa danego pola to zwracana jest stara, nie zmodyfikowana wartość. 
+Komponentom z modyfikatorem \texttt{case} kompilator dodaje jeszcze jedną wygodną metodę -- \texttt{copy}. Zwraca ona kopię obiektu w postaci nowej instancji klasy, gdzie różne są wartości niektórych pól. Korzysta ona z parametrów opisanych nazwami. Gdy nie zostaje podana nazwa danego pola to zwracana jest stara, nie zmodyfikowana wartość. 
 
 \begin{minted}[fontsize=\small]{scala}
 scala> val d = Dog("Luna")
@@ -169,7 +169,7 @@ scala> d.copy(name = "Azor")
 res1: Dog = Dog(Azor)
 \end{minted}
 
-Jedynym kosztem użycia modyfikatora \emph{case} przed definicją klasy jest fakt, że obiekt staną się nieco większe. Dzieje się tak z powodu dodatkowych metod. Największą zaletą jednak jest możliwość użycia takich klas w mechanizmie dopasowywania wzorca opisanego w późniejszej części tego rozdziału.
+Jedynym kosztem użycia modyfikatora \texttt{case} przed definicją klasy jest fakt, że obiekt staną się nieco większe. Dzieje się tak z powodu dodatkowych metod. Największą zaletą jednak jest możliwość użycia takich klas w mechanizmie dopasowywania wzorca opisanego w późniejszej części tego rozdziału.
 
 \subsection{Aspekt funkcyjny}
 
@@ -177,7 +177,7 @@ Jak wyjaśnia Martin Odersky, ,,programowanie funkcyjne w głównej mierze opier
 
 Możemy przekazywać funkcję jako argument do innej funkcji, po to aby w odpowiedzi otrzymać jeszcze inną funkcję. Możliwe jest także definiowanie funkcji wewnątrz innych funkcji. Funkcje mogą posiadać nazwe lub być też anonimowe. Żadna z wymienionych opcji nie jest możliwa chociażby w Javie, aż do wersji 8, która to dopiero pozwala na użycie funkcji anonimowych. Wszystkie te warianty mają bezpośredni wpływ na skalowalność programów.
 
-Inspiracja do poniższego przykładu pochodzi z książki ,,Scala by Example'' profesora Martina Oderskiego \cite[s. 22]{Odersky:2014:SBE}. Korzystając z interpretera pokazuje on w prosty sposób jak może wyglądać praca z funkcjami w Scali. Zdefiniowane zostały dwie funkcje - \emph{sum} oraz \emph{sumSquares}.
+Inspiracja do poniższego przykładu pochodzi z książki ,,Scala by Example'' profesora Martina Oderskiego \cite[s. 22]{Odersky:2014:SBE}. Korzystając z interpretera pokazuje on w prosty sposób jak może wyglądać praca z funkcjami w Scali. Zdefiniowane zostały dwie funkcje -- \texttt{sum} oraz \texttt{sumSquares}.
 
 \begin{minted}[fontsize=\small]{scala}
 scala> def sum(f: Int => Int, a: Int, b: Int): Int = f(a) + f(b)
@@ -190,9 +190,9 @@ scala> sumSquares(3, 4)
 res0: Int = 25
 \end{minted}
 
-Pierwszym parametrem \emph{sum} jest funkcja (f), która za argumenty przyjmuje liczby całkowite. Zobligowana jest także do zwrócenia wartości tego typu. W ciele funkcji \emph{sum} widać, że na pozostałych dwóch argumentach (a i b) wywołana zostaje funkcja \emph{f}. Dodane do siebie zostają bowiem wartości \emph{f(a)} i \emph{f(b)}. Zdefiniowano, więc funkcję posiadającą w liście argumentów inną funkcję. W ciele funkcji \emph{sumSquares}, \emph{sum} zostaje wywołana poprzez podanie jako pierwszego argumentu funkcji anonimowej.
+Pierwszym parametrem \texttt{sum} jest funkcja (f), która za argumenty przyjmuje liczby całkowite. Zobligowana jest także do zwrócenia wartości tego typu. W ciele funkcji \texttt{sum} widać, że na pozostałych dwóch argumentach (a i b) wywołana zostaje funkcja \texttt{f}. Dodane do siebie zostają bowiem wartości \texttt{f(a)} i \texttt{f(b)}. Zdefiniowano, więc funkcję posiadającą w liście argumentów inną funkcję. W ciele funkcji \texttt{sumSquares}, \texttt{sum} zostaje wywołana poprzez podanie jako pierwszego argumentu funkcji anonimowej.
 
-Autorzy ,,Programming in Scala'' posłużyli się doskonałym przykładem wyjaśniającym drugie założenie. \cite[s.57]{Odersky:2010:PIS} Otóż należy rozpatrzeć implementacje ciągu znaków w języku Ruby i Java. W Ruby'm, ciag znaków jest niczym innym jak tablicą znaków. Możemy zatem każdy znak w danym ciągu podmieniać wewnątrz tego samego obiektu. W Javie, typ \emph{string} jest ciągiem znaków w sensie matematycznym. Aby wykonać podobną operację konieczne jest wywołanie metody \emph{replace}, która zwraca zupełnie nowy obiekt.
+Autorzy ,,Programming in Scala'' posłużyli się doskonałym przykładem wyjaśniającym drugie założenie. \cite[s.57]{Odersky:2010:PIS} Otóż należy rozpatrzeć implementacje ciągu znaków w języku Ruby i Java. W Ruby'm, ciag znaków jest niczym innym jak tablicą znaków. Możemy zatem każdy znak w danym ciągu podmieniać wewnątrz tego samego obiektu. W Javie, typ \texttt{String} jest ciągiem znaków w sensie matematycznym. Aby wykonać podobną operację konieczne jest wywołanie metody \texttt{replace}, która zwraca zupełnie nowy obiekt.
 
 Prawdziwy język funkcyjny wymusza na programiście, aby ten korzystał z niezmiennych danych. Scala daje możliwość wyboru, ale jednocześnie zachęca do unikania imperatywnych konstrukcji. Pracując z funkcyjnym językiem programowania nie unikniemy także niezmiennych struktur danych. Scala posiada również własny zestaw niezmiennych typów jak na przykład listy, czy zbiory. Idea wykonywania operacji na nich jest zbliżona do koncepcji niezmiennych wartości.
 
@@ -214,7 +214,7 @@ Oprócz łączenia technik programowania obiektowego i funkcyjnego, Scale definu
 
 Wydajność programów napisanych w Scali jest porównywalna z odpowiednikami napisanymi w Javie. Programy te bowiem kompilują się do pseudokodu wirtualnej maszyny Javy. Ponadto są w stanie bez przeszkód wywoływać metody klas Javy, korzystać z ich pól, a nawet przystosowywać własne komponenty poprzez dziedziczenie z klas Javy, czy implementację interfejsów. Każdy z tych wariantów jest wykonywany przez programistę w sposób naturalny, gdyż nie wymaga to użycia żadnej dodatkowej składni. Jak się okaże w później, system będący głównym tematem pracy również korzysta z dobrodziejstw owej kompatybilności. Korzysta on z oficjalnego klienta dla systemu kolejkowania wiadomości \emph{RabbitMQ} dla języka Java.
 
-Scala korzysta w pełni z typów Javy. Typ \emph{Int} w Scali reprezentuje prymitywne liczby całkowite \emph{int} z Javy. Podobnie ma się sytuacja z \emph{Float}, \emph{Double}, \emph{Long}, czy \emph{Boolean}. Ponadto typy zostają ,,opakowowane'' w taki sposób, aby wywołania metod związanych z nimi były bardziej przejrzyste. W efekcie tego, dla przykładu zamiast \texttt{Double.parseDouble("12.0")} wystarczy napisać \texttt{"12.0".toDouble}.
+Scala korzysta w pełni z typów Javy. Typ \texttt{Int} w Scali reprezentuje prymitywne liczby całkowite \texttt{int} z Javy. Podobnie ma się sytuacja z \texttt{Float}, \texttt{Double}, \texttt{Long}, czy \texttt{Boolean}. Ponadto typy zostają ,,opakowowane'' w taki sposób, aby wywołania metod związanych z nimi były bardziej przejrzyste. W efekcie tego, dla przykładu zamiast \texttt{Double.parseDouble("12.0")} wystarczy napisać \texttt{"12.0".toDouble}.
 
 \subsubsection{Zwięzłość}
 
@@ -242,7 +242,7 @@ for(Integer number: numbers){
 }
 \end{minted}
 
-W drugim rozwiązaniu potrzebne były dwie listy oraz pętla iterująca po wszystkich liczbach z danego zakresu. W Scali wystarczy użyć odpowiedniej metody (\emph{filter}), która jako argument przyjmuje predykat \texttt{\_ \% 2 == 0 }, będący przykładem literału funkcyjnego. Jest to jednoargumentowa funkcja sprawdzająca dzielenie modulo.
+W drugim rozwiązaniu potrzebne były dwie listy oraz pętla iterująca po wszystkich liczbach z danego zakresu. W Scali wystarczy użyć odpowiedniej metody (\texttt{filter}), która jako argument przyjmuje predykat \texttt{\_ \% 2 == 0 }, będący przykładem literału funkcyjnego. Jest to jednoargumentowa funkcja sprawdzająca dzielenie modulo.
 
 Wyraźnie widać, że rozwiązanie przedstawione w Scali jest krótsze. Z własnych doświadczeń wiem, że zbyt skomplikowany kod potrafi w pracy programisty utrudnić pracę do tego stopnia, że dochodzi do potrzeby przepisania jakiegoś fragmentu systemu. Zawsze oznacza to dodatkowy koszt, w postaci czasu, pieniędzy czy zasobów ludzkich. Scala posiada wszystko, by przy relatywnie niedużym wysiłku sprawić, aby skomplikowana logika biznesowa stała się zrozumiała i czytelna.
 
@@ -250,7 +250,7 @@ Wyraźnie widać, że rozwiązanie przedstawione w Scali jest krótsze. Z własn
 
 Scala jest językiem statycznie typowanym. Podstawowe zalety jakie niesie to ze sobą to możliwość wykrycia błędów związnych z typowaniem na etapie kompilacji, bezpieczny refaktoring i powstanie bardziej szczegółowej dokumentacji. 
 
-Jednym z zarzutów stawianych językom z typowaniem statycznym jest to, że są bardziej ,,rozgadane''. Przyczyny można szukać w konieczności deklarowania typów zmiennych, czy wartości wynikowych funkcji. W Scalai obecna jest inferencja typów - mechanizm potrafiący wywnioskować typ dla danej wartości. Niech przykładem będzie zmienna \emph{numbers} z wcześniej przedstawionego fragmentu kodu Javy. W Scali nie musimy (choć możemy) określić, że zmienna \emph{numbers} jest listą liczb całkowitych. Poniżej kontrprzykład.
+Jednym z zarzutów stawianych językom z typowaniem statycznym jest to, że są bardziej ,,rozgadane''. Przyczyny można szukać w konieczności deklarowania typów zmiennych, czy wartości wynikowych funkcji. W Scali obecna jest inferencja typów -- mechanizm potrafiący wywnioskować typ dla danej wartości. Niech przykładem będzie zmienna \texttt{numbers} z wcześniej przedstawionego fragmentu kodu Javy. W Scali nie musimy (choć możemy) określić, że zmienna \texttt{numbers} jest listą liczb całkowitych. Poniżej kontrprzykład.
 
 \mint[fontsize=\small]{scala}/val numbers = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)/
 
@@ -280,7 +280,7 @@ def say(a: Animal) = a match {
 }
 \end{minted}
 
-Znak podkreślnika można traktować jak instrukcję \emph{else}.
+Znak podkreślnika można traktować jak instrukcję \texttt{else}.
 
 \section{Środki do osiągnięcia celu}
 
@@ -294,25 +294,25 @@ SBT jest narzędziem, które tworzy stabilną platformę do rozwijania aplikacji
 
 Jednak warto przyjrzeć się bliżej dlaczego w ogóle warto korzystać z narzędzi budujących aplikację\footnote{ang: Build tool} oraz w jaki sposób wykorzystanie SBT jest kluczowe dla systemu weryfikującego kod. 
 
-Autorzy książki ,,SBT in Action'' już na początku podają prosty przykład w jaki sposób tego typu narzędzia zwiększają produktywność nawet całego zespołu programistów. Wspominają o tym jak kilka lat temu w jednym z zespołów odbywało się ,,automatyczne'' budowanie projektu. ,,To było 10 lub 12 okienek z plikami .batch, które budowały i instalowały aplikację. Kompilowały pliki Java, budowały aplikacje internetową i instalowały ją na serwerze. Zajmowało to od 1,5 do 2 godzin - to była lekcja jak nie automatyzować''.\cite[s.1]{Suereth:2014:SIA} Jak twierdzą, po przepisaniu skryptu i użyciu narzędzia \emph{Apache Ant} czas ten zmalał do około 8 minut.
+Autorzy książki ,,SBT in Action'' już na początku podają prosty przykład w jaki sposób tego typu narzędzia zwiększają produktywność nawet całego zespołu programistów. Wspominają o tym jak kilka lat temu w jednym z zespołów odbywało się ,,automatyczne'' budowanie projektu. ,,To było 10 lub 12 okienek z plikami .batch, które budowały i instalowały aplikację. Kompilowały pliki Java, budowały aplikacje internetową i instalowały ją na serwerze. Zajmowało to od 1,5 do 2 godzin -- to była lekcja jak nie automatyzować''.\cite[s.1]{Suereth:2014:SIA} Jak twierdzą, po przepisaniu skryptu i użyciu narzędzia \emph{Apache Ant} czas ten zmalał do około 8 minut.
 
-Czas zatem odpowiedź na pytanie - dlaczego SBT? Kilka najważniejszych powodów to:
+Czas zatem odpowiedź na pytanie -- dlaczego SBT? Kilka najważniejszych powodów to:
 \begin{itemize}
-\item krótki czas kompilacji - kompilowane są tylko ostatnio zmodyfikowane pliki
+\item krótki czas kompilacji -- kompilowane są tylko ostatnio zmodyfikowane pliki
 \item wbudowane polecenia uruchamiające testy, kompilujące pliki źródłowe oraz pakujące poszczególne typy plików do archiwum .jar
 \item możliwość sprawdzania klas projektu przy użyciu Scala REPL
 \item prostota dodawania własnych poleceń mogących wykonywać specyficzne dla projektu zadania   
 \end{itemize}
 
-Dla mojego systemu to właśnie ostatni punkt ma szczególne znaczenie. System ten będzie udostępniać projekt stworzony przy użyciu SBT, na którym docelowo będą uruchamiane testy. Projekt SBT może być potraktowany w całości lub tylko częściowo jako zadanie do rozwiązania. Aby system mógł sprawdzić rozwiązanie, użytkownik musi je w jakiś sposób przesłać. Dzięki SBT, w sposób wygodny może odbyć się to poprzez napisaną przeze mnie komendzie \emph{sendSolution}, która jako argumenty bierze adres e-mail i hasło użytkownika. Pomysł na takie rozwiązanie został zaczerpnięty z kursów edukacyjnych organizowanych przez profesora Oderskiego na platformie \textit{Coursera}\footnote{\url{https://www.coursera.org/}}. Jest ono wygodne, ponieważ polecenie jest wywoływane z poziomu projektu, a także pozwala zaoszczędzić czas, który użytkownik normalnie spędziłby na przykład na pakowaniu plików do archiwum, logowaniu się na pocztę elektroniczną i tworzeniu wiadomości z załącznikiem.
+Dla mojego systemu to właśnie ostatni punkt ma szczególne znaczenie. System ten będzie udostępniać projekt stworzony przy użyciu SBT, na którym docelowo będą uruchamiane testy. Projekt SBT może być potraktowany w całości lub tylko częściowo jako zadanie do rozwiązania. Aby system mógł sprawdzić rozwiązanie, użytkownik musi je w jakiś sposób przesłać. Dzięki SBT, w sposób wygodny może odbyć się to poprzez napisaną przeze mnie komendzie \texttt{sendSolution}, która jako argumenty bierze adres e-mail i hasło użytkownika. Pomysł na takie rozwiązanie został zaczerpnięty z kursów edukacyjnych organizowanych przez profesora Oderskiego na platformie \textit{Coursera}\footnote{\url{https://www.coursera.org/}}. Jest ono wygodne, ponieważ polecenie jest wywoływane z poziomu projektu, a także pozwala zaoszczędzić czas, który użytkownik normalnie spędziłby na przykład na pakowaniu plików do archiwum, logowaniu się na pocztę elektroniczną i tworzeniu wiadomości z załącznikiem.
 
 \subsection{ScalaTest}
 
 \label{scalaTestSrodek} 
 
-ScalaTest to popularne narzędzie do testowania programów, którego autorem jest programista Bill Venners. Podobnie jak w przypadku języka Scala, jednym z założeń ScalaTestu jest skalowalność. Dzięki temu obecna wersja\footnote{W chwili pisania pracy - najnowsza dostępna wersja ScalaTest to 2.1.6} to nie jedno narzędzie, lecz cały zestaw. Jest on zintegrowany z listą instrumentów związanych z pisaniem testów dla Scali i Javy. Instalując więc ScalaTest w swoim projekcie, możemy korzystać również między innymi z \textit{JUnit, JMock, EasyMock, Mockito, ScalaMock}, czy \textit{Selenium}. Ponadto ScalaTest z łatwością współpracuje z najpopularniejszymi zintegrowanymi środowiskami programistycznymi - \textit{Eclipse}, \textit{IntelliJ} oraz \textit{NetBeans}.
+ScalaTest to popularne narzędzie do testowania programów, którego autorem jest programista Bill Venners. Podobnie jak w przypadku języka Scala, jednym z założeń ScalaTestu jest skalowalność. Dzięki temu obecna wersja\footnote{W chwili pisania pracy -- najnowsza dostępna wersja ScalaTest to 2.1.6} to nie jedno narzędzie, lecz cały zestaw. Jest on zintegrowany z listą instrumentów związanych z pisaniem testów dla Scali i Javy. Instalując więc ScalaTest w swoim projekcie, możemy korzystać również między innymi z \textit{JUnit, JMock, EasyMock, Mockito, ScalaMock}, czy \textit{Selenium}. Ponadto ScalaTest z łatwością współpracuje z najpopularniejszymi zintegrowanymi środowiskami programistycznymi -- \textit{Eclipse}, \textit{IntelliJ} oraz \textit{NetBeans}.
 
-Szczególnie ważnym argumentem przemawiającym za ScalaTest jest możliwość wybrania przez użytkownika stylu specyfikacji. Z punktu widzenia mojego systemu, ta sposobność wyboru wraz ze wspominaną wcześniej szeroką gamą narzędzi gwarantuje dużą uniwersalność dla użytkowników układających zadania. Chociaż szczegółowa charakterystyka systemu znajduje się w późniejszej części pracy to już teraz można wyobrazić sobie sytuację, w której z systemu korzysta kilka osób odpowiedzialnych za układanie zadań - projektów. Każda z nich może posiadać nie tylko różne doświadczenia w Scali, ale także różne preferencje w kwestii przywoływanych narzędzi, czy pisania specyfikacji. 
+Szczególnie ważnym argumentem przemawiającym za ScalaTest jest możliwość wybrania przez użytkownika stylu specyfikacji. Z punktu widzenia mojego systemu, ta sposobność wyboru wraz ze wspominaną wcześniej szeroką gamą narzędzi gwarantuje dużą uniwersalność dla użytkowników układających zadania. Chociaż szczegółowa charakterystyka systemu znajduje się w późniejszej części pracy to już teraz można wyobrazić sobie sytuację, w której z systemu korzysta kilka osób odpowiedzialnych za układanie projektów-zadań. Każda z nich może posiadać nie tylko różne doświadczenia w Scali, ale także różne preferencje w kwestii przywoływanych narzędzi, czy pisania specyfikacji. 
 
 Podobnie sytuacja ma się w stosunku do użytkowników rozwiązujących zadania. Wyobrażam sobie ich jako przyszłych programistów, a zatem dobrą praktyką byłoby, aby przed wysłaniem rozwiązania potrafili je przetestować, przy okazji poznając różne techniki testowania w Scali. 
 
@@ -322,7 +322,7 @@ Podobnie sytuacja ma się w stosunku do użytkowników rozwiązujących zadania.
 
 Biblioteka \emph{QuickCheck} dla języka Haskell, była inspiracją, dzięki której powstał ScalaCheck. Jego zadaniem jest w pełni zautomatyzować testy w taki sposób, aby nie było potrzeby wprowadzania danych testowych do sprawdzanych metod własnoręcznie. Generuje pseudolosowe dane jako argumenty, co pozwala zaoszczędzić czas, który normalnie programista spędza chociażby na wymyślaniu danych testowych. Ponadto sprawia, że kod jest bardziej odporny na błędy ponieważ, zwiększa zakres sprawdzanych wartości, które program może otrzymać w trakcie działania.
 
-Powyższy fakt oraz to, że ScalaCheck integruje się z ScalaTest może zagwarantować wysoką jakość podczas weryfikacji kodu w rozwiązaniach użytkowników. Użytkownik odpowiedzialny za tworzenie zadań - projektów - poprzez stosowanie reguł ScalaCheck powinien być w stanie wytworzyć kompletny zestaw testów. Dzięki nim system będzie potrafił w sposób dużo bardziej rzetelny wystawić noty za rozwiązanie.
+Powyższy fakt oraz to, że ScalaCheck integruje się z ScalaTest może zagwarantować wysoką jakość podczas weryfikacji kodu w rozwiązaniach użytkowników. Użytkownik odpowiedzialny za tworzenie projektów-zadań poprzez stosowanie reguł ScalaCheck powinien być w stanie wytworzyć kompletny zestaw testów. Dzięki nim system będzie potrafił w sposób dużo bardziej rzetelny wystawić noty za rozwiązanie.
       
 \chapter{Testowanie kodu napisanego w Scali}      
 
@@ -348,43 +348,43 @@ Pierwszy z nich po krótce przedstawiłem podrozdziale \ref{scalaTestSrodek} w k
 
 JUnit natomiast to narzędzie znane wszystkim programistom Javy. Kompatybilność z wirtualną maszyną JVM powoduje, że może bez przeszkód mieć zastosowanie również w Scalowych projektach. Warto przypomnieć, że narzędzie to integruje się z ScalaTest. 
 
-O ostatnim z wymienionych - Specs2 - można myśleć jak o konkurencji ScalaTestu. Narzędzie to może również działać z SBT. Posiada inny zestaw instrukcji dokonujących porównań oraz sposób konstruowania testów. To co szczególnie wyróżnia Specs2 to fakt, że testy są uruchamiane równolegle, każdy w osobnym wątku.
+O ostatnim z wymienionych -- Specs2 -- można myśleć jak o konkurencji ScalaTestu. Narzędzie to może również działać z SBT. Posiada inny zestaw instrukcji dokonujących porównań oraz sposób konstruowania testów. To co szczególnie wyróżnia Specs2 to fakt, że testy są uruchamiane równolegle, każdy w osobnym wątku.
       
 \section{ScalaTest}
 
 Testy w ScalaTest tworzy się, poprzez napisanie klasy testującej dziedziczącej po jednej z wybranych cech determinujących styl testów. Końcowym efektem są specyfikacje będące ważnym elementem w metodologii \emph{Behavior-driven development} (BDD). Polega ona na definiowaniu testów w sposób opisowy, tak jakby fragmenty testowanego kodu były elementami pewnych historii. Schemat, w który wpisują się wszystkie poprawnie opisane testy wygląda następująco: ,,Posiadając.., jeśli.., wtedy..''\footnote{ang: Given, When, Then}. Słowo ,,test'' natomiast zastąpione zostaje słowem ,,zachowanie'' (ang: behavior). Ideą BDD jest, aby poprzez tak skonstruowane specyfikacje zespół programistów potrafił w pełni zrozumieć potrzeby i intencje klienta. Dostarczone oprogramowanie ma wtedy spełniać wszystkie założenia i wymagać mniej poprawek po wdrożeniu produkcyjnym.
 
-ScalaTest poza stylem specyfikacji daje programiście wybrać, także detale takie jak sposób weryfikacji rezultatów w teście. Istnieją klasyczne asercje poprzedzane instrukcją \emph{assert}, ale także weryfikatory, które zasługują na szczególną uwagę. Są to specjalne asercje pozwalające czytać test, jak zwykłe zdanie. W przypadku nie powodzenia testu, rzucany jest wyjątek \emph{TestFailedException}. ScalaTest przechwytuje je i zaznacza dany test jako nie zaliczony.
+ScalaTest poza stylem specyfikacji daje programiście wybrać, także detale takie jak sposób weryfikacji rezultatów w teście. Istnieją klasyczne asercje poprzedzane instrukcją \texttt{assert}, ale także weryfikatory, które zasługują na szczególną uwagę. Są to specjalne asercje pozwalające czytać test, jak zwykłe zdanie. W przypadku nie powodzenia testu, rzucany jest wyjątek \texttt{TestFailedException}. ScalaTest przechwytuje je i zaznacza dany test jako nie zaliczony.
 
 \subsection{Style specyfikacji}
 
 ScalaTest pozwala programiście wybrać jeden z wielu stylów dla swoich specyfikacji. Twórcy zaznaczają jednak, aby podczas rozwijania projektu przez dany zespół nie doszło do sytuacji, w której każdy programista pisałby w inny sposób. Zalecanym jest, aby testy jednostkowe powstawały przy użyciu jednego głównego stylu, a na przykład testy integracji, czy akceptacyjne w innym. Ma to pomóc poszczególnym członkom zespołu ,,przełączać się'' pomiędzy testami niskiego i wysokiego poziomu.
 
-W podrozdziale \ref{scalaTestSrodek} można było przeczytać jak tą elastyczność ScalaTestu można wykorzystać w systemie sprawdzającym kod Scali. Poszczególne style specyfikacji różnią się jedynie instrukcjami deklarującymi testy. Pozostałe rzeczy takie jak asercje, instrukcje dopasowywania (ang: \emph{matchers}) określane przeze mnie weryfikatorami są wykorzystywane w ten sam sposób.
+W podrozdziale \ref{scalaTestSrodek} można było przeczytać jak tą elastyczność ScalaTestu można wykorzystać w systemie sprawdzającym kod Scali. Poszczególne style specyfikacji różnią się jedynie instrukcjami deklarującymi testy. Pozostałe rzeczy takie jak asercje, instrukcje dopasowywania (ang: Matchers) określane przeze mnie weryfikatorami są wykorzystywane w ten sam sposób.
 
 Poniżej znajduje się zestawienie kilku wybranych styli oferowanych przez ScalaTest. Przykłady pochodzą z oficjalnej strony projektu\footnote{\url{http://www.scalatest.org/user_guide/selecting_a_style}}.
 
 \subsubsection{FunSuite}
 
-Charakteryzuje się opisowymi nazwami testów i jest najprostszym ze wszystkich styli, które oferuje ScalaTest. Testy deklarujemy poprzez instrukcję \emph{test}, jako argument podając opis testu.
+Charakteryzuje się opisowymi nazwami testów i jest najprostszym ze wszystkich styli, które oferuje ScalaTest. Testy deklarujemy poprzez instrukcję \texttt{test}, jako argument podając opis testu.
 
 \inputminted[fontsize=\small]{scala}{code/FunSuite.scala}
  
 \subsubsection{FlatSpec}
 
-Jest pierwszym przystankiem dla programistów, którzy zaczynają swoją przygodę z BDD. Nazwy testów tworzy się w stylu charakterystycznym dla specyfikacji, tzn. używając słów takich jak \emph{should}, \emph{must}.
+Jest pierwszym przystankiem dla programistów, którzy zaczynają swoją przygodę z BDD. Nazwy testów tworzy się w stylu charakterystycznym dla specyfikacji, tzn. używając słów takich jak \texttt{should}, \texttt{must}.
 
 \inputminted[fontsize=\small]{scala}{code/FlatSpec.scala}
 
 \subsubsection{FunSpec}
 
-Doświadczeni programiści Rubiego próbujący swoich sił w Scali prawdopodobnie wybiorą ten styl. Przypomina on bardzo \emph{RSpec} - popularne narzędzie testowania kodu Rubiego. Testy można tutaj konstruować głównie przy pomocy \emph{describe} oraz \emph{it}. Instrukcja \emph{describe} pozwala na zagnieżdzanie i grupowanie testów według danego ,,zachowania'' testowanych fragmentów kodu. Jest to dobry wybór dla zespołów pracujących w BDD.
+Doświadczeni programiści Rubiego próbujący swoich sił w Scali prawdopodobnie wybiorą ten styl. Przypomina on bardzo \emph{RSpec} -- popularne narzędzie testowania kodu Rubiego. Testy można tutaj konstruować głównie przy pomocy \texttt{describe} oraz \texttt{it}. Instrukcja \texttt{describe} pozwala na zagnieżdzanie i grupowanie testów według danego ,,zachowania'' testowanych fragmentów kodu. Jest to dobry wybór dla zespołów pracujących w BDD.
 
 \inputminted[fontsize=\small]{scala}{code/FunSpec.scala}
 
 \subsubsection{WordSpec}
 
-Sposób konstrukcji testów jest bardzo ścisły i przypomina konkurencyjny \emph{specs2}. Gdyby zatem w projekcie doszło do potrzeby przejścia ze \emph{specs2} na ScalaTest, to ten styl staje się naturalnym wyborem. Słowami kluczowymi są tutaj \emph{when} oraz \emph{should}.
+Sposób konstrukcji testów jest bardzo ścisły i przypomina konkurencyjny \emph{Specs2}. Gdyby zatem w projekcie doszło do potrzeby przejścia ze \emph{Specs2} na ScalaTest, to ten styl staje się naturalnym wyborem. Słowami kluczowymi są tutaj \texttt{when} oraz \texttt{should}.
 
 \inputminted[fontsize=\small]{scala}{code/WordSpec.scala}
 
@@ -409,7 +409,7 @@ Wskazany dla doświadczonych programistów piszących specyfikacje, ponieważ ni
 
 \label{weryfikatory}
 
-Bez względu na to jaki wybierzemy styl dla specyfikacji to rezultaty testowanych metod i funkcji muszą być w jakiś sposób sprawdzone. ScalaTest dostarcza specjalny język dziedzinowy dla asercji. Po dodaniu do klasy specyfikacji cechy \emph{Matchers} otrzymujemy weryfikatory. Dzięki nim można przystąpić do tworzenia czytelnych asercji. Poniżej przykład.
+Bez względu na to jaki wybierzemy styl dla specyfikacji to rezultaty testowanych metod i funkcji muszą być w jakiś sposób sprawdzone. ScalaTest dostarcza specjalny język dziedzinowy dla asercji. Po dodaniu do klasy specyfikacji cechy \texttt{Matchers} otrzymujemy weryfikatory. Dzięki nim można przystąpić do tworzenia czytelnych asercji. Poniżej przykład.
 
 \begin{minted}[fontsize=\small]{scala}
 val list = List(2, 4, 5)
@@ -420,8 +420,8 @@ list.size should not be >= (20)
 list should contain (4)
 \end{minted}
 
-Wartość, która jest oczekiwana od testowanej metody dopasowana została do jej faktycznego wyniku przy użyciu słowa \emph{should}. Całość można przeczytać płynnie jak zdanie w języku angielskim. 
-Chcąc sprawdzić, czy zwrócona wartość równa się temu czemu powinna należy użyć instrukcji \emph{equal} lub \emph{be}. Drugą z nich można łączyć dodatkowo ze znakami większości i mniejszości. Pod koniec tego przykładu zaprezentowałem również w jak prosty sposób można sprawdzić, czy lista zawiera dany element.
+Wartość, która jest oczekiwana od testowanej metody dopasowana została do jej faktycznego wyniku przy użyciu słowa \texttt{should}. Całość można przeczytać płynnie jak zdanie w języku angielskim. 
+Chcąc sprawdzić, czy zwrócona wartość równa się temu czemu powinna należy użyć instrukcji \texttt{equal} lub \texttt{be}. Drugą z nich można łączyć dodatkowo ze znakami większości i mniejszości. Pod koniec tego przykładu zaprezentowałem również w jak prosty sposób można sprawdzić, czy lista zawiera dany element.
 
 Istnieje wiele wariantów testowania ciągów znaków. Można sprawdzić ,czy dany ciąg znaków zawiera inny lub zaczyna się, czy kończy w określony sposób. Oczywiście w przypadku bardziej skomplikowanych wymogów, nie ma przeszkód aby dopasować i porównać wynik przy pomocy wyrażeń regularnych.
 
@@ -434,7 +434,7 @@ sentence should endWith regex ("Sca.*!")
 sentence should fullyMatch regex ("I.*S.*!+")
 \end{minted}
 
-Ponownie dzięki weryfikatorom, osoba czytająca przedstawiony w ten sposób test ma wrażenie, że czyta zwykłe zdanie. Pierwsza asercja sprawdza, czy dany ciąg znaków zaczyna się na ,,I love''. Druga poprzez wstawienie instrukcji \emph{not} dodaje zaprzeczenie, aby miec pewność, że ciąg znaków nie kończy się słowem ,,Java''. Chcąc dopasować wartość z użyciem wyrażenia regularnego, wystarczy do poznanej już konstrukcji dodać \emph{regex}. Ostatnia z pokazanych asercji dopasowuje wyrażenie do całego ciągu znaków.
+Ponownie dzięki weryfikatorom, osoba czytająca przedstawiony w ten sposób test ma wrażenie, że czyta zwykłe zdanie. Pierwsza asercja sprawdza, czy dany ciąg znaków zaczyna się na ,,I love''. Druga poprzez wstawienie instrukcji \texttt{not} dodaje zaprzeczenie, aby miec pewność, że ciąg znaków nie kończy się słowem ,,Java''. Chcąc dopasować wartość z użyciem wyrażenia regularnego, wystarczy do poznanej już konstrukcji dodać \texttt{regex}. Ostatnia z pokazanych asercji dopasowuje wyrażenie do całego ciągu znaków.
 
 Ciekawą rzeczą jest porównywanie ze sobą liczb zmiennoprzecinkowych. Można określić tolerowany zakres błędu w wyniku działania poprzez postawienie obok siebie znaku dodawania i odejmowania.
 
@@ -444,7 +444,7 @@ Ciekawą rzeczą jest porównywanie ze sobą liczb zmiennoprzecinkowych. Można 
 
 Powyższa asercja sprawdza, czy wynik działania tj. 1.0 jest mniejszy niż 1.1 oraz większy od 0.9.
 
-Zweryfikowanie, czy referencje odnoszą się do tych samych obiektów następuje przy użyciu \emph{theSameInstanceAs}.
+Zweryfikowanie, czy referencje odnoszą się do tych samych obiektów następuje przy użyciu \texttt{theSameInstanceAs}.
 
 \begin{minted}[fontsize=\small]{scala}
 val cat1 = new Cat
@@ -454,9 +454,9 @@ cat1 should be theSameInstanceAs (cat2)
 cat3 should not be theSameInstanceAs (cat1)
 \end{minted}
 
-Instancje \emph{cat1} oraz \emph{cat2} odwołują się do tego samego obiektu i jest to zbadane w pierwszej asercji. Natomiast ponownie dodając słowo \emph{not} uzyskuje się zaprzeczenie.
+Instancje \texttt{cat1} oraz \texttt{cat2} odwołują się do tego samego obiektu i jest to zbadane w pierwszej asercji. Natomiast ponownie dodając słowo \texttt{not} uzyskuje się zaprzeczenie.
 
-ScalaTest dostarcza również metody pozwalające łączyć ze sobą asercje w jedną całość. Służą do tego instrukcje \emph{and}, \emph{or}. Dla kontrastu, przykład z weryfikatorami w liście można przedstawić w następujący sposób.
+ScalaTest dostarcza również metody pozwalające łączyć ze sobą asercje w jedną całość. Służą do tego instrukcje \texttt{and}, \texttt{or}. Dla kontrastu, przykład z weryfikatorami w liście można przedstawić w następujący sposób.
 
 \begin{minted}[fontsize=\small]{scala}
 list.size should (equal(3) or (be < (10) and (be >= 20)))
@@ -473,19 +473,19 @@ dog should have (
 )
 \end{minted}
 
-Słowem kluczowym jest \emph{have}, następnie jako symbole podaje się nazwy atrybutów oraz wartość oczekiwaną.
+Słowem kluczowym jest \texttt{have}, następnie jako symbole podaje się nazwy atrybutów oraz wartość oczekiwaną.
 
-To nie wszystkie weryfikatory, chociaż wierzę, że udało mi się przedstawić te najciekawsze i najważniejsze. ScalaTest daje również możliwość użycia \emph{MustMatchers}. W praktyce różnica w użyciu tych weryfikatorów sprowadza się do zamiany słowa \emph{should} na \emph{must}. Jest to zatem poraz kolejny przykład elastyczności jaką daje to narzędzie.
+To nie wszystkie weryfikatory, chociaż wierzę, że udało mi się przedstawić te najciekawsze i najważniejsze. ScalaTest daje również możliwość użycia \texttt{MustMatchers}. W praktyce różnica w użyciu tych weryfikatorów sprowadza się do zamiany słowa \texttt{should} na \texttt{must}. Jest to zatem poraz kolejny przykład elastyczności jaką daje to narzędzie.
 
 \mint[fontsize=\small]{scala}/list.size must be (3)/ 
 
 \subsection{Cecha \texttt{GivenWhenThen}}
 
-Dodając do klasy zawierającej zestaw testów cechę \emph{GivenWhenThen} otrzymujemy kilka użytecznych metod. Ich jedynym zadaniem jest ułatwienie zrozumienia, jak przebiega dana specyfikacja. Są to metody \emph{Given}, \emph{When}, \emph{Then} oraz \emph{And}. Na przykładzie poniżej znajduje się prosty test sprawdzający dodawanie do bazy danych.
+Dodając do klasy zawierającej zestaw testów cechę \texttt{GivenWhenThen} otrzymujemy kilka użytecznych metod. Ich jedynym zadaniem jest ułatwienie zrozumienia, jak przebiega dana specyfikacja. Są to metody \texttt{Given}, \texttt{When}, \texttt{Then} oraz \texttt{And}. Na przykładzie poniżej znajduje się prosty test sprawdzający dodawanie do bazy danych.
 
 \inputminted[fontsize=\small]{scala}{code/givenWhenThen.scala}
 
-Całość sprowadza się do powstania czytelnej historyjki. ,,Metoda \emph{create} obiektu \emph{Group}, powinna zapisać nową grupę w bazie danych. Kiedy grupa jest dodana do bazy danych, wtedy licznik wzrasta i możemy znaleźć tę grupę w bazie danych''. Po uruchomieniu testu, podobny opis otrzymujemy w raporcie końcowym. 
+Całość sprowadza się do powstania czytelnej historyjki. ,,Metoda \texttt{create} obiektu \texttt{Group}, powinna zapisać nową grupę w bazie danych. Kiedy grupa jest dodana do bazy danych, wtedy licznik wzrasta i możemy znaleźć tę grupę w bazie danych''. Po uruchomieniu testu, podobny opis otrzymujemy w raporcie końcowym. 
 
 \begin{alltt}
 [info] Group.create method
@@ -498,7 +498,7 @@ Całość sprowadza się do powstania czytelnej historyjki. ,,Metoda \emph{creat
 
 \subsection{Przechwytywanie wyjątków}
 
-Istnieją dwa sposoby na przetestowanie, czy dany wyjątek został rzucony. Pierwszym z nich jest umieszczenie testowanego fragmentu w blok \emph{intercept}. Jeśli ten fragment kodu nie rzuci spodziewanego wyjątku to test się nie powiedzie.
+Istnieją dwa sposoby na przetestowanie, czy dany wyjątek został rzucony. Pierwszym z nich jest umieszczenie testowanego fragmentu w blok \texttt{intercept}. Jeśli ten fragment kodu nie rzuci spodziewanego wyjątku to test się nie powiedzie.
 
 \begin{minted}[fontsize=\small]{scala}
 import org.scalatest.FunSpec
@@ -515,9 +515,9 @@ class SetSpec extends FunSpec {
 }
 \end{minted}
 
-Zdjęcie kolejnego elementu z pustego stosu spowoduje rzucenie wyjątku \emph{NoSuchElementException}.
+Zdjęcie kolejnego elementu z pustego stosu spowoduje rzucenie wyjątku \texttt{NoSuchElementException}.
 
-Drugi ze sposobów polega na użyciu wcześniej opisywanych weryfikatorów. Testowany fragment kodu należy wstawić w blok \emph{thrownBy}. Jego przewagą jest to, że rzucony wyjątek można poddać w następnych krokach dodatkowej weryfikacji.
+Drugi ze sposobów polega na użyciu wcześniej opisywanych weryfikatorów. Testowany fragment kodu należy wstawić w blok \texttt{thrownBy}. Jego przewagą jest to, że rzucony wyjątek można poddać w następnych krokach dodatkowej weryfikacji.
 
 \begin{minted}[fontsize=\small]{scala}
 val exc = the [NoSuchElementException] thrownBy { Set.empty.head }
@@ -526,18 +526,18 @@ exc.getMessage should include ("empty")
 
 \subsection{JUnit}
 
-JUnit może być bezpośrednio używany do testowania kodu Scala. Zdecydowanie lepszym rozwiązaniem jest jednak skorzystanie ze sposobności jaką daje ScalaTest w kwestii integracji z tym narzędziem. Zyskuje się w ten sposób dostęp chociażby do weryfikatorów. Aby to zrobić należy klasę z testami rozszerzyć o właściwości cechy \emph{JUnitSuite}. W ten sposób, możliwe będzie uruchamianie testów z JUnit oraz używanie standardowych asercji. Poznane w podrozdziale \ref{weryfikatory} weryfikatory mogą znaleźć zastosowanie w testach tego rodzaju bez żadnego dodatkowego wysiłku. 
+JUnit może być bezpośrednio używany do testowania kodu Scala. Zdecydowanie lepszym rozwiązaniem jest jednak skorzystanie ze sposobności jaką daje ScalaTest w kwestii integracji z tym narzędziem. Zyskuje się w ten sposób dostęp chociażby do weryfikatorów. Aby to zrobić należy klasę z testami rozszerzyć o właściwości cechy \texttt{JUnitSuite}. W ten sposób, możliwe będzie uruchamianie testów z JUnit oraz używanie standardowych asercji. Poznane w podrozdziale \ref{weryfikatory} weryfikatory mogą znaleźć zastosowanie w testach tego rodzaju bez żadnego dodatkowego wysiłku. 
 
 \inputminted[fontsize=\small]{scala}{code/ListSuite.scala}
 
-Ten prosty przykład pokazuje jakie klasy należy zaimportować, aby taka kombinacja dwóch narzędzi przebiegła poprawnie. Klasa \emph{ListSuite} posiada jeden test oznaczony przez adnotację \emph{@Test} pochodzącą z narzędzia JUnit. Jego zadaniem jest zweryfikować rozmiar listy. Lista ta zaś zostaje zainicjalizowana przy pomocy innej adnotacji \emph{@Before}. W metodzie \emph{checkListSize()} weryfikacja rozmiaru listy przebiega na dwa sposoby. Pierwszy z nich to weryfikator pochodzący ze ScalaTest. Drugi sposób przedstawia standardową asercję pochodzącą z JUnit - \emph{assertEquals}.
+Ten prosty przykład pokazuje jakie klasy należy zaimportować, aby taka kombinacja dwóch narzędzi przebiegła poprawnie. Klasa \texttt{ListSuite} posiada jeden test oznaczony przez adnotację \texttt{@Test} pochodzącą z narzędzia JUnit. Jego zadaniem jest zweryfikować rozmiar listy. Lista ta zaś zostaje zainicjalizowana przy pomocy innej adnotacji \texttt{@Before}. W metodzie \texttt{checkListSize()} weryfikacja rozmiaru listy przebiega na dwa sposoby. Pierwszy z nich to weryfikator pochodzący ze ScalaTest. Drugi sposób przedstawia standardową asercję pochodzącą z JUnit -- \texttt{assertEquals}.
 
 Jest to także dowód na kompatybilność Scali z klasami Javy i fakt, że dowolna biblioteka stworzona z myślą o Javie, bez przeszkód może być używana w Scalowych programach.
 
 \section{ScalaCheck}
 
 Wspominany już w podrozdziale \ref{scalaCheckSrodek} ScalaCheck zajmuje się automatyzacją testów poprzez generowanie pseudolosowych danych testowych. Składa się z trzech głównych komponentów.
-Klasa \emph{Properties} definuje testy i uruchamia je. Obiekt \emph{Gen} ma za zadanie generować przykładowe dane i konkretyzować jakiego rodzaju mają one być. Na przykład, jeśli do testowanej metody chcemy przekazać tylko liczby naturalne, przy pomocy \emph{Gen} można wykluczyć liczby ujemne. Trzecim komponentem jest klasa \emph{Arbitrary} podejmująca temat specyficznych typów dla programu.
+Klasa \texttt{Properties} definuje testy i uruchamia je. Obiekt \texttt{Gen} ma za zadanie generować przykładowe dane i konkretyzować jakiego rodzaju mają one być. Na przykład, jeśli do testowanej metody chcemy przekazać tylko liczby naturalne, przy pomocy \texttt{Gen} można wykluczyć liczby ujemne. Trzecim komponentem jest klasa \texttt{Arbitrary} podejmująca temat specyficznych typów dla programu.
 
 ScalaCheck integruje się również z opisywanym w poprzednim rozdziale ScalaTest.
 
@@ -545,23 +545,23 @@ ScalaCheck integruje się również z opisywanym w poprzednim rozdziale ScalaTes
 
 \label{scalaCheck:properties}
 
-Aby rozpoczęć pracę ze ScalaCheck należy zaimportować klasę \emph{Properties} i rozszerzyć ją przez singleton zawierający zestaw testów. W Scali stworzenie singletonu odbywa się przy pomocy słowa kluczowego \emph{object}. Najważniejszą i najczęściej używaną metodą jest \emph{forAll} umieszczona w cesze \emph{Prop}.
+Aby rozpoczęć pracę ze ScalaCheck należy zaimportować klasę \texttt{Properties} i rozszerzyć ją przez singleton zawierający zestaw testów. W Scali stworzenie singletonu odbywa się przy pomocy słowa kluczowego \texttt{object}. Najważniejszą i najczęściej używaną metodą jest \texttt{forAll} umieszczona w cesze \texttt{Prop}.
 
 \inputminted[fontsize=\small]{scala}{code/CalcTestBad.scala}
 
-Rozpatrując powyższy przykład można szyko zauważyć, że test nie zakończy się sukcesem. Testowi poddana zostaje właściwość klasy \emph{Calc} wyrażona w postaci metody \emph{add} dodającej liczby całkowite. Oczekuje się, że wartość zwrócona przez tą metodę będzie większa lub równa jej dwóm argumentom. Instrukcja \emph{property} jako argument bierze ciąg znaków będący opisem sprawdzanej właściwości. Powyższy test zakończy się porażką, ponieważ w bloku metody \emph{forAll} ScalaCheck domyślnie wygeneruje w pewnym momencie takie argumenty, w których co najmniej jeden z nich będzie liczbą ujemną. W raporcie końcowym można będzie przeczytać o niepowodzeniu oraz dla jakich argumentów ono zaszło.
+Rozpatrując powyższy przykład można szyko zauważyć, że test nie zakończy się sukcesem. Testowi poddana zostaje właściwość klasy \texttt{Calc} wyrażona w postaci metody \texttt{add} dodającej liczby całkowite. Oczekuje się, że wartość zwrócona przez tą metodę będzie większa lub równa jej dwóm argumentom. Instrukcja \texttt{property} jako argument bierze ciąg znaków będący opisem sprawdzanej właściwości. Powyższy test zakończy się porażką, ponieważ w bloku metody \texttt{forAll} ScalaCheck domyślnie wygeneruje w pewnym momencie takie argumenty, w których co najmniej jeden z nich będzie liczbą ujemną. W raporcie końcowym można będzie przeczytać o niepowodzeniu oraz dla jakich argumentów ono zaszło.
 
-Zakładając, że argumenty metody \emph{add} w założeniach projektowych są zawsze liczbami naturalnymi, test ten da się poprawić przy użyciu cechy Gen.
+Zakładając, że argumenty metody \texttt{add} w założeniach projektowych są zawsze liczbami naturalnymi, test ten da się poprawić przy użyciu cechy Gen.
 
 \subsection{Cecha \texttt{Gen}} 
 
-Cecha ta posiada metody, dzięki którym możliwe jest skonkretyzowanie zakresu lub rodzaju danych testowych. Przykładowo testując metodę z parametrami typu \emph{String} domyślny generator dostarczy ciągi znaków oparte na różnych kodowaniach. Odpowiednie użycie \emph{Gen} zagwarantuje, więc testowe zmienne składające się ze znaków zwykłego alfabetu lub w przypadku liczb wartości z sugerowanego zakresu. Poniżej znajduje się poprawiony przykład testu przedstawionego w poprzednim podrozdziale \ref{scalaCheck:properties}.
+Cecha ta posiada metody, dzięki którym możliwe jest skonkretyzowanie zakresu lub rodzaju danych testowych. Przykładowo testując metodę z parametrami typu \texttt{String} domyślny generator dostarczy ciągi znaków oparte na różnych kodowaniach. Odpowiednie użycie \texttt{Gen} zagwarantuje, więc testowe zmienne składające się ze znaków zwykłego alfabetu lub w przypadku liczb wartości z sugerowanego zakresu. Poniżej znajduje się poprawiony przykład testu przedstawionego w poprzednim podrozdziale \ref{scalaCheck:properties}.
 
 \inputminted[fontsize=\small]{scala}{code/CalcTestOk.scala}
 
-Zmienił się sposób wywołania metody \emph{forAll} poprzez wprowadzenie generatorów dla dwóch zmiennych. Gwarantują one, że argumenty, które trafią do metody \emph{add} będą zawsze pseudolosowymi liczbami naturalnymi z zakresu od 0 do 1000. ScalaCheck przetestuję daną właściwość dla 100 różnych danych testowych. 
+Zmienił się sposób wywołania metody \texttt{forAll} poprzez wprowadzenie generatorów dla dwóch zmiennych. Gwarantują one, że argumenty, które trafią do metody \texttt{add} będą zawsze pseudolosowymi liczbami naturalnymi z zakresu od 0 do 1000. ScalaCheck przetestuję daną właściwość dla 100 różnych danych testowych. 
 
-W sytuacji, gdy oczekiwane parametry są typu innego niż podstawowego konieczne jest zdefiniowanie własnego generatora. Zazwyczaj tworzy się je przy pomocy pętli. Poniżej przykład generatora zajmującego się tworzeniem map, gdzie pod kluczem będącym ciągiem znaków, kryje się wartość logiczna \emph{true} lub \emph{false}.
+W sytuacji, gdy oczekiwane parametry są typu innego niż podstawowego konieczne jest zdefiniowanie własnego generatora. Zazwyczaj tworzy się je przy pomocy pętli. Poniżej przykład generatora zajmującego się tworzeniem map, gdzie pod kluczem będącym ciągiem znaków, kryje się wartość logiczna \texttt{true} lub \texttt{false}.
 
 \begin{minted}[fontsize=\small]{scala}
 val generator = for {
@@ -571,23 +571,23 @@ val generator = for {
 forAll(generator) { ... }
 \end{minted}
 
-Pętla \emph{for} tworzy zmienną a oraz b. Na końcu każdej iteracji te dwie zmienne zostają ustawione w pożądany sposób w \emph{Map} i umieszczone w cesze \emph{Gen}. W podobny sposób można również wygenerować instancje innych obiektów. 
+Pętla \texttt{for} tworzy zmienną a oraz b. Na końcu każdej iteracji te dwie zmienne zostają ustawione w pożądany sposób w \texttt{Map} i umieszczone w cesze \texttt{Gen}. W podobny sposób można również wygenerować instancje innych obiektów. 
 
 \subsection{Klasa \texttt{Arbitrary}}
 
-Twórcy ScalaCheck zalecają, aby generowanie instancji obiektów specyficznych dla aplikacji odbywało się z użyciem klasy \emph{Arbitrary}. Używa ona niejawnych konwersji Scali oznaczanych przez \emph{implicit}. Konstruując obiekty w ten sposób, ponownie należy skorzystać z pętli \emph{for}. Dodatkowo własne zdefiniowane generatory dla specjalnych typów, można trzymać w osobnym obiekcie. Następnie wystarczy je tylko zaimportować do pliku z testami.
+Twórcy ScalaCheck zalecają, aby generowanie instancji obiektów specyficznych dla aplikacji odbywało się z użyciem klasy \texttt{Arbitrary}. Używa ona niejawnych konwersji Scali oznaczanych przez \emph{implicit}. Konstruując obiekty w ten sposób, ponownie należy skorzystać z pętli \texttt{for}. Dodatkowo własne zdefiniowane generatory dla specjalnych typów, można trzymać w osobnym obiekcie. Następnie wystarczy je tylko zaimportować do pliku z testami.
 
 \inputminted[fontsize=\small]{scala}{code/CatTestArbitrary.scala}
 
-Zmienna \emph{cat} jest typu \emph{Arbitrary[Cat]}, jednak w funkcji znajdującej się w metodzie \emph{forAll} podawany jest typ \emph{Cat}. Niejawna konwersja zadeklarowana przez \emph{implicit} dostarcza bez dodatkowych lini kodu do tej funkcji argument odpowiedniego typu. Zaletą takiego rozwiązania jest bardziej czytelny kod testu, gdzie nie ma potrzeby sprecyzowania jakiego, generatora użyć.
+Zmienna \texttt{cat} jest typu \texttt{Arbitrary[Cat]}, jednak w funkcji znajdującej się w metodzie \texttt{forAll} podawany jest typ \texttt{Cat}. Niejawna konwersja zadeklarowana przez \texttt{implicit} dostarcza bez dodatkowych lini kodu do tej funkcji argument odpowiedniego typu. Zaletą takiego rozwiązania jest bardziej czytelny kod testu, gdzie nie ma potrzeby sprecyzowania jakiego, generatora użyć.
 
 \subsection{Integracja ze ScalaTest}
 
-Testowanie właściwości z użyciem ScalaCheck zapewnia cecha \emph{GeneratorDrivenPropertyChecks} dostarczana przez ScalaTest. Wraz z weryfikatorami narzędzie to staje się bardzo wygodne. Kontynuacja przykładu klasy \emph{Calc} znajdująca się poniżej przedstawia jak wygląda w pełni poprawny zintegrowany test właściwości. 
+Testowanie właściwości z użyciem ScalaCheck zapewnia cecha \texttt{GeneratorDrivenPropertyChecks} dostarczana przez ScalaTest. Wraz z weryfikatorami narzędzie to staje się bardzo wygodne. Kontynuacja przykładu klasy \texttt{Calc} znajdująca się poniżej przedstawia jak wygląda w pełni poprawny zintegrowany test właściwości. 
 
 \inputminted[fontsize=\small]{scala}{code/CalcTestScalaTest.scala}
 
-Na pierwszy rzut oka nie widać większej różnicy pomiędzy tym kodem napisanym w ScalaTest, a standardowym testem ScalaCheck. Po chwili jednak zaobserwować można, że specyfikacje nie są już umieszczone w singletonie, a zwykłej klasie. Dodatkowo teraz weryfikacja dokonuje się przy pomocy instrukcji \emph{should} sprawiając, że test staje się bardziej czytelny. Zaimportowane cechy zdradzają również, że metoda \emph{forAll} nie pochodzi już ze ScalaCheck, a cechy \emph{GeneratorDrivenPropertyChecks}. W powyższym przykładzie tak na prawdę, ze ScalaCheck użyto jedynie cechy \emph{Gen} zajmującej się generowaniem pseudolosowych danych testowych.
+Na pierwszy rzut oka nie widać większej różnicy pomiędzy tym kodem napisanym w ScalaTest, a standardowym testem ScalaCheck. Po chwili jednak zaobserwować można, że specyfikacje nie są już umieszczone w singletonie, a zwykłej klasie. Dodatkowo teraz weryfikacja dokonuje się przy pomocy instrukcji \texttt{should} sprawiając, że test staje się bardziej czytelny. Zaimportowane cechy zdradzają również, że metoda \texttt{forAll} nie pochodzi już ze ScalaCheck, a cechy \texttt{GeneratorDrivenPropertyChecks}. W powyższym przykładzie tak na prawdę, ze ScalaCheck użyto jedynie cechy \texttt{Gen} zajmującej się generowaniem pseudolosowych danych testowych.
 
 Dołączanie własnych generatorów odbywa się tak samo jak w przypadku zwykłych testów ScalaCheck. ScalaTest oddaje jednak do dyspozycji jeszcze jedną możliwość. Do generatorów można dołączyć nazwę, która pojawi się w raporcie po zakończeniu testów.
 
@@ -595,7 +595,7 @@ Dołączanie własnych generatorów odbywa się tak samo jak w przypadku zwykły
 forAll((Gen.choose(0, 100), "firstName"), (Gen.choose(0, 100), "secondName"))
 \end{minted}
 
-Oczywiście po zintegrowaniu tych dwóch narzędzi, także do wykorzystania jest klasa \emph{Arbitrary}.
+Oczywiście po zintegrowaniu tych dwóch narzędzi, także do wykorzystania jest klasa \texttt{Arbitrary}.
 
 \chapter{System weryfikacji jakości kodu Scala}
 
