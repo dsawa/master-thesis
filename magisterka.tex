@@ -24,6 +24,8 @@
 \opiekun  {dr Wiesław Pawłowski}
 
 \usepackage{multirow}
+\usepackage{booktabs}
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
 \usepackage{float}
 \usepackage{alltt}
 \usepackage{hyperref}
@@ -619,7 +621,7 @@ Po pierwszym uruchomieniu aplikacji internetowej zajmującej się zarządzaniem 
 
 Gdy już zostanie utworzonych kilku użytkowników, a wśród nich ci z uprawnieniami prowadzących to można przystąpić do części właściwej aplikacji. Po zalogowaniu osoby z nadanymi prawami prowadzącego wyświetlony zostaje widok listy grup powiązanych z tym użytkownikiem. Są to grupy do których został on przydzielony jako jeden z prowadzących, grupy utworzone przez tego użytkownika oraz te do których został przypisany jako uczestnik. 
 
-O grupach można myśleć jak o kursach składających się z zestawu zadań. Prowadzący tworzy grupę nadając jej nazwę. Otrzymuje tym samym uprawnienia założyciela w niej. Pozwala mu to zmienić nazwę grupy oraz zdecydować o jej usunięciu. Grupa może składać się z wielu prowadzących i oczywiście z wielu uczestników, do których jest skierowana. Są oni dodawani przez założyciela lub innego prowadzącego grupy.
+O grupach można myśleć jak o kursach składających się z zestawu zadań. Prowadzący tworzy grupę nadając jej nazwę. Otrzymuje tym samym uprawnienia założyciela w niej. Pozwala mu to zmienić nazwę grupy oraz zdecydować o jej usunięciu. Grupa może składać się z wielu prowadzących i oczywiście z wielu uczestników, do których jest skierowana. Są oni dodawani przez założyciela lub innego prowadzącego grupy. Istnieje również możliwość sprawdzenia prostych statystyk grupy. Można z nich odczytać ogólne informacje o liczbie członków oraz zadań w grupie. Ponadto wyświetlony zostaje spis zadań, z którego można się dowiedzieć, które z nich sprawiło najwięcej trudności uczestnikom. Wniosek ten można wyciągnać z zaprezentowanej średniej lub sumarycznej oceny wszystkich rozwiązań.
 
 \subsubsection{Zadania}
 
@@ -645,19 +647,37 @@ Prowadzący grupę dysponując plikami archiwów z projektem i testami może je 
 
 Gdy utworzone zadanie zostanie już powiązane z wymaganymi plikami to nie jeszcze widoczne dla uczestników grupy. Domyślnie oznaczone będzie ono jako nieaktywne. Ostatnim krokiem do podjęcia przez prowadzącego będzie zatem upewnienie się, że zadanie zostało skonstruowane poprawnie i aktywowanie go w odpowiedniej chwili.
 
+\subsubsection{Rozwiązania}
+
+Prowadzący grupę ma oczywiście również wgląd do rozwiązań nadsyłanych przez uczestników. Może je obejrzeć w postaci ogólnej przechodząc do widoku listy rozwiązań wybranego członka grupy. W przypadku, gdy rola prowadzącego została nadana przez administratora systemu posiada on prawo do zobaczenia szczegółów rozwiązania. Jest to prezentacja raportu z przeprowadzonych testów oraz szczegółowa statystyka informująca między innymi o tym ile testów zostało zakończonych sukcesem, porażką, ile było pominiętych, anulowanych czy wreszcie ile procentowo testów zostało zaliczonych. Ta ostatnia liczba może służyć jako sugestia oceny dla uczestnika z danego zagadnienia. Prowadzący może również pobrać plik z rozwiązaniem na swój dysk.
+
+Chociaż dana osoba mogła zostać dodana do systemu jako prowadząca kursy to nie jest wykluczona z opcji bycia uczestnikiem w niektórych grupach. Konsekwencją takiego stanu rzeczy jest jednak brak możliwości sprawdzenia wyników pozostałych uczestników. Może natomiast wyświetlić szczegółowe informacje o swoim rozwiązaniu.
+
+\subsection{Uczestnik}
+
+Uczestnik grupy jest ostatnim typem użytkownika wymagającym przedstawienia. Jak nie trudno się domyślić jego głównym celem jest rozwiązywanie zagadnień wprowadzanych przez prowadzących kurs. Po zalogowaniu wyświetlona zostaje lista grup powiązanych z tym użytkownikiem. Aplikacja normalnie daje takiej osobie możliwość wyświetlenia jedynie listy aktywnych zadań w wybranej grupie. W kolejnym kroku może przeczytać informacje o zadaniu, opis ćwiczeń oraz oczywiście pobrać przygotowany projekt SBT.   
+
+Rozwiązując zadanie uczestnik powinien również napisać własne testy, aby upewnić się co do swojego rozwiązania. Nie będą one jednak brane pod uwagę przy wysyłaniu kodu do analizy. Wysłanie rozwiązania odbywa się przy pomocy dwuargumentowego polecenia SBT: \texttt{sendSolution loginUzytkownika hasloUzytkownika}. W pierwszym kroku wyodrębni ono kody źródłowe i zarchiwizuje je w pliku \emph{.jar}. Następnie zostanie on wysłany do aplikacji zarządzającej.
+
+Po skończonej weryfikacji kodu przez system użytkownik ten zostanie poinformowany o tym, że może sprawdzić swoją ocene. Dowie się także przez ile testów zostało zaakceptowane jego rozwiązanie.
+
+Uczestnik może zostać mianowany prowadzącym w innej grupie. W jej obrębie będzie posiadać niemal takie same uprawnienia jak inni prowadzący. To znaczy, że oprócz sprawdzenia swoich wyników będzie posiadać możliwość odczytania ogólnych informacji o ocenach innych uczestników kursu. Poza tym będzie mieć realny wpływ na kształt zadań poprzez ich edycję. Udostępnione zostaną mu także widoki statystyki grupy oraz zarządzania jej członkami. Nie jest jednak możliwe usunięcie założyciela grupy.
+
+Wszystkie możliwe uprawnienia zależne od roli użytkownika przedstawia tabela \ref{uprawnienia:uzytkownikow}.
+\newpage
 \begin{table}[!tbh]\footnotesize
 \begin{tabular}{|l|l|l|l|}
 \hline
 Rola System & Uprawnienia System & Rola Grupa & Uprawnienia Grupa \\ 
 \hline
-\multirow{4}{*}{Administrator} & Dodawanie użytkowników & & \\
-								& Edycja użytkowników & & \\
-								& Usuwanie użytkowników & & \\  								
-								& Zmiana uprawnień & & \\ 
+\multirow{4}{*}{Administrator} & \tabitem Dodawanie, edycja, & & \\
+								& usuwanie użytkowników & & \\
+								& \tabitem Zmiana haseł & & \\  								
+								& i uprawnień użytkowników & & \\ 
 \hline								 
-\multirow{11}{*}{Prowadzący} & Tworzenie grup & \multirow{2}{*}{Założyciel} & Edycja grupy \\
-							& Edycja grup 	  & 									& Usuwanie grupy \\ \cline{3-4}
-							& Zmiana haseł i loginów & \multirow{6}{*}{Prowadzący}	 & Przydział uczestników i prowadzących \\
+\multirow{11}{*}{Prowadzący} & \tabitem Tworzenie, edycja grup & \multirow{2}{*}{Założyciel} & \tabitem Zmiana nazwy grupy \\
+							& \tabitem Lista powiązanych grup  & 									& \tabitem Usuwanie grupy \\ \cline{3-4}
+							& Zmiana haseł i loginów & \multirow{6}{*}{Prowadzący}	 & Przydzielanie uczestników i prowadzących \\
 							& Lista użytkowników z grup & 							& Tworzenie, edytowanie zadań \\ 
 							& Lista grup				&							& Usuwanie, aktywowanie zadań \\
 							& Lista swoich wyników		& 							& Podgląd statystyki grupy \\
@@ -677,6 +697,8 @@ Rola System & Uprawnienia System & Rola Grupa & Uprawnienia Grupa \\
 							&							&							& Odczytanie swoich wyników \\
 \hline	
 \end{tabular}
+\caption{Uprawnienia użytkowników w aplikacji zarządzającej\label{uprawnienia:uzytkownikow}}
+\source{Opracowanie własne}
 \end{table}
 
 \section{Struktura ogólna}
@@ -729,7 +751,7 @@ upraszcza.
 \bibliography{xml}
 
 % spis tabel (jeżeli jest potrzebny):
-%\listoftables
+\listoftables
 
 % spis rysunków (jeżeli jest potrzebny):
 \listoffigures
