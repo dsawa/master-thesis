@@ -666,26 +666,23 @@ Uczestnik może zostać mianowany prowadzącym w innej grupie. W jej obrębie b�
 Wszystkie możliwe uprawnienia zależne od roli użytkownika przedstawia tabela \ref{uprawnienia:uzytkownikow}.
 \newpage
 \begin{table}[!tbh]\footnotesize
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|l|p{5cm}|l|p{5cm}|}
 \hline
-Rola System & Uprawnienia System & Rola Grupa & Uprawnienia Grupa \\ 
+Rola systemowa & Uprawnienia systemowe & Rola w grupie & Uprawnienia w grupie \\ 
 \hline
-\multirow{4}{*}{Administrator} & \tabitem Dodawanie, edycja, & & \\
-								& usuwanie użytkowników & & \\
-								& \tabitem Zmiana haseł & & \\  								
-								& i uprawnień użytkowników & & \\ 
+\multirow{2}{*}{Administrator} & \tabitem Dodawanie, edytowanie, usuwanie użytkowników & & \\
+								& \tabitem Zmiana haseł i uprawnień użytkowników & & \\  								
 \hline								 
-\multirow{11}{*}{Prowadzący} & \tabitem Tworzenie, edycja grup & \multirow{2}{*}{Założyciel} & \tabitem Zmiana nazwy grupy \\
-							& \tabitem Lista powiązanych grup  & 									& \tabitem Usuwanie grupy \\ \cline{3-4}
-							& Zmiana haseł i loginów & \multirow{6}{*}{Prowadzący}	 & Przydzielanie uczestników i prowadzących \\
-							& Lista użytkowników z grup & 							& Tworzenie, edytowanie zadań \\ 
-							& Lista grup				&							& Usuwanie, aktywowanie zadań \\
-							& Lista swoich wyników		& 							& Podgląd statystyki grupy \\
-							& Lista wyników uczestnika &							& Podgląd rozwiązania \\
-						   &							&							& Pobranie rozwiązania \\ \cline{3-4} 
-						   &							& \multirow{3}{*}{Uczestnik} & Lista przesłanych rozwiązań \\
-						   &						 	&							& Podgląd swoich ocen i zadań \\
-						   &							&							& Szczegóły własnego rozwiązania \\ 
+\multirow{10}{*}{Prowadzący} & \tabitem Tworzenie i edycja grup & \multirow{2}{*}{Założyciel} & \tabitem Zmiana nazwy grupy \\
+							& \tabitem Lista powiązanych grup & 									& \tabitem Usuwanie grupy \\ \cline{3-4}
+							& \tabitem Wyświetlenie użytkowników z powiązanych grup & \multirow{6}{*}{Prowadzący} & \tabitem Przydzielanie uczestników i prowadzących \\
+							& \tabitem Zmiana danych logowania członków z powiązanych grup & 				& \tabitem Tworzenie, edytowanie, usuwanie i aktywowanie zadań \\ 
+							& \tabitem Lista zadań z powiązanych grup	&			& \tabitem Podgląd statystyki grupy \\
+							& 							 & 							& \tabitem Lista rozwiązań danego uczestnika \\
+							&  							 &							& \tabitem Pobieranie rozwiązań uczestników \\
+							&  							 &							& \tabitem Wyświetlenie szczegółów dotyczących rozwiązań uczestników \\ \cline{3-4} 
+						   	&							& \multirow{2}{*}{Uczestnik} & \tabitem Lista swoich rozwiązań \\
+						   	&						 	&							& \tabitem Wyświetlenie szczegółów dotyczących swoich rozwiązań \\
 \hline
 \multirow{8}{*}{Uczestnik} & Lista grup				& \multirow{5}{*}{Prowadzący} & Przydział uczestników i prowadzących \\
 							& Lista zadań				&							& Tworzenie, edytowanie zadań \\
