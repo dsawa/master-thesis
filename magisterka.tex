@@ -716,9 +716,28 @@ Zanim jednak zostanie przedstawiona charakterystyka obu aplikacji i metod komuni
 
 \subsection{Aktorzy}
 
-AKKA to zestaw narzędzi do tworzenia aplikacji działających na maszynie wirtualnej JVM, które potrafią obsługiwać wiele żądań równolegle, wchodzą w kontakt z klientem w sposób asynchroniczny i wspierają zdarzeniowy model programowania. W jej skład wchodzą specjalne komponenty -- aktorzy. Dają one szanse programistom w pełni skupić się na tym jak zaimplementować w aplikacji założone cele, poprzez zdjęcie z nich odpowiedzialności za skalowalność kodu i zarządzania zasobami.   
+AKKA to zestaw narzędzi do tworzenia aplikacji działających na maszynie wirtualnej JVM, które potrafią obsługiwać wiele żądań równolegle, wchodzą w kontakt z klientem w sposób asynchroniczny i wspierają zdarzeniowy model programowania. W jej skład wchodzą specjalne komponenty -- aktorzy. Dają one szanse programistom w pełni skupić się na tym jak zaimplementować w aplikacji założone cele poprzez zdjęcie z nich odpowiedzialności za skalowalność kodu i zarządzanie zasobami.   
 
 Moduły AKKI to tak na prawdę pliki archiwów \emph{.jar}. Można z nich korzystać jak z każdej innej biblioteki w tej postaci. Zaletą każdego z komponentów jest to, że posiada zminimalizowaną listę zależności. Moduł aktorów nie wymaga niczego innego ponad standardową biblioteką Scali. W rzeczywistości od wersji 2.10 Scali moduł ten zawarty jest jako część języka. 
+
+Wykorzystanie aktorów ma na celu uruchamianie procesów działających równolegle i rozwiązujących wspólnie jeden większy problem w sposób asynchroniczny. Autorzy książki ,,Akka in Action'' \cite[s. 9]{Roestenburg:2012:AIA} jako przykład takiego zastosowania aktorów podają system sprzedający bilety. Załóżmy, że istnieje jedna pula biletów na koncert oraz cztery kasy. Typowa implementacja takiego systemu w Akkce oparta będzie na aktorach komunikujących się ze sobą niemutowalnymi wiadomościami. Każdy z nich posiada bowiem informację o adresie innych aktorów. Pierwszym aktorem niech będzie dystrybutor biletów, a kolejnymi agenci odpowiadający za sprzedaż.
+
+Dystrybutor posiada informację, że na dany koncert dostępnych jest na przykład 100 biletów. Najprostszym sposobem powiadomienia o tym agentów jest wysłanie tej informacji w sposób łańcuchowy. Aktor dystrybutora przesyła zatem tą wiadomość do pierwszego aktora kasy. Ten odejmuje z puli wszystkich biletów swoją część i przekazuje nową wiadomość do drugiego aktora kasy. Wiadomość ta również zawiera informacje o tym ile biletów zostało wziętych z puli oraz ile zostało. Sytuacja powtarza się, aż każda z kas będzie posiadać dokładnie 25 biletów.
+
+Mocna stroną takiego rozwiązania jest to, że aktorzy kas mogą sprzedawać równolegle bilety bez blokowania siebie nawzajem. Każdy z nich posiada przecież własną pule wejściówek. Innym plusem jest to, że aktorzy nie muszą czekać na odpowiedź dystrybutora. W sytuacji, gdy dystrybutor ulegnie awarii to kasy nadal mogą pracować aż do momentu wyprzedania puli biletów. Dodatkowo, gdy agent wyśle wiadomość do zepsutego dystrybutora to nie ulegnie on awarii, ani nie będzie czekać na odpowiedź. Jego praca nie zostanie przerwana, a jego żądanie może zostać obsłużone inny obiekt.
+
+Podsumowując, aktorzy w powyższym przykładzie nie współdzielą danych, a komunikują się przez niemutowalne wiadomości. Unika się zatem problemów spotykanych w klasycznych wielowątkowych implementacjach. Są to blokady związane z dostępem do danych, czy zakleszczanie wątków\footnote{Sytuacja, w której co najmniej dwa różne wątki czekają na siebie wzajemnie.}. AKKA wyklucza większość tego typu problemów uwalniając programistę od dodatkowego ciężaru.
+
+Zaimplementowany w Scali system aktorów Akki dba o to, by poszczególni aktorzy potrafili komunikować się ze sobą oraz dostarcza wymagane komponenty do pracy z nimi. Możliwe jest korzystanie z niego także w programach Javowych. Akka dla Scali dostarcza cechę \texttt{Actor} na podstawie, której możliwe jest skonstruowanie własnego aktora. Stworzenie wspominanego agenta kasy ograniczyłoby się zatem do skonstruowania klasy rozszerzającej tę cechę i zawierającą liczbę wolnych biletów na dany koncert. Akka nie pozwali jednak na powołanie go do życia przy użyciu konstruktora, ponieważ dałoby to bezpośredni dostęp do jego metod. To skolei byłoby niezgodne z ideą równoległej pracy poprzez przesyłanie wiadomości. System aktorów sam tworzy referencje aktorów\footnote{W Scali jest to obiekt typu \texttt{ActorRef}}. Pozwala na ich podstawie zlokalizować żądanego aktora.
+
+Aktora Akki najprościej można scharakteryzować przez pryzmat czterech głównych operacji jakie wykonuje:
+
+\begin{enumerate}
+\item Tworzenie - każdy aktor może tworzyć nowych aktorów. W systemie Akki istnieje, więc aktor będący na szczycie w hierchii.
+\item Wysyłanie - model programowania przy użyciu aktorów polega na przesyłaniu między aktorami asynchronicznych wiadomości. 
+\item Odbieranie - aktor odbiera wiadomości, od których uzależnione jest jego ,,zachowanie''. Występuje tutaj mechanizm dopasowywania wzorca.
+\item Kontrolowanie - aktor może monitorować potomnych aktorów poprzez odbieranie wiadomości i reagować w ten sposób na ewentualne błędy, czy niepowodzenia operacji przez nich wykonywanych.
+\end{enumerate}
 
 \subsection{Aplikacja zarządzająca}
 lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum 
