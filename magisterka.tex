@@ -696,37 +696,49 @@ Rola systemowa & Uprawnienia systemowe & Rola w grupie & Uprawnienia w grupie \\
 \source{Opracowanie własne}
 \end{table}
 
-\section{Struktura ogólna}
+\section{Struktura}
 
-lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum 
+System będący tematem pracy składa się z dwóch aplikacji. Celem pierwszej z nich jest udostępnienie interfejsu i usług pozwalających na zarządzanie użytkownikami, grupami i zadaniami.
+Zadaniem drugiej jest natomiast analizowanie przesyłanego kodu i zapisywanie wyników. Rozdzielenie tych logik biznesowych niesie ze sobą wymierne korzyści. Przede wszystkim utrzymując system składający się z mniejszych elementów możliwe jest szybsze namierzenie i naprawienie problemu, gdyby ten wystąpił. Gdy zawodzi jakaś część systemu to również nie jesteśmy zmuszeni do zaprzestania całkowitej pracy. 
 
-\begin{figure}[h]
+Podział na dwie aplikacje wymaga również inteligentnego zarządzania zasobami. Aplikacja zarządzająca nie będzie potrzebować dużej liczby serwerów jak może to być w przypadku aplikacji testującej kod. To na niej, bowiem uruchamiane będą procesy sprawdzające przesyłane przez użytkowników rozwiązania.
+
+Strukturę całego systemu oraz drogi komunikacji pokazuje schemat \ref{system:schemat}. 
+
+\begin{figure}[!tbh]
 \centering 
 \includegraphics[width=1.05\hsize]{fig/scaxerciser_schemat}
-\caption{Schemat komunikacji pomiędzy różnymi elementami systemu}
+\caption{Schemat komunikacji pomiędzy różnymi elementami systemu\label{system:schemat}}
 \source{Opracowanie własne}
 \end{figure}
+
+Zanim jednak zostanie przedstawiona charakterystyka obu aplikacji i metod komunikacji między nimi, należy odpowiedzieć na pytanie czym są \emph{AKKA} i aktorzy.
+
+\subsection{Aktorzy}
+
+AKKA to zestaw narzędzi do tworzenia aplikacji działających na maszynie wirtualnej JVM, które potrafią obsługiwać wiele żądań równolegle, wchodzą w kontakt z klientem w sposób asynchroniczny i wspierają zdarzeniowy model programowania. W jej skład wchodzą specjalne komponenty -- aktorzy. Dają one szanse programistom w pełni skupić się na tym jak zaimplementować w aplikacji założone cele, poprzez zdjęcie z nich odpowiedzialności za skalowalność kodu i zarządzania zasobami.   
+
+Moduły AKKI to tak na prawdę pliki archiwów \emph{.jar}. Można z nich korzystać jak z każdej innej biblioteki w tej postaci. Zaletą każdego z komponentów jest to, że posiada zminimalizowaną listę zależności. Moduł aktorów nie wymaga niczego innego ponad standardową biblioteką Scali. W rzeczywistości od wersji 2.10 Scali moduł ten zawarty jest jako część języka. 
+
+\subsection{Aplikacja zarządzająca}
+lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum 
+
+\subsection{Aplikacja testująca kod}
+lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum 
 
 \section{Użyte technologie}
 
 \subsection{Play Framework}
 
-\subsection{AngularJS}
+\subsection{RabbitMQ}
 
-\subsubsection{Testy w AngularJS}
+\subsection{AngularJS}
 
 \subsection{MongoDB}
 
 % zakończenie 
 \summary
-Możliwości, jakie stoją przed archiwum prac magisterskich opartych na
-XML-u, są ograniczone jedynie czasem, jaki należy poświęcić na pełną
-implementację systemu. Nie ma przeszkód technologicznych do stworzenia
-co najmniej równie doskonałego repozytorium, jak ma to miejsce w
-przypadku ETD. Jeżeli chcemy w pełni uczestniczyć w rozwoju nowej ery
-informacji, musimy szczególną uwagę przykładać do odpowiedniej
-klasyfikacji i archiwizacji danych. Sądzę, że język XML znacznie to
-upraszcza.
+lorem ipsum
 
 % załączniki (opcjonalnie):
 %\appendix
