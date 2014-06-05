@@ -281,7 +281,7 @@ def say(a: Animal) = a match {
  case _ => println("Animal")
 }
 \end{minted}
-
+\label{patternMatching:example}
 Znak podkreślnika można traktować jak instrukcję \texttt{else}.
 
 \section{Środki do osiągnięcia celu}
@@ -730,7 +730,7 @@ Podsumowując, aktorzy w powyższym przykładzie nie współdzielą danych, a ko
 
 Zaimplementowany w Scali system aktorów Akki dba o to, by poszczególni aktorzy potrafili komunikować się ze sobą oraz dostarcza wymagane komponenty do pracy z nimi. Możliwe jest korzystanie z niego także w programach Javowych. Akka dla Scali dostarcza cechę \texttt{Actor} na podstawie, której możliwe jest skonstruowanie własnego aktora. Stworzenie wspominanego agenta kasy ograniczyłoby się zatem do skonstruowania klasy rozszerzającej tę cechę i zawierającą liczbę wolnych biletów na dany koncert. Akka nie pozwali jednak na powołanie go do życia przy użyciu konstruktora, ponieważ dałoby to bezpośredni dostęp do jego metod. To skolei byłoby niezgodne z ideą równoległej pracy poprzez przesyłanie wiadomości. System aktorów sam tworzy referencje aktorów\footnote{W Scali jest to obiekt typu \texttt{ActorRef}}. Pozwala na ich podstawie zlokalizować żądanego aktora.
 
-Aktora Akki najprościej można scharakteryzować przez pryzmat czterech głównych operacji jakie wykonuje:
+Aktora Akki najprościej jednak można scharakteryzować przez pryzmat czterech głównych operacji jakie wykonuje:
 
 \begin{enumerate}
 \item Tworzenie - każdy aktor może tworzyć nowych aktorów. W systemie Akki istnieje, więc aktor będący na szczycie w hierchii.
@@ -738,6 +738,35 @@ Aktora Akki najprościej można scharakteryzować przez pryzmat czterech główn
 \item Odbieranie - aktor odbiera wiadomości, od których uzależnione jest jego ,,zachowanie''. Występuje tutaj mechanizm dopasowywania wzorca.
 \item Kontrolowanie - aktor może monitorować potomnych aktorów poprzez odbieranie wiadomości i reagować w ten sposób na ewentualne błędy, czy niepowodzenia operacji przez nich wykonywanych.
 \end{enumerate}
+
+Prosty przykład kodu uruchamiającego aktora oraz wysyłającego mu wiadomości znajduje się poniżej. Jest to wariacja przykładu z dopasowywaniem wzorca z pierwszego rozdziału \ref{patternMatching:example}.
+
+\begin{minted}[]{scala}
+import akka.actor.{Actor, ActorSystem, Props}
+case class Cat(name: String)
+case class Dog(name: String)
+object AnimalActor {
+  def props = Props(new AnimalActor)
+}
+class AnimalActor extends Actor {
+  def receive = {
+    case c: Cat => println("Meow!")
+    case d: Dog => println("Woof!")
+    case _ => println("Animal")
+  }
+}
+scala> val system = ActorSystem("animals")
+system: akka.actor.ActorSystem = akka://animals
+
+scala> val actor = system.actorOf(AnimalActor.props)
+actor: akka.actor.ActorRef = Actor[akka://animals/user/\$\#b359028552]
+
+scala> actor ! Cat("Tom")
+Meow!
+
+scala> actor ! Dog("Reksio")
+Woof!
+\end{minted}
 
 \subsection{Aplikacja zarządzająca}
 lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum 
