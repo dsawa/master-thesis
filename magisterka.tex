@@ -651,7 +651,7 @@ Gdy utworzone zadanie zostanie już powiązane z wymaganymi plikami to nie jeszc
 
 Prowadzący grupę ma oczywiście również wgląd do rozwiązań nadsyłanych przez uczestników. Może je obejrzeć w postaci ogólnej przechodząc do widoku listy rozwiązań wybranego członka grupy. W przypadku, gdy rola prowadzącego została nadana przez administratora systemu posiada on prawo do zobaczenia szczegółów rozwiązania. Jest to prezentacja raportu z przeprowadzonych testów oraz szczegółowa statystyka informująca między innymi o tym ile testów zostało zakończonych sukcesem, porażką, ile było pominiętych, anulowanych czy wreszcie ile procentowo testów zostało zaliczonych. Ta ostatnia liczba może służyć jako sugestia oceny dla uczestnika z danego zagadnienia. Prowadzący może również pobrać plik z rozwiązaniem na swój dysk.
 
-Chociaż dana osoba mogła zostać dodana do systemu jako prowadząca kursy to nie jest wykluczona z opcji bycia uczestnikiem w niektórych grupach. Konsekwencją takiego stanu rzeczy jest jednak brak możliwości sprawdzenia wyników pozostałych uczestników. Może natomiast wyświetlić szczegółowe informacje o swoim rozwiązaniu.
+Chociaż dana osoba mogła zostać dodana do systemu jako prowadząca kursy to nie jest wykluczona z opcji bycia uczestnikiem w innych grupach. Konsekwencją takiego stanu rzeczy jest jednak brak możliwości sprawdzenia wyników pozostałych uczestników w obrębie takich grup. Może natomiast wyświetlić szczegółowe informacje o swoim rozwiązaniu.
 
 \subsection{Uczestnik}
 
@@ -684,14 +684,12 @@ Rola systemowa & Uprawnienia systemowe & Rola w grupie & Uprawnienia w grupie \\
 						   	&							& \multirow{2}{*}{Uczestnik} & \tabitem Lista swoich rozwiązań \\
 						   	&						 	&							& \tabitem Wyświetlenie szczegółów dotyczących swoich rozwiązań \\
 \hline
-\multirow{8}{*}{Uczestnik} & Lista grup				& \multirow{5}{*}{Prowadzący} & Przydział uczestników i prowadzących \\
-							& Lista zadań				&							& Tworzenie, edytowanie zadań \\
-							&							&							& Usuwanie, edytowanie zadań \\
-							&							&							& Podgląd statystyki grupy \\
-							&							&							& Podgląd wyników uczestników \\ \cline{3-4}
-							&							& \multirow{3}{*}{Uczestnik} & Lista przesłanych rozwiązań \\
-							&							&							& Lista i podgląd zadań \\
-							&							&							& Odczytanie swoich wyników \\
+\multirow{6}{*}{Uczestnik} & \tabitem Wyświetlenie listy z powiązanymi grupami & \multirow{4}{*}{Prowadzący} & \tabitem Przydzielanie uczestników i prowadzących \\
+							& \tabitem Wyświetlenie listy zadań z wybranej grupy &			& \tabitem Tworzenie, edytowanie, usuwanie i aktywowanie zadań \\
+							& \tabitem Wyświetlenie opisu wybranego zadania &			& \tabitem Wyświetlenie statystyki danej grupy \\
+							&							&							& \tabitem Lista wyników i rozwiązań pozostałych uczestników \\ \cline{3-4}
+							&							& \multirow{2}{*}{Uczestnik} & \tabitem Wyświetlenie listy swoich rozwiązań \\
+							&							&							& \tabitem Odczytanie oceny danego rozwiązania \\
 \hline	
 \end{tabular}
 \caption{Uprawnienia użytkowników w aplikacji zarządzającej\label{uprawnienia:uzytkownikow}}
