@@ -53,8 +53,7 @@ Scala to język wspierający paradygmaty programowania obiektowego i funkcyjnego
  Simple Build Tool,
  SBT,
  ScalaTest, 
- ScalaCheck,
- ScalaStyle}
+ ScalaCheck}
 
 % tytuł i spis treści
 \maketitle
@@ -802,13 +801,13 @@ Wpis o danym rozwiązaniu zostaje zmodyfikowany w bazie danych o zwrócone przez
 
 Na ostateczny kształ systemu miało wpływ wiele technologii. Część z nich została już opisana w poprzednich rozdziałach. Są to między innymi ScalaTest, ScalaCheck, czy AKKA. Warto jednak przyjrzeć się po krótce w jaki sposób zaimplementowana zostały pozostałe elementy systemu. 
 
-Dwie współpracujące ze sobą aplikacje powstały przy pomocy \emph{Play Framework}. Narzędzie to pozwala stworzyć aplikację internetową w oparciu o wzorzec Model-Widok-Kontroler w języku Java lub Scala. Pomimo tego, że Play posiada zintegrowaną bazę danych\footnote{Domyślnie jest to H2} to bez przeszkód można połączyć rozwijaną aplikację z innymi. 
+Pierwszy przedstawiony zostanie \emph{Play Framework}. To właśnie przy jego pomocy powstały dwie aplikacje, na które składa się całość systemu. Narzędzie to pozwala stworzyć aplikację internetową w oparciu o wzorzec Model-Widok-Kontroler w języku Java lub Scala. Składa się między innymi z wydajnego serwera HTTP i kompilatora Javy. Zmiany wprowadzane do aplikacji mogą być widoczne bez potrzeby przebudowania całego projektu. Aplikacja bowiem jest automatycznie rekompilowana w trakcie działania. Play wspiera podejście REST oraz posiada zintegrowaną bazę danych\footnote{Domyślnie jest to H2}. Bez przeszkód można jednak połączyć się z innymi bazami. 
 
-System weryfikacji kodu musi przechowywać, gdzieś pliki projektów i testów. \emph{MongoDb} to nierelacyjna baza danych z mechanizmem gotowym do przechowywania plików o rozmiarach przekraczajacych nawet 16 MB. Wszystkie oficjalne sterowniki tej bazy danych wspierają ten mechanizm, w tym oczywiście również dla Scali.   
+System weryfikacji kodu musi przechowywać, gdzieś pliki projektów i testów. \emph{MongoDB} to nierelacyjna baza danych z mechanizmem gotowym do przechowywania plików o rozmiarach przekraczajacych nawet 16 MB. Wszystkie oficjalne sterowniki tej bazy danych wspierają ten mechanizm, w tym oczywiście również dla Scali. Ponadto do pobierania statystyk grupy wykorzystana została technika agregacji. To znaczy, że kolejne instrukcje bazy danych są wykonywane łańcuchowo w oparciu o kolejnych wyniki poprzednich operacji.
 
-RabbitMQ oraz jego zastosowanie w systemie zostało w skrócie przedstawione w podrozdziale \ref{section:struktrura}. Warto jednak przyjrzeć się temu narzędziu jeszcze bliżej. W tym rozdziale zostanie przedstawione w jaki sposób skonfigurować połączenie z nim od strony aplikacji. Ponieważ aplikacje korzystają oficjalnego klienta tego serwera dla Javy, będzie to kolejny dowód na kompatybilność Scali.
+RabbitMQ oraz jego zastosowanie w systemie zostało w skrócie przedstawione w podrozdziale \ref{section:struktrura}. Warto jednak przyjrzeć się temu narzędziu jeszcze bliżej. W tym rozdziale zostanie przedstawione w jaki sposób skonfigurować połączenie z nim od strony aplikacji. Ponieważ aplikacje korzystają oficjalnego klienta tego serwera dla Javy, będzie to także kolejny dowód na kompatybilność Scali.
 
-Interfejs użytkownika niemal w całości powstał przy użyciu biblioteki języka JavaScript - \emph{AngularJS}. Ona również korzysta z wzorca Model-Widok-Kontroler. To właśnie wiązanie tych trzech warstw jest szczególnie mocną stroną AngularJS. Posiada własny kompilator HTML, który okazał się niezwykle pomocny w ukrywaniu elementów strony przed nieautoryzowanym użytkownikiem. 
+Na zakończenie omówiony zostanie interfejs użytkownika, który niemal w całości powstał przy użyciu biblioteki języka JavaScript - \emph{AngularJS}. Ona również korzysta z wzorca Model-Widok-Kontroler. To właśnie wiązanie tych trzech warstw jest szczególnie mocną stroną AngularJS. Dodatkowo posiada własny kompilator HTML, który okazał się niezwykle pomocny w ukrywaniu elementów strony przed nieautoryzowanym użytkownikiem.  
 
 \subsection{Play Framework}
 
