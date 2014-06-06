@@ -697,7 +697,7 @@ Rola systemowa & Uprawnienia systemowe & Rola w grupie & Uprawnienia w grupie \\
 \end{table}
 
 \section{Struktura}
-
+\label{section:struktrura}
 System będący tematem pracy składa się z dwóch aplikacji. Celem pierwszej z nich jest udostępnienie interfejsu i usług pozwalających na zarządzanie użytkownikami, grupami i zadaniami.
 Zadaniem drugiej jest natomiast analizowanie przesyłanego kodu i zapisywanie wyników. Rozdzielenie tych logik biznesowych niesie ze sobą wymierne korzyści. Przede wszystkim utrzymując system składający się z mniejszych elementów możliwe jest szybsze namierzenie i naprawienie problemu, gdyby ten wystąpił. Gdy zawodzi jakaś część systemu to również nie jesteśmy zmuszeni do zaprzestania całkowitej pracy. 
 
@@ -798,15 +798,25 @@ Gdy proces testowania jest zakończony następuje odczytanie wyników i odzwierc
 
 Wpis o danym rozwiązaniu zostaje zmodyfikowany w bazie danych o zwrócone przez reportera szczegóły. Dodatkowo informacja o rozwiązaniu jest uzupełniona o domyślny raport końcowy zwracany przez ScalaTest, a także o szczegóły uruchomionego przez aplikację procesu. Ostatnim krokiem jest powiadomienie aplikacji zarządzającej o zakończonej analizie wysyłając żądanie HTTP.Aktor staje się gotowy do odebrania kolejnej wiadomości z kolejki po wykonaniu wszystkich opisanych wyżej akcji.
 
-\section{Użyte technologie}
+\section{Zastosowane technologie}
+
+Na ostateczny kształ systemu miało wpływ wiele technologii. Część z nich została już opisana w poprzednich rozdziałach. Są to między innymi ScalaTest, ScalaCheck, czy AKKA. Warto jednak przyjrzeć się po krótce w jaki sposób zaimplementowana zostały pozostałe elementy systemu. 
+
+Dwie współpracujące ze sobą aplikacje powstały przy pomocy \emph{Play Framework}. Narzędzie to pozwala stworzyć aplikację internetową w oparciu o wzorzec Model-Widok-Kontroler w języku Java lub Scala. Pomimo tego, że Play posiada zintegrowaną bazę danych\footnote{Domyślnie jest to H2} to bez przeszkód można połączyć rozwijaną aplikację z innymi. 
+
+System weryfikacji kodu musi przechowywać, gdzieś pliki projektów i testów. \emph{MongoDb} to nierelacyjna baza danych z mechanizmem gotowym do przechowywania plików o rozmiarach przekraczajacych nawet 16 MB. Wszystkie oficjalne sterowniki tej bazy danych wspierają ten mechanizm, w tym oczywiście również dla Scali.   
+
+RabbitMQ oraz jego zastosowanie w systemie zostało w skrócie przedstawione w podrozdziale \ref{section:struktrura}. Warto jednak przyjrzeć się temu narzędziu jeszcze bliżej. W tym rozdziale zostanie przedstawione w jaki sposób skonfigurować połączenie z nim od strony aplikacji. Ponieważ aplikacje korzystają oficjalnego klienta tego serwera dla Javy, będzie to kolejny dowód na kompatybilność Scali.
+
+Interfejs użytkownika niemal w całości powstał przy użyciu biblioteki języka JavaScript - \emph{AngularJS}. Ona również korzysta z wzorca Model-Widok-Kontroler. To właśnie wiązanie tych trzech warstw jest szczególnie mocną stroną AngularJS. Posiada własny kompilator HTML, który okazał się niezwykle pomocny w ukrywaniu elementów strony przed nieautoryzowanym użytkownikiem. 
 
 \subsection{Play Framework}
+
+\subsection{MongoDB}
 
 \subsection{RabbitMQ}
 
 \subsection{AngularJS}
-
-\subsection{MongoDB}
 
 % zakończenie 
 \summary
