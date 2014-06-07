@@ -882,6 +882,69 @@ Na zakończenie należy odnieść się do wspominanego mechanizmu przechowujące
 
 \subsection{RabbitMQ}
 
+Kolejkowanie rozwiązań pomiędzy dwoma aplikacjami nie byłoby możliwe bez technologii opartej na protokole AMQP\footnote{AMQP - jest to skrót od Advanced Message Queuing Protocol}. Jest to protokół w warstwie aplikacji służący do przesyłania asynchronicznych wiadomości. Pracując na tym protokole mamy doczynienia z dwoma bytami -- nadawcami i odbiorcami. Jak nie trudno się domyślić nadawca odpowiada za wysłanie wiadomości, natomiast odbiorca zbiera je i wykonuje operację często pochłaniającą większą ilość czasu. Zadaniem RabbitMQ jest rozdzielanie wiadomości pomiędzy właściwymi odbiorcami. W systemie weryfikacji kodu Scala czyni to właśnie za pomocą kolejki.
+
+Konfiguracja kolejki w systemie jest bardzo prosta. Ustawienia mogą być różne w zależności od środowiska uruchomieniowego aplikacji. Odpowiadają za to oddzielne pliki.
+
+\begin{itemize}
+\item application.conf -- najbardziej ogólne ustawienia. Będą stosowane we wszystkich środowiskach.
+\item application.dev.conf -- ustawienia środowiska deweloperskiego.
+\item application.prod.conf -- ustawienia środowiska produkcyjnego.
+\item application.test.conf -- ustawienia środowiska testowego.
+\end{itemize} 
+
+W aplikacji zarządzającej są to dwa ustawienia definiujące host, na którym działa RabbitMQ oraz nazwę kolejki rozwiązań.
+
+\begin{alltt}
+rabbitmq.host=localhost
+rabbitmq.solutions.queue=solutions_queue
+\end{alltt}
+
+Aplikacja testująca kod posiada dodatkowe pole konfiguracyjne określające ilość uruchamianych aktorów analizujących rozwiązania.
+
+\begin{alltt}
+rabbitmq.solutions.analyzers.number=2
+\end{alltt}
+
+W obu przypadkach ustawienia są wczytywane przy starcie aplikacji i zapisywane jako stałe pola obiektu \texttt{MQConfig}. Za wysłanie wiadomości do kolejki odpowiada metoda \texttt{send} obiektu \texttt{SolutionSender}.
+
+\begin{minted}[]{scala}
+private def send(solutionId: String) {
+  val sendingChannel = RabbitMQConnection.connection.createChannel()
+  sendingChannel.queueDeclare(MQConfig.RabbitMQSolutionsToAnalyzeQueue, 
+    queueDurable, false, false, null)
+  sendingChannel.basicPublish("", MQConfig.RabbitMQSolutionsToAnalyzeQueue, 
+    MessageProperties.PERSISTENT_TEXT_PLAIN, solutionId.getBytes)
+  sendingChannel.close()
+}
+\end{minted}
+
+\texttt{RabbitMQConnection} to obiekt, którego zadaniem jest zarządzanie połączeniem z RabbitMQ zdefiniowanego w pliku konfiguracyjnym. By wysłać wiadomość potrzebne jest utworzenie na nim kanału i zadeklarowanie kolejki. W rozdziale \ref{section:struktrura} powiedziane zostało, że wiadomości wrzucone do kolejki są zabezpieczone przed utratą w przypadku awarii serwera. Między innymi w metodzie \texttt{queueDeclare} odpowiada za to zmienna logiczna \texttt{ququeDurable}. Ustawiona wartość na \texttt{true} oznacza, że RabbitMQ będzie pamiętać o tej kolejce przy ponownym uruchomieniu. W metodzie wysyłającej wiadomość -- \texttt{basicPublish} -- drugim argumentem jest ustawienie pochodzące z klienta RabbitMQ. Gwarantuje ono zapamiętanie wiadomości wysyłanej do kolejki.
+
+W aplikacji testującej zbieranie wiadomości z kolejki odbywa się przez metodę \texttt{startRecevingMessages} wywołanej po wysłaniu polecenia startowego do aktora.
+
+\begin{minted}[]{scala}
+def startRecevingMessages() {
+  val queueDurable = true
+  val prefetchCount = 1
+  val autoAck = false
+  channel.queueDeclare(queueName, queueDurable, false, false, null)
+  channel.basicQos(prefetchCount)
+  val consumer = new QueueingConsumer(channel)
+  channel.basicConsume(queueName, autoAck, consumer)
+  while (true) {
+    val delivery = consumer.nextDelivery()
+    val solutionId = new String(delivery.getBody)
+    ...
+    channel.basicAck(delivery.getEnvelope.getDeliveryTag, false)
+  }
+}
+\end{minted}
+
+W tym przypadku mamy również doczynienia z deklaracją kolejki oraz kanałem transmisji. Odbieranie wiadomości z przez odbiorcę RabbitMQ wykonywane jest w nieskończonej pętli. To co przede wszystkim ma pokazać powyższy przykład to zmienna \texttt{autoAck} przekazana jako drugi argument metody \texttt{basicConsume}. Ustawiona na wartość logiczną \texttt{false} sprawia, że RabbitMQ będzie oczekiwać od odbiorcy potwierdzenia wykonania zadania. Jeśli odbiorca ulegnie awarii to RabbitMQ zinterpretuje wiadomość, którą otrzymał jako nie przetworzoną i przekaże ją do innego odbiorcy.
+
+Dzięki kompatybilności Scali oraz oficjalnemu klientowi RabbitMQ dla języka Java mamy w powyższych przykładach w rzeczywistości z wywołaniami metod Javovych.
+
 \subsection{AngularJS}
 
 % zakończenie 
