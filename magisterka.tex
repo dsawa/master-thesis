@@ -814,10 +814,10 @@ Na zakończenie omówiony zostanie interfejs użytkownika, który niemal w cało
 Play Framework można w pewnym sensie porównać do \emph{Ruby on Rails}. Oba te narzędzia korzystając z archtektury Model-Widok-Kontroler dostarczają szkielet aplikacji internetowych, które sprawdzają się doskonale w małych i średnich projektach. W obu przypadkach mamy również do czynienia ze wsparciem wzorca REST. To znaczy, że klient i serwer komunikują się ze sobą w oparciu o \emph{zasoby} (ang: resources). Adres URL powinien wtedy zawierać parametry w ścieżce identyfikującej dany zasób lub zasoby. Wykorzystane ku temu zostają cztery metody HTTP:
 
 \begin{itemize}
-\item GET - pobranie zasobu lub zasobów
-\item POST - wprowadzenie nowych danych
-\item PUT\footnote{Od wersji 4.0 Ruby on Rails zalecane jest korzystanie z metody PATCH} - edytowanie zasobu
-\item DELETE - usunięcie danych
+\item GET -- pobranie zasobu lub zasobów
+\item POST -- wprowadzenie nowych danych
+\item PUT\footnote{Od wersji 4.0 Ruby on Rails zalecane jest korzystanie z metody PATCH} -- edytowanie zasobu
+\item DELETE -- usunięcie danych
 \end{itemize}
 
 Właśnie takie rozwiązanie jest zaimplementowane przede wszystkim w aplikacji zarządzającej. Zasobami są w niej użytkownicy, grupy, zadania oraz rozwiązania. Podobieństw do idei proponowanej przez Ruby on Rails jest więcej. Wszelkie ustawienia aplikacji umieszczone są w specjalnych plikach konfiguracyjnych. Biblioteki, zależności projektu ściągane są automatycznie przez narzędzie po umieszczeniu odpowiednich linii w pliku do tego przeznaczonym. Samo wygenerowanie szkieletu sprowadza się do wpisania jednego polecenia \texttt{play new nazwaAplikacji} podczas, gdy w Ruby on Rails jest to \texttt{rails new nazwaAplikacji}.
@@ -836,11 +836,49 @@ case class Cat(name: String)
 object Cat {
   def meowAndName(cat: Cat): String = "Meow! " + cat.name
 }
+
+scala> Cat.meowAndName(Cat("Nazir"))
+res0: String = Meow! Nazir
 \end{minted}
 
 Warto też dodać, że Play Framework posiada wtyczki do popularnych zintegrowanych środowisk programistycznych jak IntelliJ IDEA, czy eclipse. Obie aplikacje i szablon projektu SBT udostępniany przez część zarządzającą systemu mają dołączone zależności pozwalające wygenerować potrzebne pliki do zaimportowania projektu do tych narzędzi. W ten sposób praca z Play Framework staje na równi z innymi już dojrzałymi narzędziami. Zyskuje się bowiem wparcie w postaci łatwego uruchamiania aplikacji, czy rozpoznawania składni plików specyficznych dla Play.
 
 \subsection{MongoDB}
+
+MongoDB to wydajna baza przechowująca dane w postaci dokumentów. Jeden serwer MongoDB może się składać z wielu baz danych. Pojedyńcza baza danych zawiera skolei kolekcje, które są zbiorem wspomnianych dokumentów. Ściślej mówiąc są to obiekty w postaci notacji \emph{JSON}. Dokumenty mogą być dynamicznie modyfikowane i nie są ograniczone przez żaden schemat nakładany na kolekcje. Oznacza to w praktyce, że dokumenty w obrębie kolekcji mogą mieć różny zestaw pól.
+
+Zasiegając informacji z oficjalnej strony\footnote{\url{http://www.mongodb.org/}} można scharakteryzować MongoDB w kilku punktach:
+
+\begin{itemize}
+\item elastyczność -- przechowywanie danych w postaci obiektów JSON i brak ograniczeń ze strony schematów nakładanych na kolekcje ułatwia modyfikację modelu danych wraz z ewolucją projektu.
+\item możliwości utrzymaniowe -- dostarczenie cech takich jak dodatkowe indeksy, łańcuchowe wykonywanie zapytań, czy bogate instrukcje aktualizacji. Wśród nich taka, która w przypadku nie odnalezienia dokumentu dokumentu przez zapytanie potrafi stworzyć nowy wpis w bazie. W skład MongoDB wchodzi \emph{Aggregation Framework}, którego głównym zadaniem jest obliczanie różnych wartości na podstawie przechowywanych danych.
+\item szybkość -- jest to nierelacyjna baza danych. Dokumenty wiąże się ze sobą przeważnie poprzez tak zwane zagnieżdzone kolekcje. Sprawia to, że wyszukiwanie danych jest szybsze niż w relacyjnej bazie składającej się z wielu tabel. Nie jest konieczne bowiem łączenie tabel ze sobą na potrzeby niektórych zapytań.
+\item łatwa w użyciu - MongoDB jest łatwa w instalacji i konfiguracji. Instalacja sprowadza się do wykonania zaledwie kilku kroków, po zakończeniu których baza jest gotowa do użycia. Programista może skupić się na rozwijaniu swojej aplikacji zamiast spędzać czas nad skomplikowaną konfiguracją.
+\end{itemize}
+
+Oficjalny sterownik dla języka Scala nosi nazwę \emph{Casbah}. Jest to tak naprawdę ,,opakowanie'' sterownika dla Javy. Społeczność Scali wytworzyła również wiele dodatkowych narzędzi do współpracy z tą bazą danych. Najpopularniejszy z nich do \emph{Salat}. System weryfikacji kodu Scala korzysta z obydwu.
+
+MongoDB udostępnia powłokę, w której można wykonywać zapytania posługując się składnią JavaScriptu. Podejście prezentowane przez Casbah polega na odzwierciedleniu składni tych zapytań w języku Scala.  
+Przykładowo chcąc w systemie znaleźć rozwiązania ocenione na co najmniej 80 procent należy zrealizować poniższe zapytanie w powłoce MongoDB:
+
+\inputminted[fontsize=\small]{javascript}{code/mongoFind.js}
+
+Casbah dostarcza specjalny typ \texttt{MongoDBObject}. Dzięki nim można zbudować bardzo podobne instrukcje. Obiekty tego typu są podawane jako argumenty metod o tych samych nazwach. Są to \texttt{find}, \texttt{findOne}, \texttt{update}, \texttt{count} i wiele innych. Po skonfigurowaniu połączenia z bazą i stworzeniem instancji odpowiadającej za kolekcję w bazie danych możliwe jest wykonanie zapytania w poniższej formie:
+
+\inputminted[fontsize=\small]{scala}{code/casbahFind.scala} 
+
+Nie jest to jednak zbyt czytelne rozwiązanie. Szczególnie, gdy pobierane dane filtrowane są przez wiele warunków. Niestety metody dostaczane przez Salat w dużej części jako argumenty również przyjmują \texttt{MongoDBObject}. Nieco lepiej wygląda sytuacja, gdy aktualizowany lub tworzony jest dany obiekt. Wtedy argumentem staje się odpowednik dokumentu w Scali reprezentowany przez klasę.
+
+Salat skupia się na obiekcie towarzyszącym. Musi on rozszerzać cechę \texttt{ModelCompanion}. W zamian narzędzie dostarcza:
+
+\begin{itemize}
+\item metody do konwersji obiektów z i do formatu JSON
+\item zestaw metod aktualizujących, zapisujących i usuwających obiekty z bazy danych
+\item gotowe metody do wyszukiwania tylko po identyfikatorze
+\item pozostałe metody wykonujące zapytania jak \texttt{find}, czy \texttt{count}
+\end{itemize}
+
+Na zakończenie należy odnieść się do wspominanego mechanizmu przechowującego pliki -- \emph{GridFS}. Pliki wgrywane do bazy przy użyciu tej techniki są dzielone na mniejsze kawałki i przechowywane w bazie jako osobne dokumenty. Po dodaniu pierwszego pliku utworzone zawsze zostają dwie kolekcje. Jedna z nich przechowuje dokumenty-kawałki pliku, a druga ogólne informacje o pliku. Są to to między innymi nazwa, rozmiar pliku, czy jego typ. Sterownik automatycznie potrafi odnaleźć potrzebne kawałki i połączyć je ze sobą, gdy wykonane jest zapytanie. 
 
 \subsection{RabbitMQ}
 
@@ -861,7 +899,7 @@ lorem ipsum
 %Treść załącznika dwa.
 
 % wymuszenie pokazania bibliografii
-\nocite{Hinojosa:2013:TIA}
+%\nocite{Hinojosa:2013:TIA}
 
 % literatura (obowiązkowo):
 \bibliographystyle{unsrt}
