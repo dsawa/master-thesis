@@ -799,9 +799,9 @@ Wpis o danym rozwiązaniu zostaje zmodyfikowany w bazie danych o zwrócone przez
 
 \section{Zastosowane technologie}
 
-Na ostateczny kształ systemu miało wpływ wiele technologii. Część z nich została już opisana w poprzednich rozdziałach. Są to między innymi ScalaTest, ScalaCheck, czy AKKA. Warto jednak przyjrzeć się po krótce w jaki sposób zaimplementowana zostały pozostałe elementy systemu. 
+Na ostateczny kształ systemu miało wpływ wiele technologii. Część z nich została już opisana w poprzednich rozdziałach. Są to między innymi SBT, ScalaTest, ScalaCheck, czy AKKA. Warto jednak przyjrzeć się po krótce w jaki sposób zaimplementowana zostały pozostałe elementy systemu. 
 
-Pierwszy przedstawiony zostanie \emph{Play Framework}. To właśnie przy jego pomocy powstały dwie aplikacje, na które składa się całość systemu. Narzędzie to pozwala stworzyć aplikację internetową w oparciu o wzorzec Model-Widok-Kontroler w języku Java lub Scala. Składa się między innymi z wydajnego serwera HTTP i kompilatora Javy. Zmiany wprowadzane do aplikacji mogą być widoczne bez potrzeby przebudowania całego projektu. Aplikacja bowiem jest automatycznie rekompilowana w trakcie działania. Play wspiera podejście REST oraz posiada zintegrowaną bazę danych\footnote{Domyślnie jest to H2}. Bez przeszkód można jednak połączyć się z innymi bazami. 
+Pierwszy przedstawiony zostanie \emph{Play Framework}. To właśnie przy jego pomocy powstały dwie aplikacje, na które składa się całość systemu. Narzędzie to pozwala stworzyć aplikację internetową w oparciu o wzorzec Model-Widok-Kontroler w języku Java lub Scala. Składa się między innymi z wydajnego serwera HTTP i kompilatora. Zmiany wprowadzane do aplikacji mogą być widoczne bez potrzeby przebudowania całego projektu. Aplikacja bowiem jest automatycznie rekompilowana w trakcie działania. Play wspiera podejście REST oraz posiada zintegrowaną bazę danych\footnote{Domyślnie jest to H2}. Bez przeszkód można jednak połączyć się z innymi bazami. 
 
 System weryfikacji kodu musi przechowywać, gdzieś pliki projektów i testów. \emph{MongoDB} to nierelacyjna baza danych z mechanizmem gotowym do przechowywania plików o rozmiarach przekraczajacych nawet 16 MB. Wszystkie oficjalne sterowniki tej bazy danych wspierają ten mechanizm, w tym oczywiście również dla Scali. Ponadto do pobierania statystyk grupy wykorzystana została technika agregacji. To znaczy, że kolejne instrukcje bazy danych są wykonywane łańcuchowo w oparciu o kolejnych wyniki poprzednich operacji.
 
@@ -810,6 +810,35 @@ RabbitMQ oraz jego zastosowanie w systemie zostało w skrócie przedstawione w p
 Na zakończenie omówiony zostanie interfejs użytkownika, który niemal w całości powstał przy użyciu biblioteki języka JavaScript - \emph{AngularJS}. Ona również korzysta z wzorca Model-Widok-Kontroler. To właśnie wiązanie tych trzech warstw jest szczególnie mocną stroną AngularJS. Dodatkowo posiada własny kompilator HTML, który okazał się niezwykle pomocny w ukrywaniu elementów strony przed nieautoryzowanym użytkownikiem.  
 
 \subsection{Play Framework}
+
+Play Framework można w pewnym sensie porównać do \emph{Ruby on Rails}. Oba te narzędzia korzystając z archtektury Model-Widok-Kontroler dostarczają szkielet aplikacji internetowych, które sprawdzają się doskonale w małych i średnich projektach. W obu przypadkach mamy również do czynienia ze wsparciem wzorca REST. To znaczy, że klient i serwer komunikują się ze sobą w oparciu o \emph{zasoby} (ang: resources). Adres URL powinien wtedy zawierać parametry w ścieżce identyfikującej dany zasób lub zasoby. Wykorzystane ku temu zostają cztery metody HTTP:
+
+\begin{itemize}
+\item GET - pobranie zasobu lub zasobów
+\item POST - wprowadzenie nowych danych
+\item PUT\footnote{Od wersji 4.0 Ruby on Rails zalecane jest korzystanie z metody PATCH} - edytowanie zasobu
+\item DELETE - usunięcie danych
+\end{itemize}
+
+Właśnie takie rozwiązanie jest zaimplementowane przede wszystkim w aplikacji zarządzającej. Zasobami są w niej użytkownicy, grupy, zadania oraz rozwiązania. Podobieństw do idei proponowanej przez Ruby on Rails jest więcej. Wszelkie ustawienia aplikacji umieszczone są w specjalnych plikach konfiguracyjnych. Biblioteki, zależności projektu ściągane są automatycznie przez narzędzie po umieszczeniu odpowiednich linii w pliku do tego przeznaczonym. Samo wygenerowanie szkieletu sprowadza się do wpisania jednego polecenia \texttt{play new nazwaAplikacji} podczas, gdy w Ruby on Rails jest to \texttt{rails new nazwaAplikacji}.
+
+Aplikacje powstałe z Play Framework pracują bezstanowo. Oznacza to, że nie jest przechowywana na serwerze sesja powiązana z danym użytkownikiem. Zamiast tego zalecane jest trzymanie wielu informacji po stronie klienta lub zapisywanie sesji w bazie danych. Play wspiera również technikę rozproszonej pamięci podręcznej po stronie serwera. Twórcy twierdzą, że w ten sposób aplikacje powstałe przy użyciu ich narzędzia są dużo bardziej skalowalne.
+
+Play zawiera zintegrowany kompilator Javy i Scali. Podczas tworzenia aplikacji, możliwe jest uruchomienie jej w środowisku deweloperskim i utrzymywać ją w stanie działania. Wszystkie wprowadzane do kodu zmiany będą na bieżąco aktualizowane i widoczne. Jest to zdecydowana oszczędność czasu, gdyż nie ma potrzeby przebudowywania aplikacji i uruchamiania ponownie serwera. 
+
+Zasobami udostępnianymi przez aplikację są oczywiście modele. W wersji dla Scali odwzorowuje je się przy pomocy \texttt{case class} oraz \texttt{object}. Wszystkie ich atrybuty są trzymane w postaci pól klas. Natomiast logika biznesowa powinna być zaimplementowana w postaci metod singletonu o tej samej nazwie co encja. Jest to ,,obiekt towarzyszący'' (ang: companion object) zdefiniowany w tym samym pliku. Posiada on również dostęp do pól prywatnych w danych klasach. Prosty przykład modelu znajduje się poniżej. Klasa \texttt{Cat} posiada obiekt towarzyszący o tej samej nazwie. Zawarta w nim metoda \texttt{meowAndName} jako parametr bierze obiekt typu \texttt{Cat}. Zwraca ciąg znaków składający się z wartości pola \texttt{name} z podanego argumentu.
+
+\begin{minted}[fontsize=\small]{scala}
+package models
+
+case class Cat(name: String)
+
+object Cat {
+  def meowAndName(cat: Cat): String = "Meow! " + cat.name
+}
+\end{minted}
+
+Warto też dodać, że Play Framework posiada wtyczki do popularnych zintegrowanych środowisk programistycznych jak IntelliJ IDEA, czy eclipse. Obie aplikacje i szablon projektu SBT udostępniany przez część zarządzającą systemu mają dołączone zależności pozwalające wygenerować potrzebne pliki do zaimportowania projektu do tych narzędzi. W ten sposób praca z Play Framework staje na równi z innymi już dojrzałymi narzędziami. Zyskuje się bowiem wparcie w postaci łatwego uruchamiania aplikacji, czy rozpoznawania składni plików specyficznych dla Play.
 
 \subsection{MongoDB}
 
