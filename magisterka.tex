@@ -952,7 +952,7 @@ Interfejs aplikacji zarządzającej składa się jedynie z dwóch stron. Pierwsz
 
 AngularJS to wyprodukowane i wspierane przez Google narzędzie. Ideą było stworzenie instrumentu, który pozwoliłby na szybkie budowanie małych i dynamicznych aplikacji internetowych. Inżynierom Google'a cel udało się osiągnąć poprzez wprowadzenie własnego kompilatora HTML oraz podwójnego wiązania danych.
 
-Kompilator HTML pozwala programiście zdefiniować kod strony w zupełnie nowy sposób. Istnieje możliwość tworzenia własnych znaczników, czy atrybutów. W ten sposób dodać można specyficzne dla potrzeb aplikacji ,,zachowanie'' poszczególnych elementów strony. Programista dokonuje tego poprzez napisanie własnych dyrektyw. Część zarządzająca omawianego systemu potrzebowała dyrektyw decydujących o tym, które z elementów strony powinny być widoczne, bądź ukryte w zależności od roli obecnego użytkownika. Dzięki kompilatorowi udało się stworzyć czytelne dla każdego atrybuty HTML.
+Kompilator HTML pozwala programiście zdefiniować kod strony w zupełnie nowy sposób. Istnieje możliwość tworzenia własnych znaczników, czy atrybutów. W ten sposób można dodać specyficzne dla potrzeb aplikacji ,,zachowanie'' poszczególnych elementów strony. Programista dokonuje tego poprzez napisanie własnych dyrektyw. Część zarządzająca omawianego systemu potrzebowała dyrektyw decydujących o tym, które z elementów strony powinny być widoczne, bądź ukryte w zależności od roli zalogowanego użytkownika. Dzięki kompilatorowi udało się stworzyć czytelne dla każdego atrybuty HTML.
 
 \begin{minted}[]{html}
 <div has-permission="Educator" class="pull-right">
@@ -962,14 +962,26 @@ Kompilator HTML pozwala programiście zdefiniować kod strony w zupełnie nowy s
 
 Fragment strony zawarty pomiędzy znacznikami \texttt{div} w powyższym przykładzie będzie pokazany jedynie prowadzącemu. Jego rola w kodzie systemu określona jest jako \texttt{Educator} (ang: dydaktyk). Stworzona dyrektywa pozwala zdefiniować wyświetlaną zawartość dzięki dodaniu czytelnego atrybutu \texttt{has-permission}.
 
-Podwójne wiązanie danych w sposób automatyczny synchronizuje to co jest wyświetlane na stronie z tym co znajduje się w kontrolerze JavaScript odpowiadającym za konkretny widok. Kompilator AngularJS prezentuje ,,na żywo'' wyniki kolejnych etapów kompilacji. Wszelkie zmiany w widoku są odzwierciedlone w modelu danych i odwrotnie. Pomimo, że kontroler jest osobnym bytem to dzięki temu możliwe  jest modyfikowanie w nim danych bez potrzeby samodzielnego manipulowania elementami strony.  
+Podwójne wiązanie danych w sposób automatyczny synchronizuje to co jest wyświetlane na stronie, z tym co znajduje się w kontrolerze JavaScript odpowiadającym za konkretny widok. Kompilator AngularJS prezentuje ,,na żywo'' wyniki kolejnych etapów kompilacji. Wszelkie zmiany w widoku są odzwierciedlone w modelu danych i odwrotnie. Chociaż kontroler jest osobnym bytem to możliwe jest modyfikowanie w nim danych bez potrzeby samodzielnego manipulowania elementami strony.  
 
 Obiekt, który zajmuje się wiązaniem modelu z widokiem to \texttt{\$scope}. Jest wstrzykiwany do funkcji kontrolera na etapie kompilacji. Poniżej znajduje się fragment kontrolera odpowiadającego za widok listy zadań w danej grupie.
 
 \inputminted[fontsize=\small]{javascript}{code/angularController.js} 
 
-
 W ciele funkcji do obiektu \texttt{\$scope} dodany zostaje atrybut \texttt{group}. Jego wartością jest grupa zwracana przez serwer w postaci JSON. Za wysyłanie właściwych żadań do serwera odpowiadają serwisy. W tym wypadku jest to \texttt{Group}, który posiada metodę \texttt{show}. Przyjmuje ona jako argument również obiekt. Wewnątrz metody, atrybut \texttt{id} zostaje dołączony przez AngularJS do adresu URL prowadzącego do danego zasobu.
+
+Podwójny nawias klamrowy pozwala korzystać z dodanych do \texttt{\$scope} obiektów w kodzie HTML. 
+
+\begin{minted}[]{html}
+<div class="panel-heading">
+ Szczegóły zadania: {{assignment.title}}, z grupy: {{group.name}}
+ ...
+</div>
+\end{minted}
+
+Do \texttt{\$scope} można dodać również funkcję. Następnie korzystając z dostarczanych domyślnie przez AngularJS dyrektyw, wywoływać ją na stronie. Jedną z nich może być na przykład \texttt{ng-click}. Prowadzi to do lepszej organizacji kodu w aplikacji. Funkcje wykonujące specyficzne operacje dla widoku zdefiniowane są, bowiem w odpowiadającym mu kontrolerze. 
+
+AngularJS sprawia, że aplikacja internetowa zbudowana jest z dostarczanych przez narzędzie modułów. Nie trzeba znać ich wszystkich, aby stworzyć dynamiczny interfejs. W miarę rozwoju projektu odkrywane są, bowiem nowe funkcjonalności. Programiści wdrażają je komponując kolejne moduły (serwisy, kontrolery) specyficzne dla danej aplikacji.  
 
 % zakończenie 
 \summary
