@@ -214,7 +214,7 @@ Oprócz łączenia technik programowania obiektowego i funkcyjnego, Scale definu
 
 \subsubsection{Kompatybilność}
 
-Wydajność programów napisanych w Scali jest porównywalna z odpowiednikami napisanymi w Javie. Programy te bowiem kompilują się do pseudokodu wirtualnej maszyny Javy. Ponadto są w stanie bez przeszkód wywoływać metody klas Javy, korzystać z ich pól, a nawet przystosowywać własne komponenty poprzez dziedziczenie z klas Javy, czy implementację interfejsów. Każdy z tych wariantów jest wykonywany przez programistę w sposób naturalny, gdyż nie wymaga to użycia żadnej dodatkowej składni. Jak się okaże później, system będący głównym tematem pracy również korzysta z dobrodziejstw owej kompatybilności. Korzysta on z oficjalnego klienta dla systemu kolejkowania wiadomości \emph{RabbitMQ} dla języka Java.
+Wydajność programów napisanych w Scali jest porównywalna z odpowiednikami napisanymi w Javie. Programy te bowiem kompilują się do pseudokodu wirtualnej maszyny Javy. Ponadto są w stanie bez przeszkód wywoływać metody klas Javy, korzystać z ich pól, a nawet przystosowywać własne komponenty poprzez dziedziczenie klas Javy, czy implementację interfejsów. Każdy z tych wariantów jest wykonywany przez programistę w sposób naturalny, gdyż nie wymaga to użycia żadnej dodatkowej składni. Jak się okaże później, system będący głównym tematem pracy również korzysta z dobrodziejstw owej kompatybilności. Korzysta on z oficjalnego klienta dla systemu kolejkowania wiadomości \emph{RabbitMQ} dla języka Java.
 
 Scala korzysta w pełni z typów Javy. Typ \texttt{Int} w Scali reprezentuje prymitywne liczby całkowite \texttt{int} z Javy. Podobnie ma się sytuacja z \texttt{Float}, \texttt{Double}, \texttt{Long}, czy \texttt{Boolean}. Ponadto typy zostają ,,opakowowane'' w taki sposób, aby wywołania metod związanych z nimi były bardziej przejrzyste. W efekcie tego, dla przykładu zamiast \texttt{Double.parseDouble("12.0")} wystarczy napisać \texttt{"12.0".toDouble}.
 
@@ -985,7 +985,8 @@ AngularJS sprawia, że aplikacja internetowa zbudowana jest z dostarczanych prze
 
 % zakończenie 
 \summary
-lorem ipsum
+Scala to język warty szczególnej uwagi. Łączenie ze sobą paradygmatu programowania obiektowego i funkcyjnego oraz kompatybilność z JVM stwarza ogromne możliwości. W wielu miejscach już teraz mogłaby swobodnie zastąpić Javę. System weryfikacji jakości kodu Scala pozwala przy użyciu dojrzałych narzędzi testowania nie tylko zweryfikować kod, ale również przyczynić się do wzrostu popularności języka. Zawiera w sobie element dydaktyczny, pozwalający na definiowanie własnych kursów i zadań. Implementując go w ośrodkach edukacyjnych, ma szansę przyczynić się do wzrostu zainteresowania programowaniem i podniesieniem umiejętności przyszłych programistów. Z powodzeniem mógłby być również wykorzystywany w firmach chcących sprawdzić kwalifikacje kandydatów w procesie rekrutacyjnym.
+System powstał przy użyciu wielu nowoczesnych technologii i jest dostosowany do pracy w architekturze rozproszonej.
 
 % załączniki (opcjonalnie):
 %\appendix
