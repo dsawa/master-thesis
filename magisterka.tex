@@ -561,7 +561,7 @@ Cecha ta posiada metody, dzięki którym możliwe jest skonkretyzowanie zakresu 
 
 \inputminted[fontsize=\small]{scala}{code/CalcTestOk.scala}
 
-Zmienił się sposób wywołania metody \texttt{forAll} poprzez wprowadzenie generatorów dla dwóch zmiennych. Gwarantują one, że argumenty, które trafią do metody \texttt{add} będą zawsze pseudolosowymi liczbami naturalnymi z zakresu od 0 do 1000. ScalaCheck przetestuję daną właściwość dla 100 różnych danych testowych. 
+Zmienił się sposób wywołania metody \texttt{forAll} poprzez wprowadzenie generatorów dla dwóch zmiennych. Gwarantują one, że argumenty, które trafią do metody \texttt{add} będą zawsze pseudolosowymi liczbami naturalnymi z zakresu od 0 do 1000. ScalaCheck przetestuje daną właściwość dla 100 różnych danych testowych. 
 
 W sytuacji, gdy oczekiwane parametry są typu innego niż podstawowego konieczne jest zdefiniowanie własnego generatora. Zazwyczaj tworzy się je przy pomocy pętli. Poniżej przykład generatora zajmującego się tworzeniem map, gdzie pod kluczem będącym ciągiem znaków, kryje się wartość logiczna \texttt{true} lub \texttt{false}.
 
@@ -585,16 +585,16 @@ Zmienna \texttt{cat} jest typu \texttt{Arbitrary[Cat]}, jednak w funkcji znajduj
 
 \subsection{Integracja ze ScalaTest}
 
-Testowanie właściwości z użyciem ScalaCheck zapewnia cecha \texttt{GeneratorDrivenPropertyChecks} dostarczana przez ScalaTest. Wraz z weryfikatorami narzędzie to staje się bardzo wygodne. Kontynuacja przykładu klasy \texttt{Calc} znajdująca się poniżej przedstawia jak wygląda w pełni poprawny zintegrowany test właściwości. 
+Testowanie właściwości z użyciem ScalaCheck zapewnia cecha \texttt{GeneratorDriven-\newline PropertyChecks} dostarczana przez ScalaTest. Wraz z weryfikatorami narzędzie to staje się bardzo wygodne. Kontynuacja przykładu klasy \texttt{Calc} znajdująca się poniżej przedstawia jak wygląda w pełni poprawny zintegrowany test właściwości. 
 
 \inputminted[fontsize=\small]{scala}{code/CalcTestScalaTest.scala}
 
-Na pierwszy rzut oka nie widać większej różnicy pomiędzy tym kodem napisanym w ScalaTest, a standardowym testem ScalaCheck. Po chwili jednak zaobserwować można, że specyfikacje nie są już umieszczone w singletonie, a zwykłej klasie. Dodatkowo teraz weryfikacja dokonuje się przy pomocy instrukcji \texttt{should} sprawiając, że test staje się bardziej czytelny. Zaimportowane cechy zdradzają również, że metoda \texttt{forAll} nie pochodzi już ze ScalaCheck, a cechy \texttt{GeneratorDrivenPropertyChecks}. W powyższym przykładzie tak na prawdę, ze ScalaCheck użyto jedynie cechy \texttt{Gen} zajmującej się generowaniem pseudolosowych danych testowych.
+Na pierwszy rzut oka nie widać większej różnicy pomiędzy tym kodem napisanym w ScalaTest, a standardowym testem ScalaCheck. Po chwili jednak zaobserwować można, że specyfikacje nie są już umieszczone w singletonie, a w zwykłej klasie. Dodatkowo teraz weryfikacja dokonuje się przy pomocy instrukcji \texttt{should} sprawiając, że test staje się bardziej czytelny. Zaimportowane cechy zdradzają również, że metoda \texttt{forAll} nie pochodzi już ze ScalaCheck, a cechy \texttt{GeneratorDrivenPropertyChecks}. W powyższym przykładzie, ze ScalaCheck użyto jedynie cechy \texttt{Gen} zajmującej się generowaniem pseudolosowych danych testowych.
 
 Dołączanie własnych generatorów odbywa się tak samo jak w przypadku zwykłych testów ScalaCheck. ScalaTest oddaje jednak do dyspozycji jeszcze jedną możliwość. Do generatorów można dołączyć nazwę, która pojawi się w raporcie po zakończeniu testów.
 
 \begin{minted}[fontsize=\small]{scala}
-forAll((Gen.choose(0, 100), "firstName"), (Gen.choose(0, 100), "secondName"))
+forAll((Gen.choose(0, 100),"firstName"),(Gen.choose(0, 100),"secondName"))
 \end{minted}
 
 Oczywiście po zintegrowaniu tych dwóch narzędzi, także do wykorzystania jest klasa \texttt{Arbitrary}.
@@ -944,7 +944,7 @@ def startRecevingMessages() {
 
 W tym przypadku mamy również doczynienia z deklaracją kolejki oraz kanałem transmisji. Odbieranie wiadomości z przez odbiorcę RabbitMQ wykonywane jest w nieskończonej pętli. To co przede wszystkim ma pokazać powyższy przykład to zmienna \texttt{autoAck} przekazana jako drugi argument metody \texttt{basicConsume}. Ustawiona na wartość logiczną \texttt{false} sprawia, że RabbitMQ będzie oczekiwać od odbiorcy potwierdzenia wykonania zadania. Jeśli odbiorca ulegnie awarii to RabbitMQ zinterpretuje wiadomość, którą otrzymał jako nie przetworzoną i przekaże ją do innego odbiorcy.
 
-Dzięki kompatybilności Scali oraz oficjalnemu klientowi RabbitMQ dla języka Java mamy w powyższych przykładach w rzeczywistości z wywołaniami metod Javovych.
+Dzięki kompatybilności Scali oraz oficjalnemu klientowi RabbitMQ dla języka Java mamy w powyższych przykładach w rzeczywistości do czynienia z wywołaniami metod Javovych.
 
 \subsection{AngularJS}
 
@@ -979,7 +979,7 @@ Podwójny nawias klamrowy pozwala korzystać z dodanych do \texttt{\$scope} obie
 </div>
 \end{minted}
 
-Do \texttt{\$scope} można dodać również funkcję. Następnie korzystając z dostarczanych domyślnie przez AngularJS dyrektyw, wywoływać ją na stronie. Jedną z nich może być na przykład \texttt{ng-click}. Prowadzi to do lepszej organizacji kodu w aplikacji. Funkcje wykonujące specyficzne operacje dla widoku zdefiniowane są, bowiem w odpowiadającym mu kontrolerze. 
+Do \texttt{\$scope} można dodać również funkcję. Następnie korzystając z dostarczanych domyślnie przez AngularJS dyrektyw, wywoływać ją na stronie. Jedną z nich może być na przykład \texttt{ng-click}. Prowadzi to do lepszej organizacji kodu w aplikacji. Funkcje wykonujące specyficzne operacje dla widoku zdefiniowane są bowiem w odpowiadającym mu kontrolerze. 
 
 AngularJS sprawia, że aplikacja internetowa zbudowana jest z dostarczanych przez narzędzie modułów. Nie trzeba znać ich wszystkich, aby stworzyć dynamiczny interfejs. W miarę rozwoju projektu odkrywane są, bowiem nowe funkcjonalności. Programiści wdrażają je komponując kolejne moduły (serwisy, kontrolery) specyficzne dla danej aplikacji.  
 
