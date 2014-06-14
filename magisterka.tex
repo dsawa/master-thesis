@@ -66,11 +66,15 @@ Scala jest językiem całkowicie zorientowanym obiektowo. Jednak posiada równie
 
 Zaprojektowany i opisywany system powstał na bazie nowoczesnych technologii oraz najważniejszych narzędzi do tworzenia testów jednostkowych. Składa się z dwóch aplikacji internetowych powstałych przy pomocy \emph{Play Framework}. Narzędzie to pozwala na szybkie napisanie aplikacji internetowej zarówno w Scali jak i w Javie. Społeczność zgromadzona wokół tych dwóch języków doprowadziła do powstania ogromnej liczby bibliotek. Z powodzeniem mogą być one używane w aplikacji utworzonej przy użyciu Play Framework. Cały system jest natomiast dostosowany do pracy w architekturze rozproszonej. 
 
-Pośród bibliotek związanych z testowaniem kodu na szczególną uwagę zasługuje ScalaTest oraz ScalaCheck. Pierwsza z nich to biblioteka do przeprowadzania testów jednostkowych. Umożliwia ona między innymi pisanie testów w wielu różnych stylach. Decyzja o tym jak ostatecznie wyglądać będzie test zależy od preferencji użytkownika. Scalacheck jest zaś instrumentem służącym do testowania funkcji, metod poprzez automatyczne wprowadzanie różnych argumentów. 
+Pośród bibliotek związanych z testowaniem kodu na szczególną uwagę zasługują ScalaTest i ScalaCheck. Pierwsza z nich to biblioteka do przeprowadzania testów jednostkowych. Umożliwia ona między innymi pisanie testów w wielu różnych stylach. Decyzja o tym jak ostatecznie wyglądać będzie test zależy od preferencji użytkownika. Scalacheck jest zaś instrumentem służącym do testowania funkcji, metod poprzez automatyczne wprowadzanie różnych argumentów. Te dwa narzędzia są esencją w opisywanym systemie. Proces analizujący kod wykorzystuje bowiem mechanizm testów jednostkowych.  
 
-Projektując system do weryfikacji kodu Scala zdecydowałem się skorzystać z nierelacyjnej bazy danych z wbudowanym mechanizmem do przechowywania plików -- MongoDB. Interfejs użytkownika powstał zaś przy pomocy AngularJS, który w przyjemny dla programisty sposób  potrafi dynamicznie zmieniać zawartość strony HTML warunkując ją od akcji użytkownika mających wpływ na stan modeli aplikacji.
+Weryfikacja kodu użytkowników systemu jest bezpośrednio związana z \emph{Simple Build Tool} -- SBT. Narzędzie to pozwala stworzyć szkielet projektu dla Scali. System traktuje projekt SBT jako zadanie przygotowane dla grupy osób. Wykonując serię testów jednostkowych dla danego projektu jest w stanie wystawić ocenę danemu użytkownikowi. Wszystkie informacje zgromadzone w procesie weryfikacji przechowywane są w nierelacyjnej bazie danych -- \emph{MongoDB}. Posiada ona wbudowany mechanizm do przechowywania plików. Dzięki temu, możliwe jest komfortowe zarządzanie projektami przesyłanymi do systemu.
 
-\medskip Na początku swojej pracy postaram się szerzej przedstawić ideę będącą iskrą do stworzenia tego systemu. Pokażę, że dla innych języków programowania już funkcjonują pewne mechanizmy edukacyjne. Kolejnym krokiem będzie prezentacja języka Scala. Opowiem o mechanizmie aktorów, kombinacji języka funkcyjnego i obiektowego oraz innych nowych aspektach jakie ze sobą niesie. Każde ze wspominanych wcześniej narzędzi zostanie również szerzej przedstawione. Każde z nich wywarło wpływ na ostateczny kształt opisywanej aplikacji. Ustosunkuję się do wyboru tych narzędzi spośród innych. Między innymi dlaczego zdecydowałem się na użycie nierelacyjnego MongoDB. I czemu uznałem, że standardowa funkcjonalność AngularJS to było dla mnie za mało. Ostatecznie przybliżę także sposób działania systemu oraz w jaki sposób użyte zostało jeszcze jedno narzędzie -- Simple Build Tool (SBT). Bezpośrednio związane z weryfikacją kodu uczestników systemu. 
+Interfejs użytkownika powstał przy pomocy \emph{AngularJS}. Dzieło inżynierów Googla, które w przyjemny dla programisty sposób potrafi stworzyć dynamiczne strony HTML. Poszczególne elementy strony mogą być powiązane dwukierunkowo z modelami aplikacji. Efekty akcji użytkownika mających wpływ na stan modeli, automatycznie jest prezentowany w odpowienich widokach. AngularJS wyposażony został również we własny kompilator HTML, co pozwala na definiowanie kodu strony w nowy sposób.  
+
+Dla innych języków programowania już funkcjonują pewne mechanizmy edukacyjne. Scala zasługuje również na to, aby więcej osób mogło ją poznać. Kombinacja języka funkcyjnego i obiektowego oraz wiele innych aspektów jakie ze sobą niesie ten język są cechami, z którymi każdy przyszły i doświadczony programista powinien się zainteresować. 
+
+Wszystkie wspomniane wcześniej narzędzia miały wpływ na ostateczny kształt opisywanego systemu. W niniejszej pracy zostaną one szerzej przedstawione wraz z działaniem systemu weryfikacji jakości kodu Scala.
 
 \chapter{Idea systemu}
 
@@ -85,7 +89,7 @@ Wykonując odpowiednie zapytanie przy użyciu narzędzia \textit{Google BigQuery
 
 Powyższy wykres przedstawia pierwszych 15 języków, wśród których Scala uplasowała się na miejscu 14. Różnica w liczbie repozytoriów między Scalą, a Javą będącą na trzecim miejscu jest znaczna. Nie ma wątpliwości, że Java swoją wysoką pozycje zawdzięcza wieloletniej obecności na rynku, a także wkładowi jaki do świata technologii informacyjnych wniosła maszyna wirtualna JVM. Na popularność JavaScript'u, czy Ruby'ego częściowo miało wpływ pojawienie się w ostatniej dekadzie narzędzi takich jak \textit{Ruby on Rails}, \textit{node.js}, \textit{AngularJS} i wielu innych. 
 
-Jednak jak pokazuje przykład Ruby'ego i JavaScriptu, jednym z elementów wpływających na popularność jest aktywne środowisko programistów zgromadzonych wokół danego języka. Niejednokrotnie, taka grupa osób przekonana o zaletach swojego ulubionego języka jest w stanie wytworzyć alternatywne sposoby jego promocji. Potwierdzeniem tego może być zespół programistów zgromadzonych wokół platformy \textit{CodeSchool}\footnote{www.codeschool.com}. Opracowali oni szereg prostych kursów związanych głównie z JavaScript'em i Ruby'm, w trakcie których uczestnik rozwiązuje proste zadania programistyczne. 
+Jednak jak pokazuje przykład Ruby'ego i JavaScriptu, jednym z elementów wpływających na popularność jest aktywne środowisko programistów zgromadzonych wokół danego języka. Niejednokrotnie, taka grupa osób przekonana o zaletach swojego ulubionego języka jest w stanie wytworzyć alternatywne sposoby jego promocji. Potwierdzeniem tego może być zespół programistów zgromadzonych wokół platformy \textit{CodeSchool}\footnote{\url{www.codeschool.com}}. Opracowali oni szereg prostych kursów związanych głównie z JavaScript'em i Ruby'm, w trakcie których uczestnik rozwiązuje proste zadania programistyczne. 
 
 Żadne z obecnych rozwiązań -- szczególnie dla Scali -- nie posiada jednak możliwości tworzenia własnych zadań dla zamkniętych grup uczestników. Wierzę, że system, który daje sposobność definiowania własnych kursów dla języka Scala może znacząco zwiększyć jej popularność. Implementacja takiego systemu w szkołach i uczelniach mogłaby przynieść również inne korzyści, jak na przykład wzrost zainteresowania programowaniem, czy podniesieniem umiejętności przyszłych programistów przy jednoczesnym zmniejszeniu nakładu pracy prowadzących zajęcia.
 
@@ -500,7 +504,7 @@ Całość sprowadza się do powstania czytelnej historyjki. ,,Metoda \texttt{cre
 
 \subsection{Przechwytywanie wyjątków}
 
-Istnieją dwa sposoby na przetestowanie, czy dany wyjątek został rzucony. Pierwszym z nich jest umieszczenie testowanego fragmentu w blok \texttt{intercept}. Jeśli ten fragment kodu nie rzuci spodziewanego wyjątku to test się nie powiedzie.
+Istnieją dwa sposoby na przetestowanie, czy dany wyjątek został rzucony. Pierwszym z nich jest umieszczenie testowanego fragmentu w bloku \texttt{intercept}. Jeśli ten fragment kodu nie rzuci spodziewanego wyjątku to test się nie powiedzie. W poniższym przykładzie, zdjęcie kolejnego elementu z pustego stosu spowoduje rzucenie wyjątku \texttt{NoSuchElementException}.
 
 \begin{minted}[fontsize=\small]{scala}
 import org.scalatest.FunSpec
@@ -516,8 +520,6 @@ class SetSpec extends FunSpec {
   }
 }
 \end{minted}
-
-Zdjęcie kolejnego elementu z pustego stosu spowoduje rzucenie wyjątku \texttt{NoSuchElementException}.
 
 Drugi ze sposobów polega na użyciu wcześniej opisywanych weryfikatorów. Testowany fragment kodu należy wstawić w blok \texttt{thrownBy}. Jego przewagą jest to, że rzucony wyjątek można poddać w następnych krokach dodatkowej weryfikacji.
 
