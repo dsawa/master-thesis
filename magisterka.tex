@@ -529,16 +529,6 @@ val exc = the [NoSuchElementException] thrownBy { Set.empty.head }
 exc.getMessage should include ("empty")
 \end{minted}
 
-%\subsection{JUnit}
-
-%JUnit może być bezpośrednio używany do testowania kodu Scala. Zdecydowanie lepszym rozwiązaniem jest jednak skorzystanie ze sposobności jaką daje ScalaTest w kwestii integracji z tym narzędziem. Zyskuje się w ten sposób dostęp chociażby do weryfikatorów. Aby to zrobić należy klasę z testami rozszerzyć o właściwości cechy \texttt{JUnitSuite}. W ten sposób, możliwe będzie uruchamianie testów z JUnit oraz używanie standardowych asercji. Poznane w podrozdziale \ref{weryfikatory} weryfikatory mogą znaleźć zastosowanie w testach tego rodzaju bez żadnego dodatkowego wysiłku. 
-
-%\inputminted[fontsize=\small]{scala}{code/ListSuite.scala}
-
-%Ten prosty przykład pokazuje jakie klasy należy zaimportować, aby taka kombinacja dwóch narzędzi przebiegła poprawnie. Klasa \texttt{ListSuite} posiada jeden test oznaczony przez adnotację \texttt{@Test} pochodzącą z narzędzia JUnit. Jego zadaniem jest zweryfikować rozmiar listy. Lista ta zaś zostaje zainicjalizowana przy pomocy innej adnotacji \texttt{@Before}. W metodzie \texttt{checkListSize()} weryfikacja rozmiaru listy przebiega na dwa sposoby. Pierwszy z nich to weryfikator pochodzący ze ScalaTest. Drugi sposób przedstawia standardową asercję pochodzącą z JUnit -- \texttt{assertEquals}.
-
-%Jest to także dowód na kompatybilność Scali z klasami Javy i fakt, że dowolna biblioteka stworzona z myślą o Javie, bez przeszkód może być używana w Scalowych programach.
-
 \section{ScalaCheck}
 
 Wspominany już w podrozdziale \ref{scalaCheckSrodek} ScalaCheck zajmuje się automatyzacją testów poprzez generowanie pseudolosowych danych testowych. Składa się z trzech głównych komponentów.
@@ -993,27 +983,14 @@ AngularJS sprawia, że aplikacja internetowa zbudowana jest z dostarczanych prze
 Scala to język warty szczególnej uwagi. Łączenie ze sobą paradygmatu programowania obiektowego i funkcyjnego oraz kompatybilność z JVM stwarza ogromne możliwości. W wielu miejscach już teraz mogłaby swobodnie zastąpić Javę. System weryfikacji jakości kodu Scala pozwala przy użyciu dojrzałych narzędzi testowania nie tylko zweryfikować kod, ale również przyczynić się do wzrostu popularności języka. Zawiera w sobie element dydaktyczny, pozwalający na definiowanie własnych kursów i zadań. Użyty w ośrodkach edukacyjnych, ma szansę przyczynić się do wzrostu zainteresowania programowaniem i podniesieniem umiejętności przyszłych programistów. Z powodzeniem może też być wykorzystywany w firmach chcących sprawdzić kwalifikacje kandydatów w procesie rekrutacyjnym.
 System powstał przy użyciu wielu nowoczesnych technologii i jest dostosowany do pracy w architekturze rozproszonej.
 
-% załączniki (opcjonalnie):
-%\appendix
-%\chapter{Tytuł załącznika jeden}
-
-%Treść załącznika jeden.
-
-%\chapter{Tytuł załącznika dwa}
-
-%Treść załącznika dwa.
-
-% wymuszenie pokazania bibliografii
-%\nocite{Hinojosa:2013:TIA}
-
-% literatura (obowiązkowo):
+% literatura:
 \bibliographystyle{unsrt}
 \bibliography{xml}
 
-% spis tabel (jeżeli jest potrzebny):
+% spis tabel:
 \listoftables
 
-% spis rysunków (jeżeli jest potrzebny):
+% spis rysunków:
 \listoffigures
 
 \oswiadczenie
