@@ -333,11 +333,11 @@ Powyższy fakt oraz to, że ScalaCheck integruje się z ScalaTest może zagwaran
       
 \chapter{Testowanie kodu napisanego w Scali}      
 
-Projekty, powstające niezależnie w jakim języku programowania, muszą być przetestowane. Nie inaczej jest, gdy programy te napisane są w Scali. Podczas wszystkich lat rozwoju branży IT pojawiło się wiele metodologii, narzędzi oraz rodzajów testów. Wyróżnić można testy akceptacyjne, funkcjonalne, jednostkowe, czy integracyjne. Z punktu widzenia aplikacji będącej tematem pracy to testy jednostkowe są najważniejszym elementem gwarantującym jej poprawne działanie.       
+Projekty, niezależnie od tego w jakim języku programowania powstały, muszą być przetestowane. Nie inaczej jest, gdy programy te napisane są w Scali. Podczas wszystkich lat rozwoju branży IT pojawiło się wiele metodologii, narzędzi oraz rodzajów testów. Wyróżnić można testy akceptacyjne, funkcjonalne, jednostkowe, czy integracyjne. Z punktu widzenia aplikacji będącej tematem pracy to testy jednostkowe są najważniejszym elementem gwarantującym jej poprawne działanie.       
       
 \section{Mechanizm testów jednostkowych}
 
-Czym jest test jednostkowy? Andy Hunt i Dave Thomas napisali kiedyś, że ,,test jednostkowy to kawałek kodu napisanego przez programistę, który sprawdza bardzo małą, specificzną część funkcjonalności testowanego kodu.''\cite[s.3]{Hunt:2003:PUT} Im, większe pokrycie kodu testami, tym większa pewność, że program spełni stawiane przed nim wymagania bez efektów ubocznych. Roy Osherove natomiast określił cechy dobrego testu jednostkowego\cite[s. 6]{Osherove:2009:TAOUT} 
+Czym jest test jednostkowy? Andy Hunt i Dave Thomas napisali kiedyś, że ,,test jednostkowy to kawałek kodu napisanego przez programistę, który sprawdza bardzo małą, specificzną część funkcjonalności testowanego kodu.''\cite[s.3]{Hunt:2003:PUT} Im, większe pokrycie kodu testami, tym większa pewność, że program spełni stawiane przed nim wymagania bez efektów ubocznych. Roy Osherove natomiast określił cechy dobrego testu jednostkowego \cite[s. 6]{Osherove:2009:TAOUT} 
 
 \begin{itemize}
 \item Szybki, automatyczny i powtarzalny
@@ -347,21 +347,21 @@ Czym jest test jednostkowy? Andy Hunt i Dave Thomas napisali kiedyś, że ,,test
 \item Uruchamiany ,,wciśnięciem guzika'' 
 \end{itemize}
 
-Testy jednostkowe są esencją systemu weryfikującego kod. To od nich w dużej mierze zależna jest ocena jakości kodu. Muszą one, więc sprawdzać nie tylko poprawność efektów dokonywanych przez funkcje i metody, ale także odporność na błędy.  
+Testy jednostkowe są esencją systemu weryfikującego kod. To od nich w dużej mierze zależna jest ocena jakości kodu. Muszą one, więc sprawdzać nie tylko poprawność wyników generowanych przez funkcje i metody, ale także odporność na błędy.  
 
 Obecnie istnieje wiele narzędzi zajmujących się zagadnieniem testów jednostkowych w Scali. Najbardziej popularne z nich to \emph{ScalaTest}, \emph{JUnit} i \emph{Specs2}.
 
 Pierwszy z nich po krótce przedstawiłem w podrozdziale \ref{scalaTestSrodek} w kontekście zastosowania do systemu weryfikującego kod. W tym rozdziale ScalaTest zostanie omówiony bardziej szczegółowo. 
 
-JUnit natomiast to narzędzie znane wszystkim programistom Javy. Kompatybilność z wirtualną maszyną JVM powoduje, że może bez przeszkód mieć zastosowanie również w Scalowych projektach. Warto przypomnieć, że narzędzie to integruje się z ScalaTest. 
+JUnit to narzędzie znane wszystkim programistom Javy. Kompatybilność z wirtualną maszyną JVM powoduje, że może bez przeszkód mieć zastosowanie również w Scalowych projektach. Warto przypomnieć, że narzędzie to integruje się z ScalaTest. 
 
 O ostatnim z wymienionych -- Specs2 -- można myśleć jak o konkurencji ScalaTestu. Narzędzie to może również działać z SBT. Posiada inny zestaw instrukcji dokonujących porównań oraz sposób konstruowania testów. To, co szczególnie wyróżnia Specs2 to fakt, że testy są uruchamiane równolegle, każdy w osobnym wątku.
       
 \section{ScalaTest}
 
-Testy w ScalaTest tworzy się, poprzez napisanie klasy testującej dziedziczącej po jednej z wybranych cech determinujących styl testów. Końcowym efektem są specyfikacje będące ważnym elementem w metodologii \emph{Behavior-driven development} (BDD). Polega ona na definiowaniu testów w sposób opisowy, tak jakby fragmenty testowanego kodu były elementami pewnych historii. Schemat, w który wpisują się wszystkie poprawnie opisane testy, wygląda następująco: ,,Posiadając.., jeśli.., wtedy..''\footnote{ang: Given, When, Then}. Słowo ,,test'' natomiast zastąpione zostaje słowem ,,zachowanie'' (ang: behavior). Ideą BDD jest, aby poprzez tak skonstruowane specyfikacje zespół programistów potrafił w pełni zrozumieć potrzeby i intencje klienta. Dostarczone oprogramowanie ma wtedy spełniać wszystkie założenia i wymagać mniej poprawek po wdrożeniu produkcyjnym.
+Testy w ScalaTest tworzy się, poprzez napisanie klasy testującej dziedziczącej po jednej z wybranych cech determinujących styl testów. Końcowym efektem są specyfikacje będące ważnym elementem w metodologii \emph{Behavior-driven development} (BDD). Polega ona na definiowaniu testów w sposób opisowy, tak jakby fragmenty testowanego kodu były elementami pewnych historii. Schemat, w który wpisują się wszystkie poprawnie opisane testy, wygląda następująco: ,,Posiadając.., jeśli.., wtedy..''\footnote{ang: Given, When, Then}. Słowo ,,test'' natomiast zastąpione zostaje słowem ,,zachowanie'' (ang. behavior). Ideą BDD jest, aby poprzez tak skonstruowane specyfikacje zespół programistów potrafił w pełni zrozumieć potrzeby i intencje klienta. Dostarczone oprogramowanie ma wtedy spełniać wszystkie założenia i wymagać mniej poprawek po wdrożeniu produkcyjnym.
 
-ScalaTest poza stylem specyfikacji daje programiście wybrać, także detale takie jak sposób weryfikacji rezultatów w teście. Istnieją klasyczne asercje poprzedzane instrukcją \texttt{assert}, ale także weryfikatory, które zasługują na szczególną uwagę. Są to specjalne asercje pozwalające czytać test, jak zwykłe zdanie. W przypadku niepowodzenia testu, rzucany jest wyjątek \texttt{TestFailedException}. ScalaTest przechwytuje je i zaznacza dany test jako nie zaliczony.
+ScalaTest poza stylem specyfikacji daje programiście wybrać, także detale takie jak sposób weryfikacji rezultatów w teście. Oferuje ona klasyczne asercje poprzedzane instrukcją \texttt{assert}, ale także weryfikatory, które zasługują na szczególną uwagę. Są to specjalne asercje pozwalające na czytanie testu, jak zwykłego zdania. W przypadku niepowodzenia testu, rzucany jest wyjątek \texttt{TestFailedException}. ScalaTest przechwytuje go i zaznacza dany test jako nie zaliczony.
 
 \subsection{Style specyfikacji}
 
@@ -416,7 +416,7 @@ Wskazany dla doświadczonych programistów piszących specyfikacje, ponieważ ni
 
 \label{weryfikatory}
 
-Bez względu na to jaki wybierzemy styl dla specyfikacji to rezultaty testowanych metod i funkcji muszą być w jakiś sposób sprawdzone. ScalaTest dostarcza specjalny język dziedzinowy dla asercji. Po dodaniu do klasy specyfikacji cechy \texttt{Matchers} otrzymujemy weryfikatory. Dzięki nim można przystąpić do tworzenia czytelnych asercji. Poniżej przykład.
+Bez względu na to jaki wybierzemy styl dla specyfikacji to rezultaty testowanych metod i funkcji muszą być w jakiś sposób sprawdzane. ScalaTest dostarcza specjalny język dziedzinowy dla asercji. Po dodaniu do klasy specyfikacji cechy \texttt{Matchers} otrzymujemy weryfikatory. Dzięki nim można przystąpić do tworzenia czytelnych asercji. Poniżej przykład.
 
 \begin{minted}[fontsize=\small]{scala}
 val list = List(2, 4, 5)
@@ -482,7 +482,7 @@ dog should have (
 
 Słowem kluczowym jest \texttt{have}, następnie jako symbole podaje się nazwy atrybutów oraz wartość oczekiwaną.
 
-To nie wszystkie weryfikatory, chociaż wierzę, że udało mi się przedstawić te najciekawsze i najważniejsze. ScalaTest daje również możliwość użycia \texttt{MustMatchers}. W praktyce różnica w użyciu tych weryfikatorów sprowadza się do zamiany słowa \texttt{should} na \texttt{must}. Jest to zatem po raz kolejny przykład elastyczności jaką daje to narzędzie.
+To nie wszystkie weryfikatory, chociaż wierzę, że udało mi się przedstawić te najciekawsze i najważniejsze. ScalaTest daje również możliwość użycia \texttt{MustMatch-\newline ers}. W praktyce różnica w użyciu tych weryfikatorów sprowadza się do zamiany słowa \texttt{should} na \texttt{must}. Jest to zatem po raz kolejny przykład elastyczności jaką daje to narzędzie.
 
 \mint[fontsize=\small]{scala}/list.size must be (3)/ 
 
@@ -529,15 +529,15 @@ val exc = the [NoSuchElementException] thrownBy { Set.empty.head }
 exc.getMessage should include ("empty")
 \end{minted}
 
-\subsection{JUnit}
+%\subsection{JUnit}
 
-JUnit może być bezpośrednio używany do testowania kodu Scala. Zdecydowanie lepszym rozwiązaniem jest jednak skorzystanie ze sposobności jaką daje ScalaTest w kwestii integracji z tym narzędziem. Zyskuje się w ten sposób dostęp chociażby do weryfikatorów. Aby to zrobić należy klasę z testami rozszerzyć o właściwości cechy \texttt{JUnitSuite}. W ten sposób, możliwe będzie uruchamianie testów z JUnit oraz używanie standardowych asercji. Poznane w podrozdziale \ref{weryfikatory} weryfikatory mogą znaleźć zastosowanie w testach tego rodzaju bez żadnego dodatkowego wysiłku. 
+%JUnit może być bezpośrednio używany do testowania kodu Scala. Zdecydowanie lepszym rozwiązaniem jest jednak skorzystanie ze sposobności jaką daje ScalaTest w kwestii integracji z tym narzędziem. Zyskuje się w ten sposób dostęp chociażby do weryfikatorów. Aby to zrobić należy klasę z testami rozszerzyć o właściwości cechy \texttt{JUnitSuite}. W ten sposób, możliwe będzie uruchamianie testów z JUnit oraz używanie standardowych asercji. Poznane w podrozdziale \ref{weryfikatory} weryfikatory mogą znaleźć zastosowanie w testach tego rodzaju bez żadnego dodatkowego wysiłku. 
 
-\inputminted[fontsize=\small]{scala}{code/ListSuite.scala}
+%\inputminted[fontsize=\small]{scala}{code/ListSuite.scala}
 
-Ten prosty przykład pokazuje jakie klasy należy zaimportować, aby taka kombinacja dwóch narzędzi przebiegła poprawnie. Klasa \texttt{ListSuite} posiada jeden test oznaczony przez adnotację \texttt{@Test} pochodzącą z narzędzia JUnit. Jego zadaniem jest zweryfikować rozmiar listy. Lista ta zaś zostaje zainicjalizowana przy pomocy innej adnotacji \texttt{@Before}. W metodzie \texttt{checkListSize()} weryfikacja rozmiaru listy przebiega na dwa sposoby. Pierwszy z nich to weryfikator pochodzący ze ScalaTest. Drugi sposób przedstawia standardową asercję pochodzącą z JUnit -- \texttt{assertEquals}.
+%Ten prosty przykład pokazuje jakie klasy należy zaimportować, aby taka kombinacja dwóch narzędzi przebiegła poprawnie. Klasa \texttt{ListSuite} posiada jeden test oznaczony przez adnotację \texttt{@Test} pochodzącą z narzędzia JUnit. Jego zadaniem jest zweryfikować rozmiar listy. Lista ta zaś zostaje zainicjalizowana przy pomocy innej adnotacji \texttt{@Before}. W metodzie \texttt{checkListSize()} weryfikacja rozmiaru listy przebiega na dwa sposoby. Pierwszy z nich to weryfikator pochodzący ze ScalaTest. Drugi sposób przedstawia standardową asercję pochodzącą z JUnit -- \texttt{assertEquals}.
 
-Jest to także dowód na kompatybilność Scali z klasami Javy i fakt, że dowolna biblioteka stworzona z myślą o Javie, bez przeszkód może być używana w Scalowych programach.
+%Jest to także dowód na kompatybilność Scali z klasami Javy i fakt, że dowolna biblioteka stworzona z myślą o Javie, bez przeszkód może być używana w Scalowych programach.
 
 \section{ScalaCheck}
 
@@ -554,7 +554,7 @@ Aby rozpoczęć pracę ze ScalaCheck należy zaimportować klasę \texttt{Proper
 
 \inputminted[fontsize=\small]{scala}{code/CalcTestBad.scala}
 
-Rozpatrując powyższy przykład można szyko zauważyć, że test nie zakończy się sukcesem. Testowi poddana zostaje właściwość klasy \texttt{Calc} wyrażona w postaci metody \texttt{add} dodającej liczby całkowite. Oczekuje się, że wartość zwrócona przez tą metodę będzie większa lub równa jej dwóm argumentom. Instrukcja \texttt{property} jako argument bierze ciąg znaków będący opisem sprawdzanej właściwości. Powyższy test zakończy się porażką, ponieważ w bloku metody \texttt{forAll} ScalaCheck domyślnie wygeneruje w pewnym momencie takie argumenty, w których co najmniej jeden z nich będzie liczbą ujemną. W raporcie końcowym można będzie przeczytać o niepowodzeniu oraz dla jakich argumentów ono zaszło.
+Rozpatrując powyższy przykład można szybko zauważyć, że test nie zakończy się sukcesem. Testowi poddana zostaje właściwość klasy \texttt{Calc} wyrażona w postaci metody \texttt{add} dodającej liczby całkowite. Oczekuje się, że wartość zwrócona przez tę metodę będzie większa lub równa jej dwóm argumentom. Instrukcja \texttt{property} jako argument bierze ciąg znaków będący opisem sprawdzanej właściwości. Powyższy test zakończy się porażką, ponieważ w bloku metody \texttt{forAll} ScalaCheck domyślnie wygeneruje w pewnym momencie takie argumenty, w których co najmniej jeden z nich będzie liczbą ujemną. W raporcie końcowym można będzie przeczytać o niepowodzeniu oraz dla jakich argumentów ono zaszło.
 
 Zakładając, że argumenty metody \texttt{add} w założeniach projektowych są zawsze liczbami naturalnymi, test ten da się poprawić przy użyciu cechy Gen.
 
