@@ -505,7 +505,7 @@ Całość sprowadza się do powstania czytelnej historyjki. ,,Metoda \texttt{cre
 
 \subsection{Przechwytywanie wyjątków}
 
-Istnieją dwa sposoby na przetestowanie, czy dany wyjątek został rzucony. Pierwszym z nich jest umieszczenie testowanego fragmentu w bloku \texttt{intercept}. Jeśli ten fragment kodu nie rzuci spodziewanego wyjątku to test się nie powiedzie. W poniższym przykładzie, zdjęcie kolejnego elementu z pustego stosu spowoduje rzucenie wyjątku \texttt{NoSuchElementException}.
+Istnieją dwa sposoby na przetestowanie, czy dany wyjątek został rzucony. Pierwszym z nich jest umieszczenie testowanego fragmentu w bloku \texttt{intercept}. Jeśli ten fragment kodu nie rzuci spodziewanego wyjątku to test się nie powiedzie. W~poniższym przykładzie, zdjęcie kolejnego elementu z pustego stosu spowoduje rzucenie wyjątku \texttt{NoSuchElementException}.
 
 \begin{minted}[fontsize=\small]{scala}
 import org.scalatest.FunSpec
@@ -592,7 +592,7 @@ Testowanie właściwości z użyciem ScalaCheck zapewnia cecha \texttt{Generator
 
 \inputminted[fontsize=\small]{scala}{code/CalcTestScalaTest.scala}
 
-Na pierwszy rzut oka nie widać większej różnicy pomiędzy tym kodem napisanym w ScalaTest, a standardowym testem ScalaCheck. Po chwili jednak zaobserwować można, że specyfikacje nie są już umieszczone w singletonie, a w zwykłej klasie. Dodatkowo teraz weryfikacja dokonuje się przy pomocy instrukcji \texttt{should} sprawiając, że test staje się bardziej czytelny. Zaimportowane cechy zdradzają również, że metoda \texttt{forAll} nie pochodzi już ze ScalaCheck, a cechy \texttt{GeneratorDrivenPropertyChecks}. W powyższym przykładzie, ze ScalaCheck użyto jedynie cechy \texttt{Gen} zajmującej się generowaniem pseudolosowych danych testowych.
+Na pierwszy rzut oka nie widać większej różnicy pomiędzy tym kodem napisanym w ScalaTest, a standardowym testem ScalaCheck. Po chwili jednak zaobserwować można, że specyfikacje nie są już umieszczone w singletonie, a~w~zwykłej klasie. Dodatkowo teraz weryfikacja dokonuje się przy pomocy instrukcji \texttt{should} sprawiając, że test staje się bardziej czytelny. Zaimportowane cechy zdradzają również, że metoda \texttt{forAll} nie pochodzi już ze ScalaCheck, a cechy \texttt{GeneratorDrivenPropertyChecks}. W powyższym przykładzie, ze ScalaCheck użyto jedynie cechy \texttt{Gen} zajmującej się generowaniem pseudolosowych danych testowych.
 
 Dołączanie własnych generatorów odbywa się tak samo jak w przypadku zwykłych testów ScalaCheck. ScalaTest oddaje jednak do dyspozycji jeszcze jedną możliwość. Do generatorów można dołączyć nazwę, która pojawi się w raporcie po zakończeniu testów.
 
@@ -817,7 +817,7 @@ Na zakończenie omówiony zostanie interfejs użytkownika, który niemal w cało
 
 \subsection{Play Framework}
 
-Play Framework można w pewnym sensie porównać do \emph{Ruby on Rails}. Oba te narzędzia korzystając z architektury Model-Widok-Kontroler, dostarczają szkielet aplikacji internetowych, który doskonale sprawdza się w małych i średnich projektach. W obu przypadkach mamy również do czynienia ze wsparciem wzorca REST. To znaczy, że klient i serwer komunikują się ze sobą w oparciu o \emph{zasoby} (ang. resources). Adres URL powinien wtedy zawierać parametry w ścieżce identyfikującej dany zasób lub zasoby. Wykorzystane ku temu zostają cztery metody HTTP:
+Play Framework można w pewnym sensie porównać do \emph{Ruby on Rails}. Oba te narzędzia korzystając z architektury Model-Widok-Kontroler, dostarczają szkielet aplikacji internetowych, który doskonale sprawdza się w małych i średnich projektach. W obu przypadkach mamy również do czynienia ze wsparciem wzorca REST. To znaczy, że klient i serwer komunikują się ze sobą w oparciu o \emph{zasoby} (ang. resources). Adres URL powinien zawierać wtedy parametry w ścieżce identyfikującej dany zasób lub zasoby. Wykorzystane ku temu zostają cztery metody HTTP:
 
 \begin{itemize}
 \item GET -- pobranie zasobu lub zasobów
@@ -847,13 +847,13 @@ scala> Cat.meowAndName(Cat("Nazir"))
 res0: String = Meow! Nazir
 \end{minted}
 
-Warto też dodać, że Play Framework posiada wtyczki do popularnych zintegrowanych środowisk programistycznych jak IntelliJ IDEA, czy eclipse. Obie aplikacje i szablon projektu SBT udostępniany przez część zarządzającą systemu mają dołączone zależności pozwalające wygenerować potrzebne pliki do zaimportowania projektu do tych narzędzi. W ten sposób praca z Play Framework staje na równi z innymi już dojrzałymi narzędziami. Zyskuje się bowiem wparcie w postaci łatwego uruchamiania aplikacji, czy rozpoznawania składni plików specyficznych dla Play.
+Warto też dodać, że Play Framework posiada wtyczki do popularnych zintegrowanych środowisk programistycznych jak IntelliJ IDEA, czy eclipse. Obie aplikacje i szablon projektu SBT udostępniany przez część zarządzającą systemu mają dołączone zależności pozwalające wygenerować potrzebne pliki do zaimportowania projektu do tych narzędzi. W ten sposób praca z Play Framework staje na równi~z~innymi już dojrzałymi narzędziami. Zyskuje się bowiem wparcie w postaci łatwego uruchamiania aplikacji, czy rozpoznawania składni plików specyficznych dla Play.
 
 \subsection{MongoDB}
 
 MongoDB to wydajna baza przechowująca dane w postaci dokumentów. Jeden serwer MongoDB może się składać z wielu baz danych. Pojedyńcza baza danych zawiera z kolei kolekcje, które są zbiorem wspomnianych dokumentów. Ściślej mówiąc są to obiekty w postaci notacji \emph{JSON}. Dokumenty mogą być dynamicznie modyfikowane i nie są ograniczone przez żaden schemat nakładany na kolekcje. Oznacza to w praktyce, że dokumenty w obrębie kolekcji mogą mieć różny zestaw pól.
 
-Zasiegając informacji z oficjalnej strony\footnote{\url{http://www.mongodb.org/}} można scharakteryzować MongoDB w kilku punktach:
+Zasiegając informacji z oficjalnej strony\footnote{\url{www.mongodb.org}} można scharakteryzować MongoDB w kilku punktach:
 
 \begin{itemize}
 \item elastyczność -- przechowywanie danych w postaci obiektów JSON i brak ograniczeń ze strony schematów nakładanych na kolekcje ułatwia modyfikację modelu danych wraz z ewolucją projektu.
@@ -875,7 +875,7 @@ Casbah dostarcza specjalny typ \texttt{MongoDBObject}. Dzięki nim można zbudow
 
 Nie jest to jednak zbyt czytelne rozwiązanie. Szczególnie, gdy pobierane dane filtrowane są przez wiele warunków. Niestety metody dostaczane przez Salat w dużej części jako argumenty również przyjmują \texttt{MongoDBObject}. Nieco lepiej wygląda sytuacja, gdy aktualizowany lub tworzony jest dany obiekt. Wtedy argumentem staje się odpowednik dokumentu w Scali reprezentowany przez klasę.
 
-Salat skupia się na obiekcie towarzyszącym. Musi on rozszerzać cechę \texttt{ModelCompanion}. W zamian narzędzie dostarcza:
+Salat skupia się na obiekcie towarzyszącym. Musi on rozszerzać cechę \texttt{ModelCom-\newline panion}. W zamian narzędzie dostarcza:
 
 \begin{itemize}
 \item metody do konwersji obiektów z i do formatu JSON
@@ -888,7 +888,7 @@ Na zakończenie należy odnieść się do wspominanego mechanizmu przechowujące
 
 \subsection{RabbitMQ}
 
-Kolejkowanie rozwiązań pomiędzy dwoma aplikacjami nie byłoby możliwe bez technologii opartej na protokole AMQP\footnote{AMQP - jest to skrót od Advanced Message Queuing Protocol}. Jest to protokół w warstwie aplikacji służący do przesyłania asynchronicznych wiadomości. Pracując na tym protokole mamy do czynienia z dwoma bytami -- nadawcami i odbiorcami. Jak nie trudno się domyślić nadawca odpowiada za wysłanie wiadomości, natomiast odbiorca zbiera je i wykonuje operację często pochłaniającą większą ilość czasu. Zadaniem RabbitMQ jest rozdzielanie wiadomości pomiędzy właściwymi odbiorcami. W systemie weryfikacji kodu Scala czyni to właśnie za pomocą kolejki.
+Kolejkowanie rozwiązań pomiędzy dwoma aplikacjami nie byłoby możliwe bez technologii opartej na protokole AMQP\footnote{AMQP - jest to skrót od Advanced Message Queuing Protocol}. Jest to protokół w warstwie aplikacji służący do przesyłania asynchronicznych wiadomości. Pracując na tym protokole mamy do czynienia z dwoma bytami -- nadawcami i odbiorcami. Jak nie trudno się domyślić nadawca odpowiada za wysłanie wiadomości, natomiast odbiorca zbiera je i wykonuje operację, która często pochłania dużo czasu. Zadaniem RabbitMQ jest rozdzielanie wiadomości pomiędzy właściwymi odbiorcami. W systemie weryfikacji kodu Scala czyni to właśnie za pomocą kolejki.
 
 Konfiguracja kolejki w systemie jest bardzo prosta. Ustawienia mogą być różne w zależności od środowiska uruchomieniowego aplikacji. Odpowiadają za to oddzielne pliki.
 
@@ -955,9 +955,9 @@ Dzięki kompatybilności Scali oraz oficjalnemu klientowi RabbitMQ dla języka J
 
 Interfejs aplikacji zarządzającej składa się jedynie z dwóch stron. Pierwsza z nich to strona logowania. Zbudowana została przy pomocy metod dostarczanych przez Play Framework do tworzenia formularzy w widokach. Użytkownik po zalogowaniu zostaje przekierowany na stronę główną, gdzie dołączone są pliki ze skryptami JavaScript. Wśród nich znajduje się AngularJS i logika interfejsu działająca przy jego użyciu.
 
-AngularJS to wyprodukowane i wspierane przez Google narzędzie. Ideą było stworzenie instrumentu, który pozwoliłby na szybkie budowanie małych i dynamicznych aplikacji internetowych. Inżynierom Google'a cel udało się osiągnąć poprzez wprowadzenie własnego kompilatora HTML oraz podwójnego wiązania danych.
+AngularJS to wyprodukowane i wspierane przez firmę Google narzędzie. Ideą było stworzenie instrumentu, który pozwoliłby na szybkie budowanie małych~i~dynamicznych aplikacji internetowych. Inżynierom Google'a cel udało się osiągnąć poprzez stworzenie modułu nazywanego ,,kompilatorem HTML'' oraz podwójnego wiązania danych.
 
-Kompilator HTML pozwala programiście zdefiniować kod strony w zupełnie nowy sposób. Istnieje możliwość tworzenia własnych znaczników, czy atrybutów. W ten sposób można dodać specyficzne dla potrzeb aplikacji ,,zachowanie'' poszczególnych elementów strony. Programista dokonuje tego poprzez napisanie własnych dyrektyw. Część zarządzająca omawianego systemu potrzebowała dyrektyw decydujących o tym, które z elementów strony powinny być widoczne, bądź ukryte w zależności od roli zalogowanego użytkownika. Dzięki kompilatorowi udało się stworzyć czytelne dla każdego atrybuty HTML.
+Moduł produkujący kod HTML, pozwala programiście zdefiniować kod strony w zupełnie nowy sposób. Istnieje możliwość tworzenia własnych znaczników, czy atrybutów. W ten sposób można dodać specyficzne dla potrzeb aplikacji ,,zachowanie'' poszczególnych elementów strony. Programista dokonuje tego poprzez napisanie własnych dyrektyw. Część zarządzająca omawianego systemu potrzebowała dyrektyw decydujących o tym, które z elementów strony powinny być widoczne, bądź ukryte w zależności od roli zalogowanego użytkownika. Dzięki kompilatorowi udało się stworzyć czytelne dla każdego atrybuty HTML.
 
 \begin{minted}[]{html}
 <div has-permission="Educator" class="pull-right">
@@ -967,7 +967,7 @@ Kompilator HTML pozwala programiście zdefiniować kod strony w zupełnie nowy s
 
 Fragment strony zawarty pomiędzy znacznikami \texttt{div} w powyższym przykładzie będzie pokazany jedynie prowadzącemu. Jego rola w kodzie systemu określona jest jako \texttt{Educator} (ang. dydaktyk). Stworzona dyrektywa pozwala zdefiniować wyświetlaną zawartość dzięki dodaniu czytelnego atrybutu \texttt{has-permission}.
 
-Podwójne wiązanie danych w sposób automatyczny synchronizuje to co jest wyświetlane na stronie, z tym co znajduje się w kontrolerze JavaScript odpowiadającym za konkretny widok. Kompilator AngularJS prezentuje ,,na żywo'' wyniki kolejnych etapów kompilacji. Wszelkie zmiany w widoku są odzwierciedlone w modelu danych i odwrotnie. Chociaż kontroler jest osobnym bytem to możliwe jest modyfikowanie w nim danych bez potrzeby samodzielnego manipulowania elementami strony.  
+Podwójne wiązanie danych w sposób automatyczny synchronizuje to co jest wyświetlane na stronie, z tym co znajduje się w kontrolerze JavaScript odpowiadającym za konkretny widok. Kompilator AngularJS prezentuje ,,na żywo'' wyniki kolejnych etapów kompilacji. Wszelkie zmiany w widoku są odzwierciedlone~w~modelu danych i odwrotnie. Chociaż kontroler jest osobnym bytem to możliwe jest modyfikowanie w nim danych bez potrzeby samodzielnego manipulowania elementami strony.  
 
 Obiekt, który zajmuje się wiązaniem modelu z widokiem to \texttt{\$scope}. Jest wstrzykiwany do funkcji kontrolera na etapie kompilacji. Poniżej znajduje się fragment kontrolera odpowiadającego za widok listy zadań w danej grupie.
 
