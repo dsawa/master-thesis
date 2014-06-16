@@ -658,17 +658,18 @@ Chociaż dana osoba mogła zostać dodana do systemu jako prowadząca kursy to n
 
 \subsection{Uczestnik}
 
-Uczestnik grupy jest ostatnim typem użytkownika wymagającym przedstawienia. Jak nie trudno się domyślić jego głównym celem jest rozwiązywanie zagadnień wprowadzanych przez prowadzących kurs. Po zalogowaniu wyświetlona zostaje lista grup powiązanych z tym użytkownikiem. Aplikacja normalnie daje takiej osobie możliwość wyświetlenia jedynie listy aktywnych zadań w wybranej grupie. W kolejnym kroku może przeczytać informacje o zadaniu, opis ćwiczeń oraz oczywiście pobrać przygotowany projekt SBT.   
+Uczestnik grupy jest ostatnim typem użytkownika wymagającym przedstawienia. Jak nietrudno się domyślić jego głównym celem jest rozwiązywanie zagadnień wprowadzanych przez prowadzących kurs. Po zalogowaniu wyświetlona zostaje lista grup powiązanych z użytkownikiem. Aplikacja daje takiej osobie możliwość wyświetlenia jedynie listy aktywnych zadań w wybranej grupie. W~kolejnym kroku może przeczytać informacje o zadaniu, opis ćwiczeń oraz oczywiście pobrać przygotowany projekt SBT.   
 
-Rozwiązując zadanie uczestnik powinien również napisać własne testy, aby upewnić się co do swojego rozwiązania. Nie będą one jednak brane pod uwagę przy wysyłaniu kodu do analizy. Wysłanie rozwiązania odbywa się przy pomocy dwuargumentowego polecenia SBT: \texttt{sendSolution loginUzytkownika hasloUzytkownika}. W pierwszym kroku wyodrębni ono kody źródłowe i zarchiwizuje je w pliku \emph{.jar}. Następnie zostanie on wysłany do aplikacji zarządzającej.
+Rozwiązując zadanie uczestnik powinien również napisać własne testy, aby upewnić się co do swojego rozwiązania. Nie będą one jednak brane pod uwagę przy wysyłaniu kodu do analizy. Wysłanie rozwiązania odbywa się przy pomocy dwuargumentowego polecenia SBT: \texttt{sendSolution loginUzytkownika hasloUzytkownika}. W pierwszym kroku wyodrębni ono kod źródłowy, który zostanie zarchiwizowany~w~pliku \emph{.jar}. Następnie zostanie on wysłany do aplikacji zarządzającej.
 
-Po skończonej weryfikacji kodu przez system użytkownik ten zostanie poinformowany o tym, że może sprawdzić swoją ocene. Dowie się także przez ile testów zostało zaakceptowane jego rozwiązanie.
+Po skończonej weryfikacji kodu przez system użytkownik zostanie poinformowany o tym, że może sprawdzić swoją ocenę. Dowie się także przez ile testów zostało zaakceptowane jego rozwiązanie.
 
-Uczestnik może zostać mianowany prowadzącym w innej grupie. W jej obrębie będzie posiadać niemal takie same uprawnienia jak inni prowadzący. To znaczy, że oprócz sprawdzenia swoich wyników będzie posiadać możliwość odczytania ogólnych informacji o ocenach innych uczestników kursu. Poza tym będzie mieć realny wpływ na kształt zadań poprzez ich edycję. Udostępnione zostaną mu także widoki statystyki grupy oraz zarządzania jej członkami. Nie jest jednak możliwe usunięcie założyciela grupy.
+Uczestnik może zostać mianowany prowadzącym w innej grupie. W jej obrębie będzie posiadał niemal takie same uprawnienia jak inni prowadzący. To znaczy, że oprócz sprawdzenia swoich wyników będzie posiadał możliwość odczytania ogólnych informacji o ocenach innych uczestników kursu. Poza tym będzie miał realny wpływ na kształt zadań poprzez ich edycję. Udostępnione zostaną mu także widoki statystyki grupy oraz zarządzania jej członkami. Nie jest jednak możliwe usunięcie założyciela grupy.
 
 Wszystkie możliwe uprawnienia zależne od roli użytkownika przedstawia tabela \ref{uprawnienia:uzytkownikow}.
 \newpage
 \begin{table}[!tbh]\footnotesize
+\makebox[\textwidth][c]{
 \begin{tabular}{|l|p{5cm}|l|p{5cm}|}
 \hline
 Rola systemowa & Uprawnienia systemowe & Rola w grupie & Uprawnienia w grupie \\ 
@@ -695,6 +696,7 @@ Rola systemowa & Uprawnienia systemowe & Rola w grupie & Uprawnienia w grupie \\
 							&							&							& \tabitem Odczytanie oceny danego rozwiązania \\
 \hline	
 \end{tabular}
+}
 \caption{Uprawnienia użytkowników w aplikacji zarządzającej\label{uprawnienia:uzytkownikow}}
 \source{Opracowanie własne}
 \end{table}
