@@ -94,9 +94,9 @@ Jednak jak pokazuje przykład Ruby'ego i JavaScriptu, jednym z elementów wpływ
 
 \section{Język Scala}
 
-Pomysłodawcą i głównym twórcą Scali jest niemiecki profesor Martin Odersky. Nazwa języka ma na celu sugerować, że jest on skalowalny\footnote{ang: Scalable language}. Scala rośnie wraz~z~potrzebami jej użytkowników. Cały czas powstają kolejne narzędzia i biblioteki mające uprościć pracę z nią, czy też dodać do niej nowe mechanizmy. 
+Pomysłodawcą i głównym twórcą Scali jest niemiecki profesor Martin Odersky. Nazwa języka ma na celu sugerować, że jest on skalowalny\footnote{ang. Scalable language}. Scala rośnie wraz~z~potrzebami jej użytkowników. Cały czas powstają kolejne narzędzia i biblioteki mające uprościć pracę z nią, czy też dodać do niej nowe mechanizmy. 
 
-Jedną z ciekawostek wprawdzonych przez Scalę jest środowisko o nazwie REPL\footnote{ang: Read-Evaluate-Print Loop}. Jest to interfejs do kompilatora, który można traktować jak ,,interpreter''. REPL potrafi między innymi podpowiedzieć ścieżki do pakietów i klas, czy możliwe do wywołania metody na danych bytach po wciśnięciu klawisza tabulacji. Jest to doskonałe narzędzie do sprawdzania małych fragmentów kodu.
+Jedną z ciekawostek wprawdzonych przez Scalę jest środowisko o nazwie REPL\footnote{ang. Read-Evaluate-Print Loop}. Jest to interfejs do kompilatora, który można traktować jak ,,interpreter''. REPL potrafi między innymi podpowiedzieć ścieżki do pakietów i klas, czy możliwe do wywołania metody na danych bytach po wciśnięciu klawisza tabulacji. Jest to doskonałe narzędzie do sprawdzania małych fragmentów kodu.
 
 Scala łączy ze sobą paradygmat programowania obiektowego oraz funkcyjnego. Umożliwia wykorzystanie najlepszych cech tych dwóch podejść w projektowaniu nowych systemów. Sprawdzi się zatem doskonale zarówno podczas pisania małych jak i dużych projektów.
 
@@ -136,7 +136,7 @@ Liczba 5 została tutaj najpierw zwiększona o 1, w następnym kroku pomnożona 
 
 Warto wspomnieć również o klasach poprzedzonych modyfikatorem \texttt{case}. Kompilator Scali dodaje kilka udogodnień dla takich bytów. 
 
-Pierwszym z nich jest dodanie metody \texttt{apply} do tak zwanego ,,obiektu stowarzyszonego'' (ang: companion object) z daną klasą. Jest to specjalny obiekt o nazwie identycznej jak sama klasa. W praktyce oznacza to, że tworząc nowy obiekt takiego typu nie jest obowiązkowym podawanie instrukcji \texttt{new}. 
+Pierwszym z nich jest dodanie metody \texttt{apply} do tak zwanego ,,obiektu stowarzyszonego'' (ang. companion object) z daną klasą. Jest to specjalny obiekt o nazwie identycznej jak sama klasa. W praktyce oznacza to, że tworząc nowy obiekt takiego typu nie jest obowiązkowym podawanie instrukcji \texttt{new}. 
 
 \begin{minted}[fontsize=\small]{scala}
 scala> case class MyNumber(number: Int)
@@ -271,7 +271,7 @@ def fib(n: Int): Int = n match {
 }
 \end{minted}
 
-Gdyby nie określono tutaj typu wynikowego funkcji, to kompilator nie wiedziałby o jakiej operacji ,,+'' myślał programista, tzn. dla jakiego typu. Przy okazji udało się tutaj zaprezentować dopasowywanie wzorca \footnote{ang: Pattern matching}.
+Gdyby nie określono tutaj typu wynikowego funkcji, to kompilator nie wiedziałby o jakiej operacji ,,+'' myślał programista, tzn. dla jakiego typu. Przy okazji udało się tutaj zaprezentować dopasowywanie wzorca \footnote{ang. Pattern matching}.
 
 Technika ta pozwala w czytelny dla człowieka sposób określić jakie powinny być następne instrukcje programu w zależności od zmiennej. Dopasowywać można nie tylko do konkretnej wartości, ale przede wszystkim typu. Ma to znaczenie~w~przypadku, gdy porównujemy ze sobą na przykład typy dziedziczące po wspólnej klasie w hierarchii.
 
@@ -299,7 +299,7 @@ Poniżej znajduje się krótkie przedstawienie tych narzędzi wraz z uzasadnieni
 
 SBT jest narzędziem, które tworzy stabilną platformę do rozwijania aplikacji. Domyślnie udostępnia programiście listę komend, z których może on korzystać. Dla przykładu komendy te mogą służyć przeładowaniu definicji projektu, uruchomieniu testów, czy uruchomieniu środowiska REPL Scali z gotowymi do użycia klasami~z~danego projektu. Zdecydowanie sprzyjają one zwiększeniu produktywności programisty poprzez automatyzację pewnych działań.
 
-Jednak warto przyjrzeć się bliżej, dlaczego w ogóle warto korzystać z narzędzi budujących aplikację\footnote{ang: Build tool} oraz w jaki sposób wykorzystanie SBT jest kluczowe dla systemu weryfikującego kod. 
+Jednak warto przyjrzeć się bliżej, dlaczego w ogóle warto korzystać z narzędzi budujących aplikację\footnote{ang. Build tool} oraz w jaki sposób wykorzystanie SBT jest kluczowe dla systemu weryfikującego kod. 
 
 Autorzy książki ,,SBT in Action'' już na początku podają prosty przykład,~w~jaki sposób tego typu narzędzia zwiększają produktywność nawet całego zespołu programistów. Wspominają o tym jak kilka lat temu w jednym z zespołów odbywało się ,,automatyczne'' budowanie projektu. ,,To było 10 lub 12 okienek z plikami .batch, które budowały i instalowały aplikacje. Kompilowały pliki Java, budowały aplikacje internetową i instalowały ją na serwerze. Zajmowało to od 1,5 do 2 godzin -- to była lekcja jak nie automatyzować''. \cite[s.1]{Suereth:2014:SIA} Jak twierdzą autorzy, po przepisaniu skryptu i użyciu narzędzia \emph{Apache Ant} czas ten zmalał do około 8 minut.
 
@@ -359,7 +359,7 @@ O ostatnim z wymienionych -- Specs2 -- można myśleć jak o konkurencji ScalaTe
       
 \section{ScalaTest}
 
-Testy w ScalaTest tworzy się, poprzez napisanie klasy testującej dziedziczącej po jednej z wybranych cech determinujących styl testów. Końcowym efektem są specyfikacje będące ważnym elementem w metodologii \emph{Behavior-driven development} (BDD). Polega ona na definiowaniu testów w sposób opisowy, tak jakby fragmenty testowanego kodu były elementami pewnych historii. Schemat, w który wpisują się wszystkie poprawnie opisane testy, wygląda następująco: ,,Posiadając.., jeśli.., wtedy..''\footnote{ang: Given, When, Then}. Słowo ,,test'' natomiast zastąpione zostaje słowem ,,zachowanie'' (ang. behavior). Ideą BDD jest, aby poprzez tak skonstruowane specyfikacje zespół programistów potrafił w pełni zrozumieć potrzeby i intencje klienta. Dostarczone oprogramowanie ma wtedy spełniać wszystkie założenia i wymagać mniej poprawek po wdrożeniu produkcyjnym.
+Testy w ScalaTest tworzy się, poprzez napisanie klasy testującej dziedziczącej po jednej z wybranych cech determinujących styl testów. Końcowym efektem są specyfikacje będące ważnym elementem w metodologii \emph{Behavior-driven development} (BDD). Polega ona na definiowaniu testów w sposób opisowy, tak jakby fragmenty testowanego kodu były elementami pewnych historii. Schemat, w który wpisują się wszystkie poprawnie opisane testy, wygląda następująco: ,,Posiadając.., jeśli.., wtedy..''\footnote{ang Given, When, Then}. Słowo ,,test'' natomiast zastąpione zostaje słowem ,,zachowanie'' (ang. behavior). Ideą BDD jest, aby poprzez tak skonstruowane specyfikacje zespół programistów potrafił w pełni zrozumieć potrzeby i intencje klienta. Dostarczone oprogramowanie ma wtedy spełniać wszystkie założenia i wymagać mniej poprawek po wdrożeniu produkcyjnym.
 
 ScalaTest poza stylem specyfikacji daje programiście wybrać, także detale takie jak sposób weryfikacji rezultatów w teście. Oferuje ona klasyczne asercje poprzedzane instrukcją \texttt{assert}, ale także weryfikatory, które zasługują na szczególną uwagę. Są to specjalne asercje pozwalające na czytanie testu, jak zwykłego zdania. W przypadku niepowodzenia testu, rzucany jest wyjątek \texttt{TestFailedException}. ScalaTest przechwytuje go i zaznacza dany test jako nie zaliczony.
 
@@ -367,7 +367,7 @@ ScalaTest poza stylem specyfikacji daje programiście wybrać, także detale tak
 
 ScalaTest pozwala programiście wybrać jeden z wielu stylów dla swoich specyfikacji. Twórcy zaznaczają jednak, aby podczas rozwijania projektu przez dany zespół nie doszło do sytuacji, w której każdy programista pisałby w inny sposób. Zalecanym jest, aby testy jednostkowe powstawały przy użyciu jednego głównego stylu, a na przykład testy integracji, czy akceptacyjne w innym. Ma to pomóc poszczególnym członkom zespołu ,,przełączać się'' pomiędzy testami niskiego i wysokiego poziomu.
 
-W podrozdziale \ref{scalaTestSrodek} można było przeczytać jak tą elastyczność ScalaTestu można wykorzystać w systemie sprawdzającym kod Scali. Poszczególne style specyfikacji różnią się jedynie instrukcjami deklarującymi testy. Pozostałe rzeczy takie jak asercje, instrukcje dopasowywania (ang: Matchers) określane przeze mnie weryfikatorami są wykorzystywane w ten sam sposób.
+W podrozdziale \ref{scalaTestSrodek} można było przeczytać jak tą elastyczność ScalaTestu można wykorzystać w systemie sprawdzającym kod Scali. Poszczególne style specyfikacji różnią się jedynie instrukcjami deklarującymi testy. Pozostałe rzeczy takie jak asercje, instrukcje dopasowywania (ang. Matchers) określane przeze mnie weryfikatorami są wykorzystywane w ten sam sposób.
 
 Poniżej znajduje się zestawienie kilku wybranych styli oferowanych przez ScalaTest. Przykłady pochodzą z oficjalnej strony projektu\footnote{\url{http://www.scalatest.org/user_guide/selecting_a_style}}.
 
@@ -817,7 +817,7 @@ Na zakończenie omówiony zostanie interfejs użytkownika, który niemal w cało
 
 \subsection{Play Framework}
 
-Play Framework można w pewnym sensie porównać do \emph{Ruby on Rails}. Oba te narzędzia korzystając z architektury Model-Widok-Kontroler, dostarczają szkielet aplikacji internetowych, który doskonale sprawdza się w małych i średnich projektach. W obu przypadkach mamy również do czynienia ze wsparciem wzorca REST. To znaczy, że klient i serwer komunikują się ze sobą w oparciu o \emph{zasoby} (ang: resources). Adres URL powinien wtedy zawierać parametry w ścieżce identyfikującej dany zasób lub zasoby. Wykorzystane ku temu zostają cztery metody HTTP:
+Play Framework można w pewnym sensie porównać do \emph{Ruby on Rails}. Oba te narzędzia korzystając z architektury Model-Widok-Kontroler, dostarczają szkielet aplikacji internetowych, który doskonale sprawdza się w małych i średnich projektach. W obu przypadkach mamy również do czynienia ze wsparciem wzorca REST. To znaczy, że klient i serwer komunikują się ze sobą w oparciu o \emph{zasoby} (ang. resources). Adres URL powinien wtedy zawierać parametry w ścieżce identyfikującej dany zasób lub zasoby. Wykorzystane ku temu zostają cztery metody HTTP:
 
 \begin{itemize}
 \item GET -- pobranie zasobu lub zasobów
@@ -832,7 +832,7 @@ Aplikacje powstałe z Play Framework pracują bezstanowo. Oznacza to, że nie je
 
 Play zawiera zintegrowany kompilator Javy i Scali. Podczas tworzenia aplikacji możliwe jest uruchomienie jej w środowisku deweloperskim i utrzymywanie ją~w~stanie działania. Wszystkie wprowadzane do kodu zmiany będą na bieżąco aktualizowane i widoczne. Jest to zdecydowana oszczędność czasu, gdyż nie ma potrzeby przebudowywania aplikacji i uruchamiania ponownie serwera. 
 
-Zasobami udostępnianymi przez aplikację są oczywiście modele. W wersji dla Scali odwzorowuje je się przy pomocy \texttt{case class} oraz \texttt{object}. Wszystkie ich atrybuty są trzymane w postaci pól klas. Natomiast logika biznesowa powinna być zaimplementowana w postaci metod singletonu o tej samej nazwie co encja. Jest to ,,obiekt towarzyszący'' (ang: companion object) zdefiniowany w tym samym pliku. Posiada on również dostęp do pól prywatnych w danych klasach. Prosty przykład modelu znajduje się poniżej. Klasa \texttt{Cat} posiada obiekt towarzyszący o tej samej nazwie. Zawarta w nim metoda \texttt{meowAndName} jako parametr bierze obiekt typu \texttt{Cat}. Zwraca ciąg znaków składający się z wartości pola \texttt{name} z podanego argumentu.
+Zasobami udostępnianymi przez aplikację są oczywiście modele. W wersji dla Scali odwzorowuje je się przy pomocy \texttt{case class} oraz \texttt{object}. Wszystkie ich atrybuty są trzymane w postaci pól klas. Natomiast logika biznesowa powinna być zaimplementowana w postaci metod singletonu o tej samej nazwie co encja. Jest to ,,obiekt stowarzyszony'' (ang. companion object) zdefiniowany w tym samym pliku. Posiada on również dostęp do pól prywatnych w danych klasach. Prosty przykład modelu znajduje się poniżej. Klasa \texttt{Cat} posiada obiekt towarzyszący o tej samej nazwie. Zawarta w nim metoda \texttt{meowAndName} jako parametr bierze obiekt typu \texttt{Cat}. Zwraca ciąg znaków składający się z wartości pola \texttt{name} z podanego argumentu.
 
 \begin{minted}[fontsize=\small]{scala}
 package models
@@ -965,7 +965,7 @@ Kompilator HTML pozwala programiście zdefiniować kod strony w zupełnie nowy s
 </div>
 \end{minted}
 
-Fragment strony zawarty pomiędzy znacznikami \texttt{div} w powyższym przykładzie będzie pokazany jedynie prowadzącemu. Jego rola w kodzie systemu określona jest jako \texttt{Educator} (ang: dydaktyk). Stworzona dyrektywa pozwala zdefiniować wyświetlaną zawartość dzięki dodaniu czytelnego atrybutu \texttt{has-permission}.
+Fragment strony zawarty pomiędzy znacznikami \texttt{div} w powyższym przykładzie będzie pokazany jedynie prowadzącemu. Jego rola w kodzie systemu określona jest jako \texttt{Educator} (ang. dydaktyk). Stworzona dyrektywa pozwala zdefiniować wyświetlaną zawartość dzięki dodaniu czytelnego atrybutu \texttt{has-permission}.
 
 Podwójne wiązanie danych w sposób automatyczny synchronizuje to co jest wyświetlane na stronie, z tym co znajduje się w kontrolerze JavaScript odpowiadającym za konkretny widok. Kompilator AngularJS prezentuje ,,na żywo'' wyniki kolejnych etapów kompilacji. Wszelkie zmiany w widoku są odzwierciedlone w modelu danych i odwrotnie. Chociaż kontroler jest osobnym bytem to możliwe jest modyfikowanie w nim danych bez potrzeby samodzielnego manipulowania elementami strony.  
 
