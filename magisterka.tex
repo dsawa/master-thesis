@@ -851,6 +851,8 @@ rabbitmq.solutions.analyzers.number=2
 
 \noindent W obu przypadkach ustawienia są wczytywane przy starcie aplikacji.
 
+\smallskip
+
 RabbitMQ jest narzędziem sprawdzonym i powszechnie wykorzystywanym. To dlatego znalazł zastosowanie w systemie weryfikacji pomimo ,że 
 możliwe było również zaimplementowanie podobnego rozwiązania przy pomocy Akki. 
 
@@ -858,9 +860,9 @@ możliwe było również zaimplementowanie podobnego rozwiązania przy pomocy Ak
 
 Interfejs aplikacji zarządzającej składa się jedynie z dwóch stron. Pierwsza z nich to strona logowania. Zbudowana została przy pomocy metod do tworzenia formularzy w widokach dostarczanych przez Play Framework.
 
-Obsługa interfejsu ,,strony głównej'' zorganizowana została z wykorzystaniem biblioteki AngularJS. Jej głównym przeznaczeniem jest wsparcie dla szybkiego budowania małych~i~dynamicznych aplikacji internetowych. Inżynierom Google'a cel ten udało się osiągnąć dzięki dwukierunkowemu wiązaniu danych oraz stworzeniu modułu nazywanego ,,kompilatorem HTML''.
+Obsługa interfejsu ,,strony głównej'' zorganizowana została z wykorzystaniem biblioteki AngularJS. Jej głównym przeznaczeniem jest wsparcie dla szybkiego budowania dynamicznych aplikacji internetowych. Cel ten udało się osiągnąć dzięki dwukierunkowemu wiązaniu danych oraz stworzeniu modułu nazywanego ,,kompilatorem HTML''.
 
-Dwukierunkowe wiązanie danych w sposób automatyczny synchronizuje to, co jest wyświetlane na stronie, z tym co znajduje się w kontrolerze. Dzięki tej technice, wszelkie zmiany w widoku są odzwierciedlone~w~modelu danych i odwrotnie. Chociaż kontrolery są osobnymi bytami to możliwe jest modyfikowanie w nich danych bez potrzeby samodzielnego manipulowania elementami strony. Za poszczególne fragmenty strony odpowiadają osobne kontrolery JavaScript.
+Dwukierunkowe wiązanie danych powoduje, że wszelkie zmiany w widoku są odzwierciedlane w modelu danych i na odwrót. Chociaż kontrolery są osobnymi bytami to możliwe jest modyfikowanie w nich danych bez potrzeby samodzielnego manipulowania elementami strony. Za poszczególne fragmenty strony odpowiadają osobne kontrolery JavaScript.
 
 Moduł produkujący kod HTML, pozwala programiście zdefiniować kod strony w zupełnie nowy sposób. Istnieje możliwość tworzenia własnych atrybutów, a nawet znaczników. W ten sposób można dodać specyficzne dla potrzeb aplikacji ,,zachowanie'' poszczególnych elementów strony. Programista dokonuje tego poprzez napisanie własnych dyrektyw. Część zarządzająca omawianego systemu potrzebowała dyrektyw decydujących o tym, które z elementów strony powinny być widoczne, bądź ukryte w zależności od roli zalogowanego użytkownika. Dzięki temu modułowi udało się stworzyć czytelne dla każdego atrybuty HTML.
 
