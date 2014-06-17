@@ -807,72 +807,19 @@ Na zakończenie omówiony zostanie interfejs użytkownika, który niemal w cało
 
 \subsection{Play Framework}
 
-Play Framework można w pewnym sensie porównać do \emph{Ruby on Rails}. Oba te narzędzia korzystając z architektury Model-Widok-Kontroler, dostarczają szkielet aplikacji internetowych, który doskonale sprawdza się w małych i średnich projektach. W obu przypadkach mamy również do czynienia ze wsparciem wzorca REST. To znaczy, że klient i serwer komunikują się ze sobą w oparciu o \emph{zasoby} (ang. resources). Adres URL powinien zawierać wtedy parametry w ścieżce identyfikującej dany zasób lub zasoby. Wykorzystane ku temu zostają cztery metody HTTP:
+Play Framework można w pewnym sensie porównać do \emph{Ruby on Rails}. Oba te narzędzia korzystając z architektury Model-Widok-Kontroler, dostarczają szkielet aplikacji internetowych, który doskonale sprawdza się w małych i średnich projektach. W obu przypadkach mamy również do czynienia ze wsparciem wzorca REST.
 
-\begin{itemize}
-\item GET -- pobranie zasobu lub zasobów
-\item POST -- wprowadzenie nowych danych
-\item PUT\footnote{Od wersji 4.0 Ruby on Rails zalecane jest korzystanie z metody PATCH} -- edytowanie zasobu
-\item DELETE -- usunięcie danych
-\end{itemize}
+Podobieństw do idei proponowanych przez Ruby on Rails jest więcej. Wszelkie ustawienia aplikacji umieszczone są w specjalnych plikach konfiguracyjnych. Biblioteki, zależności projektu ściągane są automatycznie przez narzędzie po umieszczeniu odpowiednich linii w pliku do tego przeznaczonym. Samo wygenerowanie szkieletu sprowadza się do wpisania jednego polecenia. W przypadku Play jest to \texttt{play new nazwaAplikacji}.
 
-Właśnie takie rozwiązanie jest zaimplementowane przede wszystkim w aplikacji zarządzającej. Zasobami są w niej użytkownicy, grupy, zadania oraz rozwiązania. Podobieństw do idei proponowanych przez Ruby on Rails jest więcej. Wszelkie ustawienia aplikacji umieszczone są w specjalnych plikach konfiguracyjnych. Biblioteki, zależności projektu ściągane są automatycznie przez narzędzie po umieszczeniu odpowiednich linii w pliku do tego przeznaczonym. Samo wygenerowanie szkieletu sprowadza się do wpisania jednego polecenia \texttt{play new nazwaAplikacji} podczas, gdy w Ruby on Rails jest to \texttt{rails new nazwaAplikacji}.
+Podczas tworzenia aplikacji możliwe jest uruchomienie jej w środowisku deweloperskim i utrzymywanie~w~stanie działania. Wszystkie wprowadzane do kodu zmiany są na bieżąco aktualizowane i widoczne. Jest to zdecydowana oszczędność czasu, gdyż nie ma potrzeby przebudowywania aplikacji i uruchamiania ponownie serwera.
 
-Aplikacje powstałe z Play Framework pracują bezstanowo. Oznacza to, że nie jest przechowywana na serwerze sesja powiązana z danym użytkownikiem. Zamiast tego zalecane jest trzymanie wielu informacji po stronie klienta lub zapisywanie sesji w bazie danych. Play wspiera również technikę rozproszonej pamięci podręcznej po stronie serwera. Twórcy twierdzą, że w ten sposób aplikacje powstałe przy użyciu ich narzędzia są dużo bardziej skalowalne.
-
-Play zawiera zintegrowany kompilator Javy i Scali. Podczas tworzenia aplikacji możliwe jest uruchomienie jej w środowisku deweloperskim i utrzymywanie ją~w~stanie działania. Wszystkie wprowadzane do kodu zmiany są na bieżąco aktualizowane i widoczne. Jest to zdecydowana oszczędność czasu, gdyż nie ma potrzeby przebudowywania aplikacji i uruchamiania ponownie serwera. 
-
-Zasobami udostępnianymi przez aplikację są oczywiście modele. W wersji dla Scali odwzorowuje je się przy pomocy \texttt{case class} oraz \texttt{object}. Wszystkie ich atrybuty są trzymane w postaci pól klas. Natomiast logika biznesowa powinna być zaimplementowana w postaci metod singletonu o tej samej nazwie co encja. Jest to ,,obiekt stowarzyszony'' (ang. companion object) zdefiniowany w tym samym pliku. Posiada on również dostęp do pól prywatnych w danych klasach. Prosty przykład modelu znajduje się poniżej. Klasa \texttt{Cat} posiada obiekt towarzyszący o tej samej nazwie. Zawarta w nim metoda \texttt{meowAndName} jako parametr bierze obiekt typu \texttt{Cat}. Zwraca ciąg znaków składający się z wartości pola \texttt{name} z podanego argumentu.
-
-\begin{minted}[fontsize=\small]{scala}
-package models
-
-case class Cat(name: String)
-
-object Cat {
-  def meowAndName(cat: Cat): String = "Meow! " + cat.name
-}
-
-scala> Cat.meowAndName(Cat("Nazir"))
-res0: String = Meow! Nazir
-\end{minted}
-
-Warto też dodać, że Play Framework posiada wtyczki do popularnych zintegrowanych środowisk programistycznych jak IntelliJ IDEA, czy Eclipse. Obie aplikacje i szablon projektu SBT udostępniany przez część zarządzającą systemu mają dołączone zależności pozwalające wygenerować potrzebne pliki do zaimportowania projektu do tych narzędzi. W ten sposób praca z Play Framework staje na równi~z~innymi już dojrzałymi narzędziami. Zyskuje się bowiem wparcie w postaci łatwego uruchamiania aplikacji, czy rozpoznawania składni plików specyficznych dla Play.
+Warto też dodać, że Play Framework posiada wtyczki do popularnych zintegrowanych środowisk programistycznych jak IntelliJ IDEA, czy Eclipse. Obie aplikacje i szablon projektu SBT udostępniany przez część zarządzającą systemu mają dołączone zależności pozwalające wygenerować potrzebne pliki do zaimportowania projektu do tych narzędzi.
 
 \subsection{MongoDB}
 
-MongoDB to wydajna baza przechowująca dane w postaci dokumentów. Jeden serwer MongoDB może obsługiwać wiele baz danych. Pojedyńcza baza zawiera kolekcje, które są zbiorami dokumentów. Ściślej mówiąc są to obiekty w postaci notacji \emph{JSON}. Dokumenty mogą być dynamicznie modyfikowane i nie są ograniczone przez żaden schemat nakładany na kolekcje. Oznacza to w praktyce, że dokumenty w obrębie kolekcji mogą mieć różne zestawy pól.
-
-Zasiegając informacji z oficjalnej strony\footnote{\url{www.mongodb.org}} można scharakteryzować MongoDB w kilku punktach:
-
-\begin{itemize}
-\item elastyczność -- przechowywanie danych w postaci obiektów JSON i brak ograniczeń ze strony schematów nakładanych na kolekcje ułatwia modyfikację modelu danych wraz z ewolucją projektu.
-\item możliwości utrzymaniowe -- dostarczenie cech takich jak dodatkowe indeksy, łańcuchowe wykonywanie zapytań, czy bogate instrukcje aktualizacji. Wśród nich taka, która w przypadku nie odnalezienia dokumentu dokumentu przez zapytanie potrafi stworzyć nowy wpis w bazie. W skład MongoDB wchodzi \emph{Aggregation Framework}, którego głównym zadaniem jest obliczanie różnych wartości na podstawie przechowywanych danych.
-\item szybkość -- jest to nierelacyjna baza danych. Dokumenty wiąże się ze sobą przeważnie poprzez tak zwane zagnieżdzone kolekcje. Sprawia to, że wyszukiwanie danych jest szybsze niż w relacyjnej bazie składającej się z wielu tabel. Nie jest konieczne bowiem łączenie tabel ze sobą na potrzeby niektórych zapytań.
-\item łatwa w użyciu - MongoDB jest łatwa w instalacji i konfiguracji. Instalacja sprowadza się do wykonania zaledwie kilku kroków, po zakończeniu których baza jest gotowa do użycia. Programista może skupić się na rozwijaniu swojej aplikacji zamiast spędzać czas nad skomplikowaną konfiguracją.
-\end{itemize}
+MongoDB to wydajna baza przechowująca dane w postaci dokumentów. Jeden serwer MongoDB może obsługiwać wiele baz danych. Pojedyńcza baza zawiera kolekcje, które są zbiorami dokumentów. Dokumenty mogą być dynamicznie modyfikowane i nie są ograniczone przez żaden schemat nakładany na kolekcje. Oznacza to w praktyce, że dokumenty w obrębie kolekcji mogą mieć różne zestawy pól.
 
 Oficjalny sterownik dla języka Scala nosi nazwę \emph{Casbah}. Jest to tak naprawdę ,,opakowanie'' sterownika dla Javy. Społeczność Scali wytworzyła również wiele dodatkowych narzędzi do współpracy z MongoDB. Najpopularniejszy z nich do \emph{Salat}. System weryfikacji kodu Scala korzysta z obydwu.
-
-MongoDB udostępnia powłokę, w której można wykonywać zapytania posługując się składnią JavaScriptu. Podejście prezentowane przez Casbah polega na odzwierciedleniu składni tych zapytań w języku Scala.  
-Przykładowo chcąc w systemie znaleźć rozwiązania ocenione na co najmniej 80 procent należy zrealizować poniższe zapytanie w powłoce MongoDB:
-
-\inputminted[fontsize=\small]{javascript}{code/mongoFind.js}
-
-Casbah dostarcza specjalny typ \texttt{MongoDBObject}. Dzięki nim można zbudować bardzo podobne instrukcje. Obiekty tego typu są podawane jako argumenty metod o tych samych nazwach. Są to \texttt{find}, \texttt{findOne}, \texttt{update}, \texttt{count} i wiele innych. Po skonfigurowaniu połączenia z bazą i stworzeniem instancji odpowiadającej za kolekcję w bazie danych możliwe jest wykonanie zapytania w poniższej formie:
-
-\inputminted[fontsize=\small]{scala}{code/casbahFind.scala} 
-
-Nie jest to jednak zbyt czytelne rozwiązanie. Szczególnie, gdy pobierane dane filtrowane są przez wiele warunków. Niestety metody dostaczane przez Salat w dużej części jako argumenty również przyjmują \texttt{MongoDBObject}. Nieco lepiej wygląda sytuacja, gdy aktualizowany lub tworzony jest dany obiekt. Wtedy argumentem staje się odpowednik dokumentu w Scali reprezentowany przez klasę.
-
-Salat skupia się na obiekcie towarzyszącym. Musi on rozszerzać cechę \texttt{ModelCom-\newline panion}. W zamian narzędzie dostarcza:
-
-\begin{itemize}
-\item metody do konwersji obiektów z i do formatu JSON
-\item zestaw metod aktualizujących, zapisujących i usuwających obiekty z bazy danych
-\item gotowe metody do wyszukiwania tylko po identyfikatorze
-\item pozostałe metody wykonujące zapytania jak \texttt{find}, czy \texttt{count}
-\end{itemize}
 
 Na zakończenie należy odnieść się do wspominanego mechanizmu przechowującego pliki -- \emph{GridFS}. Pliki wgrywane do bazy przy użyciu tej techniki są dzielone na mniejsze kawałki i przechowywane w bazie jako osobne dokumenty. Po dodaniu pierwszego pliku utworzone zawsze zostają dwie kolekcje. Jedna z nich przechowuje dokumenty-kawałki pliku, a druga ogólne informacje o pliku. Są to między innymi nazwa, rozmiar pliku, czy jego typ. Sterownik automatycznie odnajduje potrzebne kawałki i łączy je. 
 
@@ -896,54 +843,17 @@ rabbitmq.host=localhost
 rabbitmq.solutions.queue=solutions_queue
 \end{alltt}
 
-Aplikacja testująca kod posiada dodatkowe pole konfiguracyjne określające liczbę uruchamianych aktorów analizujących rozwiązania.
+Aplikacja testująca kod posiada dodatkowe pole konfiguracyjne określające liczbę uruchamianych aktorów analizujących rozwiązania. Wartość ta powinna uwzględniać konfigurację maszyny, aby uniknąć problemów wydajnościowych.
 
 \begin{alltt}
 rabbitmq.solutions.analyzers.number=2
 \end{alltt}
 
-W obu przypadkach ustawienia są wczytywane przy starcie aplikacji i zapisywane jako stałe pola obiektu \texttt{MQConfig}. Za wysłanie wiadomości do kolejki odpowiada metoda \texttt{send} obiektu \texttt{SolutionSender}.
-
-\begin{minted}[]{scala}
-private def send(solutionId: String) {
-  val sendingChannel = RabbitMQConnection.connection.createChannel()
-  sendingChannel.queueDeclare(MQConfig.RabbitMQSolutionsToAnalyzeQueue, 
-    queueDurable, false, false, null)
-  sendingChannel.basicPublish("", MQConfig.RabbitMQSolutionsToAnalyzeQueue, 
-    MessageProperties.PERSISTENT_TEXT_PLAIN, solutionId.getBytes)
-  sendingChannel.close()
-}
-\end{minted}
-
-\texttt{RabbitMQConnection} to obiekt, którego zadaniem jest zarządzanie połączeniem z RabbitMQ zdefiniowanego w pliku konfiguracyjnym. By wysłać wiadomość potrzebne jest utworzenie na nim kanału i zadeklarowanie kolejki. W rozdziale \ref{section:struktrura} powiedziane zostało, że wiadomości wrzucone do kolejki są zabezpieczone przed utratą w przypadku awarii serwera. Między innymi w metodzie \texttt{queueDeclare} odpowiada za to zmienna logiczna \texttt{ququeDurable}. Ustawiona wartość na \texttt{true} oznacza, że RabbitMQ będzie pamiętać o tej kolejce przy ponownym uruchomieniu. W metodzie wysyłającej wiadomość -- \texttt{basicPublish} -- drugim argumentem jest ustawienie pochodzące z klienta RabbitMQ. Gwarantuje ono zapamiętanie wiadomości wysyłanej do kolejki.
-
-W aplikacji testującej zbieranie wiadomości z kolejki odbywa się przez metodę \texttt{startRecevingMessages} wywołanej po wysłaniu polecenia startowego do aktora.
-
-\begin{minted}[]{scala}
-def startRecevingMessages() {
-  val queueDurable = true
-  val prefetchCount = 1
-  val autoAck = false
-  channel.queueDeclare(queueName, queueDurable, false, false, null)
-  channel.basicQos(prefetchCount)
-  val consumer = new QueueingConsumer(channel)
-  channel.basicConsume(queueName, autoAck, consumer)
-  while (true) {
-    val delivery = consumer.nextDelivery()
-    val solutionId = new String(delivery.getBody)
-    ...
-    channel.basicAck(delivery.getEnvelope.getDeliveryTag, false)
-  }
-}
-\end{minted}
-
-W tym przypadku mamy również do czynienia z deklaracją kolejki oraz kanałem transmisji. Odbieranie wiadomości z przez odbiorcę RabbitMQ wykonywane jest w nieskończonej pętli. To co przede wszystkim ma pokazać powyższy przykład to zmienna \texttt{autoAck} przekazana jako drugi argument metody \texttt{basicConsume}. Ustawiona na wartość logiczną \texttt{false} sprawia, że RabbitMQ będzie oczekiwać od odbiorcy potwierdzenia wykonania zadania. Jeśli odbiorca ulegnie awarii to RabbitMQ zinterpretuje wiadomość, którą otrzymał jako nie przetworzoną i przekaże ją do innego odbiorcy.
-
-Dzięki kompatybilności Scali oraz oficjalnemu klientowi RabbitMQ dla języka Java mamy w powyższych przykładach w rzeczywistości do czynienia z wywołaniami metod Javovych.
+W obu przypadkach ustawienia są wczytywane przy starcie aplikacji.
 
 \subsection{AngularJS}
 
-Interfejs aplikacji zarządzającej składa się jedynie z dwóch stron. Pierwsza z nich to strona logowania. Zbudowana została przy pomocy metod do tworzenia formularzy w widokach dostarczanych przez Play Framework. Użytkownik po zalogowaniu zostaje przekierowany na stronę główną, gdzie dołączone są pliki ze skryptami JavaScript. Wśród nich znajduje się AngularJS i logika interfejsu działająca przy jego użyciu.
+Interfejs aplikacji zarządzającej składa się jedynie z dwóch stron. Pierwsza z nich to strona logowania. Zbudowana została przy pomocy metod do tworzenia formularzy w widokach dostarczanych przez Play Framework.
 
 Obsługa interfejsu ,,strony głównej'' zorganizowana została z wykorzystaniem biblioteki AngularJS. Jej głównym przeznaczeniem jest wsparcie dla szybkiego budowania małych~i~dynamicznych aplikacji internetowych. Inżynierom Google'a cel ten udało się osiągnąć poprzez stworzenie modułu nazywanego ,,kompilatorem HTML'' oraz dwukierunkowego wiązania danych.
 
@@ -957,24 +867,7 @@ Moduł produkujący kod HTML, pozwala programiście zdefiniować kod strony w zu
 
 Fragment strony zawarty pomiędzy znacznikami \texttt{div} w powyższym przykładzie będzie pokazany jedynie prowadzącemu. Jego rola w kodzie systemu określona jest jako \texttt{Educator} (ang. dydaktyk). Stworzona dyrektywa pozwala zdefiniować wyświetlaną zawartość dzięki dodaniu czytelnego atrybutu \texttt{has-permission}.
 
-Dwukierunkowe wiązanie danych w sposób automatyczny synchronizuje to, co jest wyświetlane na stronie, z tym co znajduje się w kontrolerze JavaScript odpowiadającym za konkretny widok. Dzięki niemu, wszelkie zmiany w widoku są odzwierciedlone~w~modelu danych i odwrotnie. Chociaż kontroler jest osobnym bytem to możliwe jest modyfikowanie w nim danych bez potrzeby samodzielnego manipulowania elementami strony.  
-
-Obiekt, który zajmuje się wiązaniem modelu z widokiem to \texttt{\$scope}. Jest wstrzykiwany do funkcji kontrolera na etapie kompilacji. Poniżej znajduje się fragment kontrolera odpowiadającego za widok listy zadań w danej grupie.
-
-\inputminted[fontsize=\small]{javascript}{code/angularController.js} 
-
-W ciele funkcji do obiektu \texttt{\$scope} dodany zostaje atrybut \texttt{group}. Jego wartością jest grupa zwracana przez serwer w postaci JSON. Za wysyłanie właściwych żadań do serwera odpowiadają serwisy. W tym wypadku jest to \texttt{Group}, który posiada metodę \texttt{show}. Przyjmuje ona jako argument również obiekt. Wewnątrz metody, atrybut \texttt{id} zostaje dołączony przez AngularJS do adresu URL prowadzącego do danego zasobu.
-
-Podwójny nawias klamrowy pozwala korzystać z dodanych do \texttt{\$scope} obiektów w kodzie HTML. 
-
-\begin{minted}[]{html}
-<div class="panel-heading">
- Szczegóły zadania: {{assignment.title}}, z grupy: {{group.name}}
- ...
-</div>
-\end{minted}
-
-Do \texttt{\$scope} można dodać również funkcję. Następnie korzystając z dostarczanych domyślnie przez AngularJS dyrektyw, wywoływać ją na stronie. Jedną z nich może być na przykład \texttt{ng-click}. Prowadzi to do lepszej organizacji kodu w aplikacji. Funkcje wykonujące specyficzne operacje dla widoku zdefiniowane są bowiem w odpowiadającym mu kontrolerze. 
+Dwukierunkowe wiązanie danych w sposób automatyczny synchronizuje to, co jest wyświetlane na stronie, z tym co znajduje się w kontrolerze JavaScript odpowiadającym za konkretny widok. Dzięki niemu, wszelkie zmiany w widoku są odzwierciedlone~w~modelu danych i odwrotnie. Chociaż kontroler jest osobnym bytem to możliwe jest modyfikowanie w nim danych bez potrzeby samodzielnego manipulowania elementami strony.
 
 AngularJS sprawia, że aplikacja internetowa zbudowana jest z dostarczanych przez narzędzie modułów. Nie trzeba znać ich wszystkich, aby stworzyć dynamiczny interfejs. W miarę rozwoju projektu odkrywane są, bowiem nowe funkcjonalności. Programiści wdrażają je komponując kolejne moduły (serwisy, kontrolery) specyficzne dla danej aplikacji.  
 
