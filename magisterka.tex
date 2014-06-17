@@ -809,23 +809,23 @@ Na zakończenie omówiony zostanie interfejs użytkownika, który niemal w cało
 
 Play Framework można w pewnym sensie porównać do \emph{Ruby on Rails}. Oba te narzędzia korzystając z architektury Model-Widok-Kontroler, dostarczają szkielet aplikacji internetowych, który doskonale sprawdza się w małych i średnich projektach. W obu przypadkach mamy również do czynienia ze wsparciem wzorca REST.
 
-Podobieństw do idei proponowanych przez Ruby on Rails jest więcej. Wszelkie ustawienia aplikacji umieszczone są w specjalnych plikach konfiguracyjnych. Biblioteki, zależności projektu ściągane są automatycznie przez narzędzie po umieszczeniu odpowiednich linii w pliku do tego przeznaczonym. Samo wygenerowanie szkieletu sprowadza się do wpisania jednego polecenia. W przypadku Play jest to \texttt{play new nazwaAplikacji}.
+Podobieństw do idei proponowanych przez Ruby on Rails jest więcej. Wszelkie ustawienia aplikacji umieszczone są w specjalnych plikach konfiguracyjnych. Zdefiniowane w nich biblioteki i zależności pobierane są automatycznie. Samo wygenerowanie szkieletu sprowadza się do wpisania jednego polecenia. W przypadku Play jest to \texttt{play new nazwaAplikacji}.
 
-Podczas tworzenia aplikacji możliwe jest uruchomienie jej w środowisku deweloperskim i utrzymywanie~w~stanie działania. Wszystkie wprowadzane do kodu zmiany są na bieżąco aktualizowane i widoczne. Jest to zdecydowana oszczędność czasu, gdyż nie ma potrzeby przebudowywania aplikacji i uruchamiania ponownie serwera.
+Podczas tworzenia aplikacji możliwe jest uruchomienie jej w środowisku deweloperskim i utrzymywanie~w~stanie działania. Wszystkie wprowadzane do kodu zmiany są na bieżąco aktualizowane i widoczne. Jest to zdecydowana oszczędność czasu, gdyż nie ma potrzeby przebudowywania aplikacji i uruchamiania ponownie serwera. Innym atutem z tym związanym jest fakt, że gdy dojdzie do pojawienia się błędów kompilacji kodu, to zostaną one wyświetlone przez przeglądarkę. Wyszczególniony zostaje również plik oraz numer linii, w której do błędu doszło.
 
-Warto też dodać, że Play Framework posiada wtyczki do popularnych zintegrowanych środowisk programistycznych jak IntelliJ IDEA, czy Eclipse. Obie aplikacje i szablon projektu SBT udostępniany przez część zarządzającą systemu mają dołączone zależności pozwalające wygenerować potrzebne pliki do zaimportowania projektu do tych narzędzi.
+Warto też dodać, że Play Framework posiada wtyczki do popularnych zintegrowanych środowisk programistycznych jak IntelliJ IDEA, czy Eclipse. Obie aplikacje oraz szablon projektu SBT udostępniany przez część zarządzającą systemu mają dołączone zależności umożliwiające wygenerowanie danych konfiguracyjnych niezbędnych do zaimportowania projektu do tych narzędzi.
 
 \subsection{MongoDB}
 
 MongoDB to wydajna baza przechowująca dane w postaci dokumentów. Jeden serwer MongoDB może obsługiwać wiele baz danych. Pojedyńcza baza zawiera kolekcje, które są zbiorami dokumentów. Dokumenty mogą być dynamicznie modyfikowane i nie są ograniczone przez żaden schemat nakładany na kolekcje. Oznacza to w praktyce, że dokumenty w obrębie kolekcji mogą mieć różne zestawy pól.
 
-Oficjalny sterownik dla języka Scala nosi nazwę \emph{Casbah}. Jest to tak naprawdę ,,opakowanie'' sterownika dla Javy. Społeczność Scali wytworzyła również wiele dodatkowych narzędzi do współpracy z MongoDB. Najpopularniejszy z nich do \emph{Salat}. System weryfikacji kodu Scala korzysta z obydwu.
+Oficjalny sterownik dla języka Scala nosi nazwę \emph{Casbah}. Jest to tak naprawdę ,,opakowanie'' sterownika dla Javy. Społeczność Scali wytworzyła również wiele dodatkowych narzędzi do współpracy z MongoDB. Jedno z najbardziej popularnych to biblioteka \emph{Salat} służąca do przekształcania klas definiujących modele aplikacji do dokumentów MongoDB i odwrotnie. Udostępnia również pomocnicze metody, pozwalające w wygodny sposób skonstruować zapytania do bazy. System weryfikacji kodu Scala korzysta z zarówno z Casbah jak i Salat.
 
-Na zakończenie należy odnieść się do wspominanego mechanizmu przechowującego pliki -- \emph{GridFS}. Pliki wgrywane do bazy przy użyciu tej techniki są dzielone na mniejsze kawałki i przechowywane w bazie jako osobne dokumenty. Po dodaniu pierwszego pliku utworzone zawsze zostają dwie kolekcje. Jedna z nich przechowuje dokumenty-kawałki pliku, a druga ogólne informacje o pliku. Są to między innymi nazwa, rozmiar pliku, czy jego typ. Sterownik automatycznie odnajduje potrzebne kawałki i łączy je. 
+MongoDB oferuje również mechanizm pozwalający na przechowywanie plików w bazie, o nazwie \emph{GridFS}. Pliki umieszczane w bazie przy użyciu tej techniki są dzielone na mniejsze fragmenty i przechowywane jako osobne dokumenty. Po dodaniu pierwszego pliku, tworzone są dwie kolekcje. Jedna z nich przechowuje fragmenty plików, a druga -- metadane na ich temat. Są to między innymi nazwa, rozmiar oraz typ pliku. Sterownik automatycznie odnajduje potrzebne fragmenty pliku i łączy je w całość. 
 
 \subsection{RabbitMQ}
 
-Kolejkowanie rozwiązań pomiędzy elementami, aplikacjami wchodzącymi w skład systemu weryfikacji kodu oparte jest na protokole AMQP\footnote{AMQP - jest to skrót od Advanced Message Queuing Protocol}. Jest to protokół w warstwie aplikacji służący do przesyłania asynchronicznych wiadomości. Koncepcyjnie, mamy w nim do czynienia z dwoma bytami -- nadawcami i odbiorcami. Jak nietrudno się domyślić nadawca odpowiada za wysłanie wiadomości, natomiast odbiorca zbiera je i wykonuje operacje, które często pochłaniają dużo czasu. Zadaniem RabbitMQ jest rozdzielanie wiadomości pomiędzy właściwymi odbiorcami.
+Wymiana informacji na temat zadań i ich rozwiązań pomiędzy aplikacjami wchodzącymi w skład systemu, oparta jest na protokole AMQP\footnote{AMQP - jest to skrót od Advanced Message Queuing Protocol}. Pozwala on na asynchroniczne przekazywanie wiadomości oraz ogólne zarządzanie komunikacją wykorzystując do tego celu mechanizm kolejkowania.
 
 Konfiguracja kolejki w systemie jest bardzo prosta. Ustawienia mogą być różne w zależności od środowiska uruchomieniowego aplikacji. Odpowiadają za to oddzielne pliki.
 
@@ -836,20 +836,23 @@ Konfiguracja kolejki w systemie jest bardzo prosta. Ustawienia mogą być różn
 \item application.test.conf -- ustawienia środowiska testowego.
 \end{itemize} 
 
-W aplikacji zarządzającej wymagane jest uzupełnienie dwóch pól konfiguracyjnych. Są to ustawienia definiujące host, na którym działa RabbitMQ oraz nazwę kolejki rozwiązań.
+W konfiguracji aplikacji zarządzającej wymagane jest zdefiniowanie dwóch pól -- nazwy maszyny, na której działa serwer RabbitMQ oraz nazwy kolejki służącej do obsługi rozwiązań.
 
 \begin{alltt}
 rabbitmq.host=localhost
 rabbitmq.solutions.queue=solutions_queue
 \end{alltt}
 
-Aplikacja testująca kod posiada dodatkowe pole konfiguracyjne określające liczbę uruchamianych aktorów analizujących rozwiązania. Wartość ta powinna uwzględniać konfigurację maszyny, aby uniknąć problemów wydajnościowych.
+Aplikacja testująca kod wykorzystuje dodatkowe pole konfiguracyjne określające liczbę uruchamianych aktorów analizujących rozwiązania.  Aby uniknąć problemów wydajnościowych, jego wartość powinna uwzględniać konfigurację maszyny.
 
 \begin{alltt}
 rabbitmq.solutions.analyzers.number=2
 \end{alltt}
 
-W obu przypadkach ustawienia są wczytywane przy starcie aplikacji.
+\noindent W obu przypadkach ustawienia są wczytywane przy starcie aplikacji.
+
+RabbitMQ jest narzędziem sprawdzonym i powszechnie wykorzystywanym. To dlatego znalazł zastosowanie w systemie weryfikacji pomimo ,że 
+możliwe było również zaimplementowanie podobnego rozwiązania przy pomocy Akki. 
 
 \subsection{AngularJS}
 
@@ -860,7 +863,7 @@ Obsługa interfejsu ,,strony głównej'' zorganizowana została z wykorzystaniem
 Moduł produkujący kod HTML, pozwala programiście zdefiniować kod strony w zupełnie nowy sposób. Istnieje możliwość tworzenia własnych atrybutów, a nawet znaczników. W ten sposób można dodać specyficzne dla potrzeb aplikacji ,,zachowanie'' poszczególnych elementów strony. Programista dokonuje tego poprzez napisanie własnych dyrektyw. Część zarządzająca omawianego systemu potrzebowała dyrektyw decydujących o tym, które z elementów strony powinny być widoczne, bądź ukryte w zależności od roli zalogowanego użytkownika. Dzięki kompilatorowi udało się stworzyć czytelne dla każdego atrybuty HTML.
 
 \begin{minted}[]{html}
-<div has-permission="Educator" class="pull-right">
+<div data-has-permission="Educator" class="pull-right">
 ...
 </div>
 \end{minted}
