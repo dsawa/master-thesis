@@ -816,11 +816,11 @@ Play Framework można w pewnym sensie porównać do \emph{Ruby on Rails}. Oba te
 \item DELETE -- usunięcie danych
 \end{itemize}
 
-Właśnie takie rozwiązanie jest zaimplementowane przede wszystkim w aplikacji zarządzającej. Zasobami są w niej użytkownicy, grupy, zadania oraz rozwiązania. Podobieństw do idei proponowanej przez Ruby on Rails jest więcej. Wszelkie ustawienia aplikacji umieszczone są w specjalnych plikach konfiguracyjnych. Biblioteki, zależności projektu ściągane są automatycznie przez narzędzie po umieszczeniu odpowiednich linii w pliku do tego przeznaczonym. Samo wygenerowanie szkieletu sprowadza się do wpisania jednego polecenia \texttt{play new nazwaAplikacji} podczas, gdy w Ruby on Rails jest to \texttt{rails new nazwaAplikacji}.
+Właśnie takie rozwiązanie jest zaimplementowane przede wszystkim w aplikacji zarządzającej. Zasobami są w niej użytkownicy, grupy, zadania oraz rozwiązania. Podobieństw do idei proponowanych przez Ruby on Rails jest więcej. Wszelkie ustawienia aplikacji umieszczone są w specjalnych plikach konfiguracyjnych. Biblioteki, zależności projektu ściągane są automatycznie przez narzędzie po umieszczeniu odpowiednich linii w pliku do tego przeznaczonym. Samo wygenerowanie szkieletu sprowadza się do wpisania jednego polecenia \texttt{play new nazwaAplikacji} podczas, gdy w Ruby on Rails jest to \texttt{rails new nazwaAplikacji}.
 
 Aplikacje powstałe z Play Framework pracują bezstanowo. Oznacza to, że nie jest przechowywana na serwerze sesja powiązana z danym użytkownikiem. Zamiast tego zalecane jest trzymanie wielu informacji po stronie klienta lub zapisywanie sesji w bazie danych. Play wspiera również technikę rozproszonej pamięci podręcznej po stronie serwera. Twórcy twierdzą, że w ten sposób aplikacje powstałe przy użyciu ich narzędzia są dużo bardziej skalowalne.
 
-Play zawiera zintegrowany kompilator Javy i Scali. Podczas tworzenia aplikacji możliwe jest uruchomienie jej w środowisku deweloperskim i utrzymywanie ją~w~stanie działania. Wszystkie wprowadzane do kodu zmiany będą na bieżąco aktualizowane i widoczne. Jest to zdecydowana oszczędność czasu, gdyż nie ma potrzeby przebudowywania aplikacji i uruchamiania ponownie serwera. 
+Play zawiera zintegrowany kompilator Javy i Scali. Podczas tworzenia aplikacji możliwe jest uruchomienie jej w środowisku deweloperskim i utrzymywanie ją~w~stanie działania. Wszystkie wprowadzane do kodu zmiany są na bieżąco aktualizowane i widoczne. Jest to zdecydowana oszczędność czasu, gdyż nie ma potrzeby przebudowywania aplikacji i uruchamiania ponownie serwera. 
 
 Zasobami udostępnianymi przez aplikację są oczywiście modele. W wersji dla Scali odwzorowuje je się przy pomocy \texttt{case class} oraz \texttt{object}. Wszystkie ich atrybuty są trzymane w postaci pól klas. Natomiast logika biznesowa powinna być zaimplementowana w postaci metod singletonu o tej samej nazwie co encja. Jest to ,,obiekt stowarzyszony'' (ang. companion object) zdefiniowany w tym samym pliku. Posiada on również dostęp do pól prywatnych w danych klasach. Prosty przykład modelu znajduje się poniżej. Klasa \texttt{Cat} posiada obiekt towarzyszący o tej samej nazwie. Zawarta w nim metoda \texttt{meowAndName} jako parametr bierze obiekt typu \texttt{Cat}. Zwraca ciąg znaków składający się z wartości pola \texttt{name} z podanego argumentu.
 
@@ -837,11 +837,11 @@ scala> Cat.meowAndName(Cat("Nazir"))
 res0: String = Meow! Nazir
 \end{minted}
 
-Warto też dodać, że Play Framework posiada wtyczki do popularnych zintegrowanych środowisk programistycznych jak IntelliJ IDEA, czy eclipse. Obie aplikacje i szablon projektu SBT udostępniany przez część zarządzającą systemu mają dołączone zależności pozwalające wygenerować potrzebne pliki do zaimportowania projektu do tych narzędzi. W ten sposób praca z Play Framework staje na równi~z~innymi już dojrzałymi narzędziami. Zyskuje się bowiem wparcie w postaci łatwego uruchamiania aplikacji, czy rozpoznawania składni plików specyficznych dla Play.
+Warto też dodać, że Play Framework posiada wtyczki do popularnych zintegrowanych środowisk programistycznych jak IntelliJ IDEA, czy Eclipse. Obie aplikacje i szablon projektu SBT udostępniany przez część zarządzającą systemu mają dołączone zależności pozwalające wygenerować potrzebne pliki do zaimportowania projektu do tych narzędzi. W ten sposób praca z Play Framework staje na równi~z~innymi już dojrzałymi narzędziami. Zyskuje się bowiem wparcie w postaci łatwego uruchamiania aplikacji, czy rozpoznawania składni plików specyficznych dla Play.
 
 \subsection{MongoDB}
 
-MongoDB to wydajna baza przechowująca dane w postaci dokumentów. Jeden serwer MongoDB może się składać z wielu baz danych. Pojedyńcza baza danych zawiera z kolei kolekcje, które są zbiorem wspomnianych dokumentów. Ściślej mówiąc są to obiekty w postaci notacji \emph{JSON}. Dokumenty mogą być dynamicznie modyfikowane i nie są ograniczone przez żaden schemat nakładany na kolekcje. Oznacza to w praktyce, że dokumenty w obrębie kolekcji mogą mieć różny zestaw pól.
+MongoDB to wydajna baza przechowująca dane w postaci dokumentów. Jeden serwer MongoDB może obsługiwać wiele baz danych. Pojedyńcza baza zawiera kolekcje, które są zbiorami dokumentów. Ściślej mówiąc są to obiekty w postaci notacji \emph{JSON}. Dokumenty mogą być dynamicznie modyfikowane i nie są ograniczone przez żaden schemat nakładany na kolekcje. Oznacza to w praktyce, że dokumenty w obrębie kolekcji mogą mieć różne zestawy pól.
 
 Zasiegając informacji z oficjalnej strony\footnote{\url{www.mongodb.org}} można scharakteryzować MongoDB w kilku punktach:
 
@@ -852,7 +852,7 @@ Zasiegając informacji z oficjalnej strony\footnote{\url{www.mongodb.org}} możn
 \item łatwa w użyciu - MongoDB jest łatwa w instalacji i konfiguracji. Instalacja sprowadza się do wykonania zaledwie kilku kroków, po zakończeniu których baza jest gotowa do użycia. Programista może skupić się na rozwijaniu swojej aplikacji zamiast spędzać czas nad skomplikowaną konfiguracją.
 \end{itemize}
 
-Oficjalny sterownik dla języka Scala nosi nazwę \emph{Casbah}. Jest to tak naprawdę ,,opakowanie'' sterownika dla Javy. Społeczność Scali wytworzyła również wiele dodatkowych narzędzi do współpracy z tą bazą danych. Najpopularniejszy z nich do \emph{Salat}. System weryfikacji kodu Scala korzysta z obydwu.
+Oficjalny sterownik dla języka Scala nosi nazwę \emph{Casbah}. Jest to tak naprawdę ,,opakowanie'' sterownika dla Javy. Społeczność Scali wytworzyła również wiele dodatkowych narzędzi do współpracy z MongoDB. Najpopularniejszy z nich do \emph{Salat}. System weryfikacji kodu Scala korzysta z obydwu.
 
 MongoDB udostępnia powłokę, w której można wykonywać zapytania posługując się składnią JavaScriptu. Podejście prezentowane przez Casbah polega na odzwierciedleniu składni tych zapytań w języku Scala.  
 Przykładowo chcąc w systemie znaleźć rozwiązania ocenione na co najmniej 80 procent należy zrealizować poniższe zapytanie w powłoce MongoDB:
@@ -874,11 +874,11 @@ Salat skupia się na obiekcie towarzyszącym. Musi on rozszerzać cechę \texttt
 \item pozostałe metody wykonujące zapytania jak \texttt{find}, czy \texttt{count}
 \end{itemize}
 
-Na zakończenie należy odnieść się do wspominanego mechanizmu przechowującego pliki -- \emph{GridFS}. Pliki wgrywane do bazy przy użyciu tej techniki są dzielone na mniejsze kawałki i przechowywane w bazie jako osobne dokumenty. Po dodaniu pierwszego pliku utworzone zawsze zostają dwie kolekcje. Jedna z nich przechowuje dokumenty-kawałki pliku, a druga ogólne informacje o pliku. Są to to między innymi nazwa, rozmiar pliku, czy jego typ. Sterownik automatycznie potrafi odnaleźć potrzebne kawałki i połączyć je ze sobą, gdy wykonane jest zapytanie. 
+Na zakończenie należy odnieść się do wspominanego mechanizmu przechowującego pliki -- \emph{GridFS}. Pliki wgrywane do bazy przy użyciu tej techniki są dzielone na mniejsze kawałki i przechowywane w bazie jako osobne dokumenty. Po dodaniu pierwszego pliku utworzone zawsze zostają dwie kolekcje. Jedna z nich przechowuje dokumenty-kawałki pliku, a druga ogólne informacje o pliku. Są to między innymi nazwa, rozmiar pliku, czy jego typ. Sterownik automatycznie odnajduje potrzebne kawałki i łączy je. 
 
 \subsection{RabbitMQ}
 
-Kolejkowanie rozwiązań pomiędzy dwoma aplikacjami nie byłoby możliwe bez technologii opartej na protokole AMQP\footnote{AMQP - jest to skrót od Advanced Message Queuing Protocol}. Jest to protokół w warstwie aplikacji służący do przesyłania asynchronicznych wiadomości. Pracując na tym protokole mamy do czynienia z dwoma bytami -- nadawcami i odbiorcami. Jak nie trudno się domyślić nadawca odpowiada za wysłanie wiadomości, natomiast odbiorca zbiera je i wykonuje operację, która często pochłania dużo czasu. Zadaniem RabbitMQ jest rozdzielanie wiadomości pomiędzy właściwymi odbiorcami. W systemie weryfikacji kodu Scala czyni to właśnie za pomocą kolejki.
+Kolejkowanie rozwiązań pomiędzy elementami, aplikacjami wchodzącymi w skład systemu weryfikacji kodu oparte jest na protokole AMQP\footnote{AMQP - jest to skrót od Advanced Message Queuing Protocol}. Jest to protokół w warstwie aplikacji służący do przesyłania asynchronicznych wiadomości. Koncepcyjnie, mamy w nim do czynienia z dwoma bytami -- nadawcami i odbiorcami. Jak nietrudno się domyślić nadawca odpowiada za wysłanie wiadomości, natomiast odbiorca zbiera je i wykonuje operacje, które często pochłaniają dużo czasu. Zadaniem RabbitMQ jest rozdzielanie wiadomości pomiędzy właściwymi odbiorcami.
 
 Konfiguracja kolejki w systemie jest bardzo prosta. Ustawienia mogą być różne w zależności od środowiska uruchomieniowego aplikacji. Odpowiadają za to oddzielne pliki.
 
@@ -889,14 +889,14 @@ Konfiguracja kolejki w systemie jest bardzo prosta. Ustawienia mogą być różn
 \item application.test.conf -- ustawienia środowiska testowego.
 \end{itemize} 
 
-W aplikacji zarządzającej są to dwa ustawienia definiujące host, na którym działa RabbitMQ oraz nazwę kolejki rozwiązań.
+W aplikacji zarządzającej wymagane jest uzupełnienie dwóch pól konfiguracyjnych. Są to ustawienia definiujące host, na którym działa RabbitMQ oraz nazwę kolejki rozwiązań.
 
 \begin{alltt}
 rabbitmq.host=localhost
 rabbitmq.solutions.queue=solutions_queue
 \end{alltt}
 
-Aplikacja testująca kod posiada dodatkowe pole konfiguracyjne określające ilość uruchamianych aktorów analizujących rozwiązania.
+Aplikacja testująca kod posiada dodatkowe pole konfiguracyjne określające liczbę uruchamianych aktorów analizujących rozwiązania.
 
 \begin{alltt}
 rabbitmq.solutions.analyzers.number=2
@@ -943,11 +943,11 @@ Dzięki kompatybilności Scali oraz oficjalnemu klientowi RabbitMQ dla języka J
 
 \subsection{AngularJS}
 
-Interfejs aplikacji zarządzającej składa się jedynie z dwóch stron. Pierwsza z nich to strona logowania. Zbudowana została przy pomocy metod dostarczanych przez Play Framework do tworzenia formularzy w widokach. Użytkownik po zalogowaniu zostaje przekierowany na stronę główną, gdzie dołączone są pliki ze skryptami JavaScript. Wśród nich znajduje się AngularJS i logika interfejsu działająca przy jego użyciu.
+Interfejs aplikacji zarządzającej składa się jedynie z dwóch stron. Pierwsza z nich to strona logowania. Zbudowana została przy pomocy metod do tworzenia formularzy w widokach dostarczanych przez Play Framework. Użytkownik po zalogowaniu zostaje przekierowany na stronę główną, gdzie dołączone są pliki ze skryptami JavaScript. Wśród nich znajduje się AngularJS i logika interfejsu działająca przy jego użyciu.
 
-AngularJS to wyprodukowane i wspierane przez firmę Google narzędzie. Ideą było stworzenie instrumentu, który pozwoliłby na szybkie budowanie małych~i~dynamicznych aplikacji internetowych. Inżynierom Google'a cel udało się osiągnąć poprzez stworzenie modułu nazywanego ,,kompilatorem HTML'' oraz podwójnego wiązania danych.
+Obsługa interfejsu ,,strony głównej'' zorganizowana została z wykorzystaniem biblioteki AngularJS. Jej głównym przeznaczeniem jest wsparcie dla szybkiego budowania małych~i~dynamicznych aplikacji internetowych. Inżynierom Google'a cel ten udało się osiągnąć poprzez stworzenie modułu nazywanego ,,kompilatorem HTML'' oraz dwukierunkowego wiązania danych.
 
-Moduł produkujący kod HTML, pozwala programiście zdefiniować kod strony w zupełnie nowy sposób. Istnieje możliwość tworzenia własnych znaczników, czy atrybutów. W ten sposób można dodać specyficzne dla potrzeb aplikacji ,,zachowanie'' poszczególnych elementów strony. Programista dokonuje tego poprzez napisanie własnych dyrektyw. Część zarządzająca omawianego systemu potrzebowała dyrektyw decydujących o tym, które z elementów strony powinny być widoczne, bądź ukryte w zależności od roli zalogowanego użytkownika. Dzięki kompilatorowi udało się stworzyć czytelne dla każdego atrybuty HTML.
+Moduł produkujący kod HTML, pozwala programiście zdefiniować kod strony w zupełnie nowy sposób. Istnieje możliwość tworzenia własnych atrybutów, a nawet znaczników. W ten sposób można dodać specyficzne dla potrzeb aplikacji ,,zachowanie'' poszczególnych elementów strony. Programista dokonuje tego poprzez napisanie własnych dyrektyw. Część zarządzająca omawianego systemu potrzebowała dyrektyw decydujących o tym, które z elementów strony powinny być widoczne, bądź ukryte w zależności od roli zalogowanego użytkownika. Dzięki kompilatorowi udało się stworzyć czytelne dla każdego atrybuty HTML.
 
 \begin{minted}[]{html}
 <div has-permission="Educator" class="pull-right">
@@ -957,7 +957,7 @@ Moduł produkujący kod HTML, pozwala programiście zdefiniować kod strony w zu
 
 Fragment strony zawarty pomiędzy znacznikami \texttt{div} w powyższym przykładzie będzie pokazany jedynie prowadzącemu. Jego rola w kodzie systemu określona jest jako \texttt{Educator} (ang. dydaktyk). Stworzona dyrektywa pozwala zdefiniować wyświetlaną zawartość dzięki dodaniu czytelnego atrybutu \texttt{has-permission}.
 
-Podwójne wiązanie danych w sposób automatyczny synchronizuje to co jest wyświetlane na stronie, z tym co znajduje się w kontrolerze JavaScript odpowiadającym za konkretny widok. Kompilator AngularJS prezentuje ,,na żywo'' wyniki kolejnych etapów kompilacji. Wszelkie zmiany w widoku są odzwierciedlone~w~modelu danych i odwrotnie. Chociaż kontroler jest osobnym bytem to możliwe jest modyfikowanie w nim danych bez potrzeby samodzielnego manipulowania elementami strony.  
+Dwukierunkowe wiązanie danych w sposób automatyczny synchronizuje to, co jest wyświetlane na stronie, z tym co znajduje się w kontrolerze JavaScript odpowiadającym za konkretny widok. Dzięki niemu, wszelkie zmiany w widoku są odzwierciedlone~w~modelu danych i odwrotnie. Chociaż kontroler jest osobnym bytem to możliwe jest modyfikowanie w nim danych bez potrzeby samodzielnego manipulowania elementami strony.  
 
 Obiekt, który zajmuje się wiązaniem modelu z widokiem to \texttt{\$scope}. Jest wstrzykiwany do funkcji kontrolera na etapie kompilacji. Poniżej znajduje się fragment kontrolera odpowiadającego za widok listy zadań w danej grupie.
 
@@ -980,7 +980,7 @@ AngularJS sprawia, że aplikacja internetowa zbudowana jest z dostarczanych prze
 
 % zakończenie 
 \summary
-Scala to język warty szczególnej uwagi. Łączenie ze sobą paradygmatu programowania obiektowego i funkcyjnego oraz kompatybilność z JVM stwarza ogromne możliwości. W wielu miejscach już teraz mogłaby swobodnie zastąpić Javę. System weryfikacji jakości kodu Scala pozwala przy użyciu dojrzałych narzędzi testowania nie tylko zweryfikować kod, ale również przyczynić się do wzrostu popularności języka. Zawiera w sobie element dydaktyczny, pozwalający na definiowanie własnych kursów i zadań. Użyty w ośrodkach edukacyjnych, ma szansę przyczynić się do wzrostu zainteresowania programowaniem i podniesieniem umiejętności przyszłych programistów. Z powodzeniem może też być wykorzystywany w firmach chcących sprawdzić kwalifikacje kandydatów w procesie rekrutacyjnym.
+Scala to język warty szczególnej uwagi. Oferowane przez nią połączenie paradygmatu programowania obiektowego i funkcyjnego oraz kompatybilność z językiem Java stwarzają ogromne możliwości. W wielu miejscach już teraz Scala mogłaby swobodnie zastąpić Javę. System weryfikacji jakości kodu pozwala przy użyciu dojrzałych narzędzi testowania nie tylko zweryfikować kod, ale również przyczynić się do wzrostu popularności języka Scala. Zawiera w sobie element dydaktyczny, pozwalający na definiowanie własnych kursów i zadań. Użyty w ośrodkach edukacyjnych, ma szansę przyczynić się do wzrostu zainteresowania programowaniem i podniesienia umiejętności przyszłych programistów. Z powodzeniem może też być wykorzystywany w firmach chcących sprawdzić kwalifikacje kandydatów w procesie rekrutacyjnym.
 System powstał przy użyciu wielu nowoczesnych technologii i jest dostosowany do pracy w architekturze rozproszonej.
 
 % literatura:
