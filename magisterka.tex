@@ -858,9 +858,11 @@ możliwe było również zaimplementowanie podobnego rozwiązania przy pomocy Ak
 
 Interfejs aplikacji zarządzającej składa się jedynie z dwóch stron. Pierwsza z nich to strona logowania. Zbudowana została przy pomocy metod do tworzenia formularzy w widokach dostarczanych przez Play Framework.
 
-Obsługa interfejsu ,,strony głównej'' zorganizowana została z wykorzystaniem biblioteki AngularJS. Jej głównym przeznaczeniem jest wsparcie dla szybkiego budowania małych~i~dynamicznych aplikacji internetowych. Inżynierom Google'a cel ten udało się osiągnąć poprzez stworzenie modułu nazywanego ,,kompilatorem HTML'' oraz dwukierunkowego wiązania danych.
+Obsługa interfejsu ,,strony głównej'' zorganizowana została z wykorzystaniem biblioteki AngularJS. Jej głównym przeznaczeniem jest wsparcie dla szybkiego budowania małych~i~dynamicznych aplikacji internetowych. Inżynierom Google'a cel ten udało się osiągnąć dzięki dwukierunkowemu wiązaniu danych oraz stworzeniu modułu nazywanego ,,kompilatorem HTML''.
 
-Moduł produkujący kod HTML, pozwala programiście zdefiniować kod strony w zupełnie nowy sposób. Istnieje możliwość tworzenia własnych atrybutów, a nawet znaczników. W ten sposób można dodać specyficzne dla potrzeb aplikacji ,,zachowanie'' poszczególnych elementów strony. Programista dokonuje tego poprzez napisanie własnych dyrektyw. Część zarządzająca omawianego systemu potrzebowała dyrektyw decydujących o tym, które z elementów strony powinny być widoczne, bądź ukryte w zależności od roli zalogowanego użytkownika. Dzięki kompilatorowi udało się stworzyć czytelne dla każdego atrybuty HTML.
+Dwukierunkowe wiązanie danych w sposób automatyczny synchronizuje to, co jest wyświetlane na stronie, z tym co znajduje się w kontrolerze. Dzięki tej technice, wszelkie zmiany w widoku są odzwierciedlone~w~modelu danych i odwrotnie. Chociaż kontrolery są osobnymi bytami to możliwe jest modyfikowanie w nich danych bez potrzeby samodzielnego manipulowania elementami strony. Za poszczególne fragmenty strony odpowiadają osobne kontrolery JavaScript.
+
+Moduł produkujący kod HTML, pozwala programiście zdefiniować kod strony w zupełnie nowy sposób. Istnieje możliwość tworzenia własnych atrybutów, a nawet znaczników. W ten sposób można dodać specyficzne dla potrzeb aplikacji ,,zachowanie'' poszczególnych elementów strony. Programista dokonuje tego poprzez napisanie własnych dyrektyw. Część zarządzająca omawianego systemu potrzebowała dyrektyw decydujących o tym, które z elementów strony powinny być widoczne, bądź ukryte w zależności od roli zalogowanego użytkownika. Dzięki temu modułowi udało się stworzyć czytelne dla każdego atrybuty HTML.
 
 \begin{minted}[]{html}
 <div data-has-permission="Educator" class="pull-right">
@@ -868,9 +870,7 @@ Moduł produkujący kod HTML, pozwala programiście zdefiniować kod strony w zu
 </div>
 \end{minted}
 
-Fragment strony zawarty pomiędzy znacznikami \texttt{div} w powyższym przykładzie będzie pokazany jedynie prowadzącemu. Jego rola w kodzie systemu określona jest jako \texttt{Educator} (ang. dydaktyk). Stworzona dyrektywa pozwala zdefiniować wyświetlaną zawartość dzięki dodaniu czytelnego atrybutu \texttt{has-permission}.
-
-Dwukierunkowe wiązanie danych w sposób automatyczny synchronizuje to, co jest wyświetlane na stronie, z tym co znajduje się w kontrolerze JavaScript odpowiadającym za konkretny widok. Dzięki niemu, wszelkie zmiany w widoku są odzwierciedlone~w~modelu danych i odwrotnie. Chociaż kontroler jest osobnym bytem to możliwe jest modyfikowanie w nim danych bez potrzeby samodzielnego manipulowania elementami strony.
+Fragment strony zawarty pomiędzy znacznikami \texttt{div} w powyższym przykładzie będzie pokazany jedynie prowadzącemu. Jego rola w kodzie systemu określona jest jako \texttt{Educator} (ang. dydaktyk). Stworzona dyrektywa pozwala zdefiniować wyświetlaną zawartość dzięki dodaniu czytelnego atrybutu \texttt{data-has-permission}.
 
 AngularJS sprawia, że aplikacja internetowa zbudowana jest z dostarczanych przez narzędzie modułów. Nie trzeba znać ich wszystkich, aby stworzyć dynamiczny interfejs. W miarę rozwoju projektu odkrywane są, bowiem nowe funkcjonalności. Programiści wdrażają je komponując kolejne moduły (serwisy, kontrolery) specyficzne dla danej aplikacji.  
 
