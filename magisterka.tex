@@ -331,7 +331,7 @@ Biblioteka \emph{QuickCheck} dla języka Haskell, była inspiracją, dzięki kt�
 
 Powyższy fakt oraz to, że ScalaCheck integruje się z ScalaTest może zagwarantować wysoką jakość podczas weryfikacji kodu w rozwiązaniach użytkowników. Użytkownik odpowiedzialny za tworzenie projektów-zadań poprzez stosowanie reguł ScalaCheck powinien być w stanie wytworzyć kompletny zestaw testów. Dzięki nim system będzie potrafił w sposób dużo bardziej rzetelny wystawić noty za rozwiązanie.
       
-\chapter{Testowanie kodu napisanego w Scali}      
+\chapter{Testowanie kodu}      
 
 Projekty, niezależnie od tego w jakim języku programowania powstały, muszą być przetestowane. Nie inaczej jest, gdy programy te napisane są w Scali. Podczas wszystkich lat rozwoju branży IT pojawiło się wiele metodologii, narzędzi oraz rodzajów testów. Wyróżnić można testy akceptacyjne, funkcjonalne, jednostkowe, czy integracyjne. Z punktu widzenia aplikacji będącej tematem pracy to testy jednostkowe są najważniejszym elementem gwarantującym jej poprawne działanie.       
       
@@ -582,7 +582,7 @@ Testowanie właściwości z użyciem ScalaCheck zapewnia cecha \texttt{Generator
 
 \inputminted[fontsize=\small]{scala}{code/CalcTestScalaTest.scala}
 
-Na pierwszy rzut oka nie widać większej różnicy pomiędzy tym kodem napisanym w ScalaTest, a standardowym testem ScalaCheck. Po chwili jednak zaobserwować można, że specyfikacje nie są już umieszczone w singletonie, a~w~zwykłej klasie. Dodatkowo teraz weryfikacja dokonuje się przy pomocy instrukcji \texttt{should} sprawiając, że test staje się bardziej czytelny. Zaimportowane cechy zdradzają również, że metoda \texttt{forAll} nie pochodzi już ze ScalaCheck, a cechy \texttt{GeneratorDrivenPropertyChecks}. W powyższym przykładzie, ze ScalaCheck użyto jedynie cechy \texttt{Gen} zajmującej się generowaniem pseudolosowych danych testowych.
+Na pierwszy rzut oka nie widać większej różnicy pomiędzy tym kodem napisanym w ScalaTest, a standardowym testem ScalaCheck. Po chwili jednak zaobserwować można, że specyfikacje nie są już umieszczone w singletonie, a~w~zwykłej klasie. Dodatkowo teraz weryfikacja dokonuje się przy pomocy instrukcji \texttt{should} sprawiając, że test staje się bardziej czytelny. Zaimportowane cechy zdradzają również, że metoda \texttt{forAll} nie pochodzi już ze ScalaCheck, a cechy \texttt{GeneratorDriv-\newline enPropertyChecks}. W powyższym przykładzie, ze ScalaCheck użyto jedynie cechy \texttt{Gen} zajmującej się generowaniem pseudolosowych danych testowych.
 
 Dołączanie własnych generatorów odbywa się tak samo jak w przypadku zwykłych testów ScalaCheck. ScalaTest oddaje jednak do dyspozycji jeszcze jedną możliwość. Do generatorów można dołączyć nazwę, która pojawi się w raporcie po zakończeniu testów.
 
@@ -592,7 +592,7 @@ forAll((Gen.choose(0, 100),"firstName"),(Gen.choose(0, 100),"secondName"))
 
 Oczywiście po zintegrowaniu tych dwóch narzędzi, także do wykorzystania jest klasa \texttt{Arbitrary}.
 
-\chapter{System weryfikacji jakości kodu Scala}
+\chapter{System weryfikacji jakości kodu}
 
 Jak już to zostało wspomniane w poprzednich rozdziałach celem systemu jest sprawdzenie rozwiązań pewnych zagadnień programistycznych nadesłanych przez użytkowników. Dzieje się to poprzez uruchomienie na nich serii testów jednostkowych. Użytkownicy są przydzieleni do różnych grup, a w każdej z tych grup znajdują się inne zadania do wykonania. Są one z kolei przygotowywane przez jeszcze innego użytkownika. Ze względu na tę specyfikę wyróżnić można już dwie role -- prowadzącego grupę oraz jej uczestnika. Oczywiście istnieje również administrator, którego głównym obowiązkiem jest zarządzanie osobami korzystającymi z systemu.
 
@@ -853,7 +853,7 @@ rabbitmq.solutions.analyzers.number=2
 
 \smallskip
 
-RabbitMQ jest narzędziem sprawdzonym i powszechnie wykorzystywanym. To dlatego znalazł zastosowanie w systemie weryfikacji pomimo ,że 
+RabbitMQ jest narzędziem sprawdzonym i powszechnie wykorzystywanym. To dlatego znalazł zastosowanie w systemie weryfikacji pomimo, że 
 możliwe było również zaimplementowanie podobnego rozwiązania przy pomocy Akki. 
 
 \subsection{AngularJS}
@@ -862,9 +862,9 @@ Interfejs aplikacji zarządzającej składa się jedynie z dwóch stron. Pierwsz
 
 Obsługa interfejsu ,,strony głównej'' zorganizowana została z wykorzystaniem biblioteki AngularJS. Jej głównym przeznaczeniem jest wsparcie dla szybkiego budowania dynamicznych aplikacji internetowych. Cel ten udało się osiągnąć dzięki dwukierunkowemu wiązaniu danych oraz stworzeniu modułu nazywanego ,,kompilatorem HTML''.
 
-Dwukierunkowe wiązanie danych powoduje, że wszelkie zmiany w widoku są odzwierciedlane w modelu danych i na odwrót. Chociaż kontrolery są osobnymi bytami to możliwe jest modyfikowanie w nich danych bez potrzeby samodzielnego manipulowania elementami strony. Za poszczególne fragmenty strony odpowiadają osobne kontrolery JavaScript.
+Dwukierunkowe wiązanie danych powoduje, że wszelkie zmiany w widoku są odzwierciedlane w modelu danych i na odwrót. Za dostarczenie odpowiednich informacji do konkretnego fragmentu strony odpowiada kontroler. Kontrolery tworzą i modyfikują dane, które są przechowywane w specjalnym obiekcie \texttt{\$scope}. To dzięki niemu realizowane jest dwukierunkowe wiązanie danych. Modyfikowanie danych przechowywanych w \texttt{\$scope} sprawia, że zmiany są automatycznie zauważalne w widoku, bez potrzeby samodzielnego manipulowania elementami strony. 
 
-Moduł produkujący kod HTML, pozwala programiście zdefiniować kod strony w zupełnie nowy sposób. Istnieje możliwość tworzenia własnych atrybutów, a nawet znaczników. W ten sposób można dodać specyficzne dla potrzeb aplikacji ,,zachowanie'' poszczególnych elementów strony. Programista dokonuje tego poprzez napisanie własnych dyrektyw. Część zarządzająca omawianego systemu potrzebowała dyrektyw decydujących o tym, które z elementów strony powinny być widoczne, bądź ukryte w zależności od roli zalogowanego użytkownika. Dzięki temu modułowi udało się stworzyć czytelne dla każdego atrybuty HTML.
+Moduł ,,kompilatora HTML'', pozwala programiście zdefiniować kod strony w zupełnie nowy sposób. Istnieje możliwość tworzenia własnych atrybutów, a~nawet znaczników. W ten sposób można dodać specyficzne dla potrzeb aplikacji ,,zachowanie'' poszczególnych elementów strony. Programista dokonuje tego za pomocą definiowania własnych dyrektyw. Część zarządzająca omawianego systemu potrzebowała dyrektyw decydujących o tym, które z elementów strony powinny być widoczne, bądź ukryte w zależności od roli zalogowanego użytkownika. Dzięki temu modułowi udało się stworzyć czytelne dla każdego atrybuty HTML.
 
 \begin{minted}[]{html}
 <div data-has-permission="Educator" class="pull-right">
@@ -874,7 +874,7 @@ Moduł produkujący kod HTML, pozwala programiście zdefiniować kod strony w zu
 
 Fragment strony zawarty pomiędzy znacznikami \texttt{div} w powyższym przykładzie będzie pokazany jedynie prowadzącemu. Jego rola w kodzie systemu określona jest jako \texttt{Educator} (ang. dydaktyk). Stworzona dyrektywa pozwala zdefiniować wyświetlaną zawartość dzięki dodaniu czytelnego atrybutu \texttt{data-has-permission}.
 
-AngularJS sprawia, że aplikacja internetowa zbudowana jest z dostarczanych przez narzędzie modułów. Kod interfejsu aplikacji zarządzającej jest również modularny. Każdy model posiada własny, specyficzny zestaw serwisów i kontrolerów. Osobnymi modułami są również dyrektywy.
+Sama biblioteka AngularJS, jak i stworzona z jej pomocą aplikacja zarządzająca mają budowę modularną. Każdy model w ramach aplikacji posiada też własny, specyficzny zestaw serwisów i kontrolerów.
 
 % zakończenie 
 \summary
