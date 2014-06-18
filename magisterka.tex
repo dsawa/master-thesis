@@ -23,13 +23,14 @@
 
 \opiekun  {dr Wiesław Pawłowski}
 
+\usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{xunicode}
 \usepackage{multirow}
 \usepackage{booktabs}
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 \usepackage{float}
-\usepackage{alltt}
 \usepackage{hyperref}
+\usepackage{alltt}
 \usepackage{minted}
 	\renewcommand\listingscaption{Przykład}
 	
@@ -839,14 +840,14 @@ Konfiguracja kolejki w systemie jest bardzo prosta. Ustawienia mogą być różn
 W konfiguracji aplikacji zarządzającej wymagane jest zdefiniowanie dwóch pól -- nazwy maszyny, na której działa serwer RabbitMQ oraz nazwy kolejki służącej do obsługi rozwiązań.
 
 \begin{alltt}
-rabbitmq.host=localhost
-rabbitmq.solutions.queue=solutions_queue
+rabbitmq.host=\textcolor{OliveGreen}{localhost}
+rabbitmq.solutions.queue=\textcolor{OliveGreen}{solutions_queue}
 \end{alltt}
 
 Aplikacja testująca kod wykorzystuje dodatkowe pole konfiguracyjne określające liczbę uruchamianych aktorów analizujących rozwiązania.  Aby uniknąć problemów wydajnościowych, jego wartość powinna uwzględniać konfigurację maszyny.
 
 \begin{alltt}
-rabbitmq.solutions.analyzers.number=2
+rabbitmq.solutions.analyzers.number=\textcolor{OliveGreen}{2}
 \end{alltt}
 
 \noindent W obu przypadkach ustawienia są wczytywane przy starcie aplikacji.
@@ -862,9 +863,9 @@ Interfejs aplikacji zarządzającej składa się jedynie z dwóch stron. Pierwsz
 
 Obsługa interfejsu ,,strony głównej'' zorganizowana została z wykorzystaniem biblioteki AngularJS. Jej głównym przeznaczeniem jest wsparcie dla szybkiego budowania dynamicznych aplikacji internetowych. Cel ten udało się osiągnąć dzięki dwukierunkowemu wiązaniu danych oraz stworzeniu modułu nazywanego ,,kompilatorem HTML''.
 
-Dwukierunkowe wiązanie danych powoduje, że wszelkie zmiany w widoku są odzwierciedlane w modelu danych i na odwrót. Za dostarczenie odpowiednich informacji do konkretnego fragmentu strony odpowiada kontroler. Kontrolery tworzą i modyfikują dane, które są przechowywane w specjalnym obiekcie \texttt{\$scope}. To dzięki niemu realizowane jest dwukierunkowe wiązanie danych. Modyfikowanie danych przechowywanych w \texttt{\$scope} sprawia, że zmiany są automatycznie zauważalne w widoku, bez potrzeby samodzielnego manipulowania elementami strony. 
+Dwukierunkowe wiązanie danych powoduje, że wszelkie zmiany w widoku są odzwierciedlane w modelu danych i na odwrót. Za dostarczenie odpowiednich informacji do konkretnego fragmentu strony odpowiada za tzw. \emph{kontroler}. Tworzy on i modyfikuje dane, które są przechowywane w specjalnym obiekcie \texttt{\$scope}. To dzięki niemu realizowane jest dwukierunkowe wiązanie danych. Modyfikowanie danych przechowywanych w \texttt{\$scope} sprawia, że zmiany są automatycznie zauważalne w widoku, bez potrzeby samodzielnego manipulowania elementami strony. 
 
-Moduł ,,kompilatora HTML'', pozwala programiście zdefiniować kod strony w zupełnie nowy sposób. Istnieje możliwość tworzenia własnych atrybutów, a~nawet znaczników. W ten sposób można dodać specyficzne dla potrzeb aplikacji ,,zachowanie'' poszczególnych elementów strony. Programista dokonuje tego za pomocą definiowania własnych dyrektyw. Część zarządzająca omawianego systemu potrzebowała dyrektyw decydujących o tym, które z elementów strony powinny być widoczne, bądź ukryte w zależności od roli zalogowanego użytkownika. Dzięki temu modułowi udało się stworzyć czytelne dla każdego atrybuty HTML.
+Moduł ,,kompilatora HTML'', pozwala programiście zdefiniować kod strony w~zupełnie nowy sposób. Istnieje możliwość tworzenia własnych atrybutów, a~nawet znaczników. W ten sposób można dodać specyficzne dla potrzeb aplikacji ,,zachowanie'' poszczególnych elementów strony. Programista dokonuje tego za pomocą definiowania własnych dyrektyw. Część zarządzająca omawianego systemu potrzebowała dyrektyw decydujących o tym, które z elementów strony powinny być widoczne, bądź ukryte w zależności od roli zalogowanego użytkownika. Dzięki temu modułowi udało się stworzyć czytelne dla każdego atrybuty HTML.
 
 \begin{minted}[]{html}
 <div data-has-permission="Educator" class="pull-right">
@@ -878,8 +879,25 @@ Sama biblioteka AngularJS, jak i stworzona z jej pomocą aplikacja zarządzając
 
 % zakończenie 
 \summary
-Scala to język warty szczególnej uwagi. Oferowane przez nią połączenie paradygmatu programowania obiektowego i funkcyjnego oraz kompatybilność z językiem Java stwarzają ogromne możliwości. W wielu miejscach już teraz Scala mogłaby swobodnie zastąpić Javę. System weryfikacji jakości kodu pozwala przy użyciu dojrzałych narzędzi testowania nie tylko zweryfikować kod, ale również przyczynić się do wzrostu popularności języka Scala. Zawiera w sobie element dydaktyczny, pozwalający na definiowanie własnych kursów i zadań. Użyty w ośrodkach edukacyjnych, ma szansę przyczynić się do wzrostu zainteresowania programowaniem i podniesienia umiejętności przyszłych programistów. Z powodzeniem może też być wykorzystywany w firmach chcących sprawdzić kwalifikacje kandydatów w procesie rekrutacyjnym.
-System powstał przy użyciu wielu nowoczesnych technologii i jest dostosowany do pracy w architekturze rozproszonej.
+Scala to język warty szczególnej uwagi. Oferowane przez nią połączenie paradygmatu programowania obiektowego~i~funkcyjnego oraz kompatybilność z językiem Java stwarzają ogromne możliwości. W wielu miejscach już teraz Scala mogłaby swobodnie zastąpić Javę. System weryfikacji jakości kodu pozwala przy użyciu dojrzałych narzędzi testowania nie tylko zweryfikować kod, ale również przyczynić się do wzrostu popularności języka Scala. Zawiera w sobie element dydaktyczny, pozwalający na definiowanie własnych kursów i~zadań. Użyty w ośrodkach edukacyjnych, ma szansę przyczynić się do wzrostu zainteresowania programowaniem~i~podniesienia umiejętności przyszłych programistów. Z powodzeniem może też być wykorzystywany w firmach chcących sprawdzić kwalifikacje kandydatów~w~procesie rekrutacyjnym. System powstał przy użyciu wielu nowoczesnych technologii~i~jest dostosowany do pracy w architekturze rozproszonej.
+
+\appendix
+\chapter{Repozytoria aplikacji}
+
+Poniżej znajdują się odsyłacze prowadzące do repozytoriów kodu aplikacji. W każdym z nich znajduje się krótka dokumentacja opisująca sposób ich konfiguracji~i~uruchamiania.
+
+\begin{itemize}
+\item Aplikacja zarządzająca -- \url{https://github.com/dsawa/scaxerciser}
+\item Aplikacja testująca -- \url{https://github.com/dsawa/scaxerciser_analyze}
+\item Szablon projektów SBT -- \url{https://github.com/dsawa/project-template}
+\end{itemize}
+
+Dostęp do repozytoriów jest ograniczony. Aby obejrzeć ich zawartość należy zalogować się na specjalnie utworzone konto:
+
+\begin{itemize}
+\item użytkownik -- \texttt{scaxerciser}
+\item hasło -- \texttt{t3Gh1oBc}
+\end{itemize}
 
 % literatura:
 \bibliographystyle{unsrt}
@@ -891,6 +909,7 @@ System powstał przy użyciu wielu nowoczesnych technologii i jest dostosowany d
 % spis rysunków:
 \listoffigures
 
+\clearpage\hbox{}\thispagestyle{empty}\newpage
 \oswiadczenie
 
 \end{document}
